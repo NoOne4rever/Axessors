@@ -116,7 +116,7 @@ class CallProcessor
                 $value = $this->executeHandlers($value);
                 return $value;
             } else {
-                throw new AxessorsError("conditions for {$this->backtrace['class']}::{$this->backtrace['method']}() did not pass");
+                throw new AxessorsError("conditions for {$this->backtrace['class']}::{$this->method}() did not pass");
             }
         } elseif ($prefix == 'set') {
             $this->mode = false;
