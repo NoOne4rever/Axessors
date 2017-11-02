@@ -1,4 +1,11 @@
 <?php
+/**
+ * This file is a part of "Axessors" library.
+ *
+ * @author <NoOne4rever@gmail.com>
+ * @package Axessors
+ * @license GPL
+ */
 
 namespace Axessors;
 
@@ -6,6 +13,11 @@ use Axessors\Exceptions\InternalError;
 use Axessors\Exceptions\SyntaxError;
 use Axessors\Exceptions\TypeError;
 
+/**
+ * Class Parser.
+ * 
+ * Analyses tokens from the Axessors comment.
+ */
 class Parser
 {
     private const ACCESS_MODIFIER_1 = 1;
@@ -29,14 +41,27 @@ class Parser
     private const A_PROTECTED = '~';
     private const A_PRIVATE = '-';
 
+    /** @var string[] tokens from Axessors comment */
     private $tokens;
+    /** @var \ReflectionProperty property's reflection */
     private $reflection;
+    /** @var string[] access modifiers for getter and setter */
     private $accessModifiers;
+    /** @var string alias of property */
     private $alias;
+    /** @var string class' namespace */
     private $namespace;
+    /** @var bool information about order of tokens */
     private $readableFirst;
+    /** @var array type tree */
     private $typeTree = [];
 
+    /**
+     * Parser constructor.
+     * 
+     * @param \ReflectionProperty $reflection property's reflection
+     * @param array $tokens tokens from the Axessors comment
+     */
     public function __construct(\ReflectionProperty $reflection, array $tokens)
     {
         $this->reflection = $reflection;
@@ -47,11 +72,21 @@ class Parser
         $this->processAlias();
     }
 
+    /**
+     * Returns property's alias.
+     * 
+     * @return string property's alias
+     */
     public function getAlias(): string
     {
         return $this->alias;
     }
 
+    /**
+     * Generates list of methods for property.
+     * 
+     * @return string[] methods' names
+     */
     public function processMethods(): array
     {
         $methods = [];
@@ -87,28 +122,53 @@ class Parser
         return $methods;
     }
 
+    /**
+     * Creates list of handlers for input data.
+     * 
+     * @return string[] handlers
+     */
     public function processInputHandlers(): array
     {
         return $this->processTokens(!$this->readableFirst, self::HANDLERS_1, self::HANDLERS_2,
             [$this, 'makeHandlersList']);
     }
 
+    /**
+     * Creates list of handlers for output data.
+     * 
+     * @return string[] handlers
+     */
     public function processOutputHandlers(): array
     {
         return $this->processTokens($this->readableFirst, self::HANDLERS_1, self::HANDLERS_2,
             [$this, 'makeHandlersList']);
     }
 
+    /**
+     * Creates list of conditions for input data.
+     * 
+     * @return string[] conditions
+     */
     public function processInputConditions(): array
     {
         return $this->processConditions(!$this->readableFirst);
     }
 
+    /**
+     * Creates list of conditions for output data.
+     * 
+     * @return string[] conditions
+     */
     public function processOutputConditions(): array
     {
         return $this->processConditions($this->readableFirst);
     }
 
+    /**
+     * Processes access modifiers for getter and setter.
+     * 
+     * @return string[] access modifiers
+     */
     public function processAccessModifier(): array
     {
         $type = $this->getKeyword(self::KEYWORD_1);
@@ -127,6 +187,12 @@ class Parser
         return $this->accessModifiers;
     }
 
+    /**
+     * Creates type tree.
+     * 
+     * @return array
+     * @throws TypeError if type defined in Axessors comment does not match default type of property
+     */
     public function processType(): array
     {
         $type = $this->getDefaultType();
@@ -160,6 +226,11 @@ class Parser
         return $this->typeTree;
     }
 
+    /**
+     * Returns default type of property.
+     * 
+     * @return string type
+     */
     private function getDefaultType(): string
     {
         if ($this->reflection->isStatic()) {
@@ -174,6 +245,12 @@ class Parser
         return $type;
     }
 
+    /**
+     * Checks if the class defined in the current namespace and fixes class' name.
+     * 
+     * @param string $class class' name
+     * @return string full name of class
+     */
     private function validateType(string $class): string
     {
         try {
@@ -186,24 +263,37 @@ class Parser
         }
     }
 
+    /**
+     * Validates type tree.
+     * 
+     * @param array $tree type tree
+     * @throws TypeError the type is not iterateable, but it is defined as array-compatible type
+     */
     private function validateTypeTree(array $tree): void
     {
         foreach ($tree as $type => $subtype) {
             if (!is_int($type)) {
-                //$type = $this->validateType($type);
                 if (!is_subclass_of($type, 'Axessors\Types\Iterateable')) {
                     throw new TypeError("\"$type\" is not iterateable {$this->reflection->getDeclaringClass()->name}::\${$this->reflection->name} Axessors comment");
                 }
-                //$subType = $this->validateTypeTree($subtype);
             }
         }
     }
 
+    /**
+     * Processes property's alias.
+     */
     private function processAlias(): void
     {
         $this->alias = $this->tokens[self::ALIAS] ?? $this->reflection->name;
     }
 
+    /**
+     * Makes type tree form type's string.
+     * 
+     * @param string $typeDefinition type definition
+     * @return array type tree
+     */
     private function makeTypeTree(string $typeDefinition): array
     {
         $typeTree = [];
@@ -222,6 +312,13 @@ class Parser
         return $typeTree;
     }
 
+    /**
+     * Turns short style of access modifier to the full keyword.
+     * 
+     * @param string $sign access modifier sign
+     * @return string access modifier
+     * @throws InternalError if access modifier is invalid
+     */
     private function replaceSignWithWord(string $sign): string
     {
         switch ($sign) {
@@ -236,6 +333,12 @@ class Parser
         }
     }
 
+    /**
+     * Returns type of variable.
+     * 
+     * @param $var mixed variable
+     * @return string type of variable
+     */
     private function getType($var): string
     {
         if (is_callable($var)) {
@@ -245,6 +348,12 @@ class Parser
         return $type == 'integer' ? 'int' : $type;
     }
 
+    /**
+     * Replaces internal PHP type with an Axessors type.
+     * 
+     * @param string $type type
+     * @return string axessors type
+     */
     private function replacePhpTypeWithAxsType(string $type): string
     {
         $_type = lcfirst($type);
@@ -263,10 +372,15 @@ class Parser
         return $type;
     }
 
+    /**
+     * Creates list of handlers from a string of handlers definition.
+     * 
+     * @param string $handlers handlers
+     * @return string[] handlers
+     */
     private function makeHandlersList(string $handlers): array
     {
         $result = preg_replace_callback(
-        //'{`[^`]+`}',
             '{`([^`]|\\\\`)+((?<!\\\\)`)}',
             function (array $matches) {
                 return addcslashes($matches[0], ',');
@@ -280,11 +394,16 @@ class Parser
         return $result;
     }
 
+    /**
+     * Creates list of conditions from a string of conditions definition.
+     * 
+     * @param string $conditions conditions
+     * @return string[] conditions
+     */
     private function explodeConditions(string $conditions): array
     {
         $result = [];
         $conditions = preg_replace_callback(
-        //'{`[^`]+`}',
             '{`([^`]|\\\\`)+((?<!\\\\)`)}',
             function (array $matches) {
                 return addcslashes($matches[0], '&|');
@@ -307,6 +426,15 @@ class Parser
         return $result;
     }
 
+    /**
+     * Processes tokens.
+     * 
+     * @param bool $mode a flag; mode of execution
+     * @param int $token1 first token
+     * @param int $token2 second token
+     * @param callable $callback special callback
+     * @return string[] normalized array of Axessors tokens
+     */
     private function processTokens(bool $mode, int $token1, int $token2, callable $callback): array
     {
         if ($mode && isset($this->tokens[$token1])) {
@@ -318,16 +446,23 @@ class Parser
         }
     }
 
+    /**
+     * Processes conditions.
+     * 
+     * @param bool $mode mode of execution
+     * @return string[] conditions
+     */
     private function processConditions(bool $mode): array
     {
         return $this->processTokens($mode, self::CONDITIONS_1, self::CONDITIONS_2, [$this, 'makeConditionsTree']);
     }
 
-    /*private function processHandlers(bool $mode): array
-    {
-        return $this->processTokens($mode, self::HANDLERS_1, self::HANDLERS_2, [$this, 'makeHandlersList']);
-    }*/
-
+    /**
+     * Makes tree of conditions.
+     * 
+     * @param string $conditions string with conditions definition
+     * @return array tree of conditions
+     */
     private function makeConditionsTree(string $conditions): array
     {
         $result = [];
@@ -344,6 +479,12 @@ class Parser
         return $result;
     }
 
+    /**
+     * Replaces type delimiters in type definition.
+     * 
+     * @param string $subject string with type definition
+     * @return string with replaces delimiters
+     */
     private function replaceSensibleDelimiters(string $subject): string
     {
         $length = strlen($subject);
@@ -360,6 +501,11 @@ class Parser
         return $subject;
     }
 
+    /**
+     * Validates order of statements in Axessors comment.
+     * 
+     * @throws SyntaxError if the statements go in incorrect order
+     */
     private function validateStatements(): void
     {
         if (isset($this->tokens[self::KEYWORD_2])) {
@@ -373,6 +519,13 @@ class Parser
         }
     }
 
+    /**
+     * Returns normalized keyword with type of access.
+     * 
+     * @param int $token token
+     * @return string keyword
+     * @throws InternalError if the token with keyword is not valid
+     */
     private function getKeyword(int $token): string
     {
         if (preg_match(sprintf('{^(%s|%s)$}', self::F_ACCESSIBLE, self::S_ACCESSIBLE), $this->tokens[$token])) {

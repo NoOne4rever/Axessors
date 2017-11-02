@@ -1,4 +1,11 @@
 <?php
+/**
+ * This file is a part of "Axessors" library.
+ *
+ * @author <NoOne4rever@gmail.com>
+ * @package Axessors
+ * @license GPL
+ */
 
 namespace Axessors;
 
@@ -7,16 +14,34 @@ use Axessors\Exceptions\InternalError;
 use Axessors\Exceptions\OopError;
 use Axessors\Exceptions\TypeError;
 
+/**
+ * Class CallProcessor
+ * 
+ * Handles method call.
+ */
 class CallProcessor
 {
+    /** @var string method name */
     private $method;
+    /** @var mixed|null an object */
     private $object;
+    /** @var mixed call stack */
     private $backtrace;
+    /** @var bool accessor mode */
     private $mode;
+    /** @var string class name */
     private $class;
+    /** @var PropertyData property data */
     private $propertyData;
+    /** @var \ReflectionClass class data */
     private $reflection;
 
+    /**
+     * CallProcessor constructor.
+     * 
+     * @param array $backtrace contains call stack
+     * @param mixed|null $object an object the method is called on (might not be given, if the method is static) 
+     */
     public function __construct(array $backtrace, $object = null)
     {
         $this->object = $object;
@@ -24,6 +49,17 @@ class CallProcessor
         $this->backtrace = $backtrace[0];
     }
 
+    /**
+     * General function of calling the method.
+     * 
+     * Processes method's name to extract property name and checks if the method is accessible.
+     * 
+     * @param array $args the arguments of the method called
+     * @param string $method the name of the method called
+     * @return mixed return value of the method called
+     * @throws AxessorsError is thrown when Axessors method not found
+     * @throws OopError is thrown when the method is not accessible
+     */
     public function call(array $args, string $method)
     {
         $data = Data::getInstance();
@@ -57,6 +93,15 @@ class CallProcessor
         throw new AxessorsError("method {$this->backtrace['class']}::{$this->method}() not found");
     }
 
+    /**
+     * Emulates execution of the method.
+     * 
+     * @param PropertyData $propertyData data of the property
+     * @param array $args the arguments of the method called
+     * @return mixed return value of the method called
+     * @throws AxessorsError if conditions for executing an accessor did not pass
+     * @throws AxessorsError if Axessors method not found
+     */
     private function run(PropertyData $propertyData, array $args)
     {
         $prefix = substr($this->method, 0, 3);
@@ -123,6 +168,13 @@ class CallProcessor
         }
     }
 
+    /**
+     * Checks if the type of new property's value is correct.
+     * 
+     * @param array $typeTree all possible types
+     * @param $var mixed new value of the property
+     * @throws TypeError if the type of new property's value does not match the type defined in Axessors comment
+     */
     private function checkType(array $typeTree, $var): void
     {
         foreach ($typeTree as $type => $subType) {
@@ -139,14 +191,6 @@ class CallProcessor
                                 'is'
                             ], $var)))) {
                     foreach ($var as $subVar) {
-                        /*try
-                        {
-                            if($this->checkType($subType, $subVar))
-                            {
-                                return true;
-                            }
-                        }
-                        catch (TypeError $error) {}*/
                         $this->checkType($subType, $subVar);
                     }
                     return;
@@ -156,6 +200,13 @@ class CallProcessor
         throw new TypeError("not a valid type of {$this->backtrace['class']}::\${$this->propertyData->getName()}");
     }
 
+    /**
+     * Executes handlers defined in the Axessors comment.
+     * 
+     * @param $value mixed value of the property
+     * @return mixed new value of the property
+     * @throws OopError if the property does not have one of the handlers defined in the Axessors comment
+     */
     private function executeHandlers($value)
     {
         $handlers = $this->mode ? $this->propertyData->getOutputHandlers() : $this->propertyData->getInputHandlers();
@@ -164,7 +215,7 @@ class CallProcessor
                 //$handler = trim($handler, '`');
                 $handler = str_replace('\\`', '`', substr($handler, 1, strlen($handler) - 2));
                 if (is_null($this->object)) {
-                    $value = call_user_func([$this->reflection->name, '__axessors_execute_staic'], $handler, $value,
+                    $value = call_user_func([$this->reflection->name, '__axessors_execute_static'], $handler, $value,
                         false);
                 } else {
                     $value = call_user_func([$this->object, '__axessors_execute_instance'], $handler, $value, false);
@@ -189,6 +240,14 @@ class CallProcessor
         return $value;
     }
 
+    /**
+     * Checks the conditions defined in the Axessors comment.
+     * 
+     * Creates logical tree of the conditions and then checks if the general result is true.
+     * 
+     * @param $value mixed value of the property
+     * @return bool result of checking of the conditions
+     */
     private function processConditions($value): bool
     {
         $conditions = $this->calculateConditions($value);
@@ -211,6 +270,12 @@ class CallProcessor
         return false;
     }
 
+    /**
+     * Calculates every condition defined in the Axessors comment.
+     * 
+     * @param $value mixed value of the property
+     * @return bool[] results of the conditions
+     */
     private function calculateConditions($value): array
     {
         $calculatedConditions = [];
@@ -227,7 +292,14 @@ class CallProcessor
         return $calculatedConditions;
     }
 
-    private function executeCondition($condition, $value): bool
+    /**
+     * Calculates a condition defined in the Axessors comment.
+     * 
+     * @param $condition string the condition
+     * @param $value mixed value of the property
+     * @return bool result of the condition
+     */
+    private function executeCondition(string $condition, $value): bool
     {
         if (strpos($condition, '`') !== false) {
             $condition = str_replace('\\`', '`', substr($condition, 1, strlen($condition) - 2));
@@ -247,6 +319,16 @@ class CallProcessor
         }
     }
 
+    /**
+     * Casts the property to integer.
+     * 
+     * If the property is string or array returns it's length.
+     * If the property is integer of float returns the property itself.
+     * 
+     * @param $value mixed value of the property
+     * @return int integer value of the property
+     * @throws TypeError if the property can't be turned into integer
+     */
     private function count($value): int
     {
         switch (gettype($value)) {
@@ -265,6 +347,13 @@ class CallProcessor
         return $value;
     }
 
+    /**
+     * Checks if the method is accessible.
+     * 
+     * @param string $accessModifier access modifier
+     * @param \ReflectionClass $reflection class data
+     * @return bool result of the checkout
+     */
     private function isAccessible(string $accessModifier, \ReflectionClass $reflection): bool
     {
         if ($accessModifier == 'public') {
@@ -284,6 +373,12 @@ class CallProcessor
         }
     }
 
+    /**
+     * Checks if the method called in right place and it is accessible there.
+     * 
+     * @param \ReflectionClass $reflection class data
+     * @return bool result of the checkout
+     */
     private function in(\ReflectionClass $reflection): bool
     {
         return $reflection->getStartLine() <= $this->backtrace['line'] && $reflection->getEndLine() >= $this->backtrace['line'];

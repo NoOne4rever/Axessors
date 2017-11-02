@@ -1,11 +1,16 @@
 <?php
+/**
+ * This file is a part of "Axessors" library.
+ *
+ * @author <NoOne4rever@gmail.com>
+ * @package Axessors
+ * @license GPL
+ */
 
 namespace Axessors;
 
 use Axessors\Exceptions\InternalError;
 use Axessors\Exceptions\OopError;
-
-//$time = microtime(true);
 
 const NUM_OF_PREDEFINED_CLASSES = 132;
 
@@ -13,7 +18,6 @@ require_once __DIR__ . '\autoload.php';
 
 $classes = get_declared_classes();
 $totalClasses = count($classes);
-//$axessorsClasses = [];
 
 $data = Data::getInstance();
 
@@ -62,5 +66,3 @@ for ($i = NUM_OF_PREDEFINED_CLASSES; $i < $totalClasses; ++$i) {
         }
     }
 }
-
-//echo 'Done in ' . (microtime(true) - $time) . '.' . PHP_EOL;

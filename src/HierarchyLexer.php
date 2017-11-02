@@ -1,14 +1,34 @@
 <?php
+/**
+ * This file is a part of "Axessors" library.
+ *
+ * @author <NoOne4rever@gmail.com>
+ * @package Axessors
+ * @license GPL
+ */
 
 namespace Axessors;
 
 use Axessors\Exceptions\InternalError;
 
+/**
+ * Class HierarchyLexer
+ * 
+ * Searches for Axessors methods in abstract classes and interfaces.
+ */
 class HierarchyLexer extends Lexer
 {
+    /** @var string[] patterns of necessary tokens */
     private $expectations;
+    /** @var int[] numbers of required tokens */
     private $requiredItems;
 
+    /**
+     * HierarchyLexer constructor.
+     * 
+     * @param \ReflectionClass $reflection class' reflection
+     * @throws InternalError if given class is not abstract or is not an interface
+     */
     public function __construct(\ReflectionClass $reflection)
     {
         parent::__construct($reflection);
@@ -34,6 +54,11 @@ class HierarchyLexer extends Lexer
         }
     }
 
+    /**
+     * Returns Axessors methods' names.
+     * 
+     * @return string[] Axessors methods' names
+     */
     public function getMethods(): array
     {
         $methods = [];
@@ -55,6 +80,11 @@ class HierarchyLexer extends Lexer
         return $methods;
     }
 
+    /**
+     * Returns Axessors method slit into array of tokens.
+     * 
+     * @return string[] found tokens
+     */
     private function getMethod(): array
     {
         return $this->parse(
@@ -64,6 +94,11 @@ class HierarchyLexer extends Lexer
         );
     }
 
+    /**
+     * Checks if the line of code given is an Axessors method declaration.
+     * 
+     * @return bool result of the checkout
+     */
     private function isAxsMethod(): bool
     {
         return preg_match('{^\s*#}', $this->currentLine);

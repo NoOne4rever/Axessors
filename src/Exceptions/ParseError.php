@@ -1,11 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: AbMax
- * Date: 8/4/2017
- * Time: 8:15 PM
+ * This file is a part of "Axessors" library.
+ *
+ * @author <NoOne4rever@gmail.com>
+ * @package Axessors
+ * @license GPL
  */
 
 namespace Axessors\Exceptions;
 
+/**
+ * Class ParseError.
+ * 
+ * Is thrown when a parsing error occurred.
+ */
 class ParseError extends \Exception {}

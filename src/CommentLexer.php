@@ -1,18 +1,27 @@
 <?php
+/**
+ * This file is a part of "Axessors" library.
+ *
+ * @author <NoOne4rever@gmail.com>
+ * @package Axessors
+ * @license GPL
+ */
 
 namespace Axessors;
 
+/**
+ * Class CommentLexer.
+ * 
+ * Splits Axessors comment into array of possible tokens.
+ */
 class CommentLexer extends Lexer
 {
     private const AXS_COMMENT = '{^#>}';
     private const ACCESS_MODIFIER = '{^(\+|~|-)}';
     private const KEYWORD = '{^((accessi|(writ|read)a)ble|axs|wrt|rdb)}';
     private const TYPE = '{^((((\\\\)?[a-zA-Z_][a-zA-Z\d_]*(\\\\[a-zA-Z_][a-zA-Z\d_]*)*)(\[(?1)\])?)(\|(?2))*)}';
-    //private const CONDITIONS       = '{^((?(1)\s*(&&|\|\|)\s*)(\d+(,\d+)?\.\.\d+(,\d+)?|((<|>|!|=)=|%|<|>)\s+\d+(,\d+)?|`[^`]+`))+}';
-    //private const HANDLERS         = '{^((?(1),\s*)([a-zA-Z_][a-zA-Z0-9_]*|`[^`]+`))+}';
     private const HANDLERS = '{^((?(1),\s*)([a-zA-Z_][a-zA-Z0-9_]*|`([^`]|\\\\`)+((?<!\\\\)`)))+}';
     private const CONDITIONS = '{^((?(1)\s*(&&|\|\|)\s*)(\d+(,\d+)?\.\.\d+(,\d+)?|((<|>|!|=)=|%|<|>)\s+\d+(,\d+)?|`([^`]|\\\\`)+((?<!\\\\)`)))+}';
-    //private const COMMA            = '{^,}';
     private const HANDLERS_SIGN = '{^>>}';
     private const ALIAS_SIGN = '{^=>}';
     private const ALIAS = '{^[a-zA-Z_][a-zA-Z0-9_]*}';
@@ -37,6 +46,11 @@ class CommentLexer extends Lexer
 
     private const AXS_COMMENT_TOKEN = '#>';
 
+    /**
+     * Returns class' data with Axessors properties.
+     * 
+     * @return ClassData class' data
+     */
     public function getClassData(): ClassData
     {
         $classData = new ClassData($this->reflection);
@@ -45,7 +59,6 @@ class CommentLexer extends Lexer
             if (!$this->isAxsPropertyDef()) {
                 continue;
             }
-            //$code = addcslashes($this->getAxsComment(), '\\');
             $code = preg_replace_callback(
                 '/`([^`]|\\\\`)+((?<!\\\\)`)/',
                 function (array $matches): string {
@@ -66,17 +79,32 @@ class CommentLexer extends Lexer
         return $classData;
     }
 
+    /**
+     * Extracts Axessors comment from the code.
+     * 
+     * @return string Axessors comment
+     */
     private function getAxsComment(): string
     {
         return substr($this->currentLine, strpos($this->currentLine, self::AXS_COMMENT_TOKEN));
     }
 
+    /**
+     * Extracts property name from the code.
+     * 
+     * @return string property name
+     */
     private function getPropertyName(): string
     {
         preg_match('{\$[a-zA-Z_][a-zA-Z0-9_]*}', $this->currentLine, $property);
         return substr($property[0], 1);
     }
 
+    /**
+     * Checks if the code given is Axessors property definition. 
+     * 
+     * @return bool result of the checkout
+     */
     private function isAxsPropertyDef(): bool
     {
         return preg_match('{^\s*(public|private|protected)\s+(static\s+)?\$[a-zA-Z_][a-zA-Z0-9_]*.*?;\s+#>}',
