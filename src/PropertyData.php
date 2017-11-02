@@ -26,7 +26,7 @@ class PropertyData
 		$this->conditionsOut = $parser->processOutputConditions();
 		$this->handlersIn    = $parser->processInputHandlers();
 		$this->handlersOut   = $parser->processOutputHandlers();
-		$this->pseudonim     = $parser->getPseudonim();
+		$this->pseudonim     = $parser->getAlias();
 		$this->methods       = $parser->processMethods();
 	}
 
