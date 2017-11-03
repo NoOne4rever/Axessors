@@ -170,7 +170,7 @@ class Config
     private static $settings; #> +axs array[int|string]
 }
 ```
-**Axessors** aslo support *extended* types, that have additional methods. *Extended* types have capitalized names. See [axessors methods](https://github.io/NoOne4rever/Axessors#axessors-methods).
+**Axessors** aslo support *extended* types, that have additional methods. *Extended* types have capitalized names. See [axessors methods](https://github.com/NoOne4rever/Axessors#axessors-methods).
 ### Conditions
 Sometimes we need to make a short condition for getter or setter. For example, field `$age` can contain any integer in range [1..120]. To perform a checkout of integer, we will write something like this:
 ```php
@@ -372,6 +372,6 @@ With **Axessors** you can shorten description of every getter and setter in your
 
 This comment structure can implement almost all the possible getters and setters in one line, and the library can halve your code by removing duplicated methods.
 
-You can see examples in [tests directory](https://github.com/NoOne4rever/Axessors/master/tests/UML).
+You can see examples in [tests directory](https://github.com/NoOne4rever/Axessors/tree/master/tests/UML).
 
 ##### Ask me any questions about the library, and I will be glad to answer.
