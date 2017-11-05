@@ -273,7 +273,7 @@ class Parser
     {
         foreach ($tree as $type => $subtype) {
             if (!is_int($type)) {
-                if (!is_subclass_of($type, 'Axessors\Types\Iterateable')) {
+                if (!is_subclass_of($type, 'NoOne4rever\Axessors\Types\Iterateable')) {
                     throw new TypeError("\"$type\" is not iterateable {$this->reflection->getDeclaringClass()->name}::\${$this->reflection->name} Axessors comment");
                 }
             }
@@ -367,7 +367,7 @@ class Parser
             case 'resource':
             case 'callable':
             case 'mixed':
-                $type = "Axessors\\Types\\axs_{$_type}" . ($type !== $_type ? '_ext' : '');
+                $type = "NoOne4rever\\Axessors\\Types\\axs_{$_type}" . ($type !== $_type ? '_ext' : '');
         }
         return $type;
     }
