@@ -380,7 +380,7 @@ You can solve this problem by disabling such inspection in your IDE settings or 
  * Class with Axessors methods.
  * 
  * @method int getField() getter for the field
- * @methdd void setField() setter for field
+ * @methdd void setField() setter for the field
  */
 class WithAxessorsMethods
 {
