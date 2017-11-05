@@ -6,7 +6,7 @@ use Axessors\Axessors;
  * Class Departament.
  *
  * Stores employees.
- * 
+ *
  * @method void addEmployees(Employee $employee) adds an employee to the departament
  * @method void removeEmployees(Employee $employee) removes an employee
  * @method int countEmployees() returns number of employees
@@ -16,15 +16,15 @@ use Axessors\Axessors;
  */
 class Departament implements Unit
 {
-	use Axessors;
+    use Axessors;
 
     /** @var string departament name */
-	private $name; #> +axs string
+    private $name; #> +axs string
     /** @var Employee[] departament employees */
-	private $employees = []; #> +axs Array[Employee]
-	
-	public function __construct(string $name)
-	{
-		$this->name = $name;
-	}
+    private $employees = []; #> +axs Array[Employee]
+
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
 }

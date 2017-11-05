@@ -6,7 +6,7 @@ use Axessors\Axessors;
  * Class Man.
  *
  * Stores information about a man.
- * 
+ *
  * @method string getName() getter for name
  * @method string getSurname() getter for surname
  * @method void setName(string $name) setter for name
@@ -14,16 +14,16 @@ use Axessors\Axessors;
  */
 class Man
 {
-	use Axessors;
+    use Axessors;
 
     /** @var string name */
-	protected $name; #> +axs string
+    protected $name; #> +axs string
     /** @var string second name */
-	protected $surname; #> +axs string
+    protected $surname; #> +axs string
 
     /**
      * Man constructor.
-     * 
+     *
      * @param string $name name
      * @param string $surname second name
      */

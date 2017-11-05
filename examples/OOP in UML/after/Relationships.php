@@ -29,21 +29,21 @@ $programmersDepartament->addEmployees($sysEngineer);
 $sysEngineer->setPosition('Security');
 $director = new Employee('Fyodor', 'Zhuchkov', 'Director', $programmersDepartament);
 $employees = [
-	$sysEngineer,
-	$director
+    $sysEngineer,
+    $director
 ];
 
 echo "{$sysEngineer->getName()} works as {$sysEngineer->getPosition()}." . PHP_EOL;
 echo "Id card expires {$card->getDateExpire()}." . PHP_EOL;
 echo "He may be in cabinets:";
 foreach ($sysEngineer->getRoom() as $room) {
-	echo PHP_EOL . "{$room->getNumber()}";
+    echo PHP_EOL . "{$room->getNumber()}";
 }
 echo '.' . PHP_EOL;
 echo "Belongs to {$sysEngineer->getDepartament()->getName()}." . PHP_EOL;
 echo "Had worked as:";
 foreach ($sysEngineer->getPastPosition() as $position) {
-	echo PHP_EOL . "{$position->getName()} in departament \"{$position->getDepartament()->getName()}\"";
+    echo PHP_EOL . "{$position->getName()} in departament \"{$position->getDepartament()->getName()}\"";
 }
 echo '.' . PHP_EOL;
 Menu::showEmployees($employees);

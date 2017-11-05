@@ -6,21 +6,21 @@ use Axessors\Axessors;
  * Class IdCard.
  *
  * Employee's id card.
- * 
+ *
  * @method int getNumber() getter for card number
  * @method void setNumber(int $number) setter for card number
  * @method string getDateExpire() getter for expiration date
- * @method void setDateExpire(int $timestamp) setter for expiration date 
+ * @method void setDateExpire(int $timestamp) setter for expiration date
  */
 class IdCard
 {
-	use Axessors;
+    use Axessors;
 
     /** @var int card number */
-	private $number; #> +axs int
+    private $number; #> +axs int
     /** @var int timestamp of expiration date */
-	private $dateExpire; #> +wrt int +rdb >> `$var = date('d.m.Y', $var)`
-    
+    private $dateExpire; #> +wrt int +rdb >> `$var = date('d.m.Y', $var)`
+
     public function __construct(int $number)
     {
         $this->number = $number;
