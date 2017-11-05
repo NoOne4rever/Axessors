@@ -1,6 +1,6 @@
 <?php
 
-use Axessors\Axessors;
+use NoOne4rever\Axessors\Axessors;
 
 /**
  * Class Room.
@@ -12,7 +12,7 @@ use Axessors\Axessors;
  */
 class Room
 {
-    use Axessors;
+    use NoOne4rever\Axessors;
 
     /** @var int room number */
     private $number; #> +axs int

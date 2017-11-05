@@ -7,7 +7,7 @@
  * @license GPL
  */
 
-namespace Axessors;
+namespace NoOne4rever\Axessors;
 
 /**
  * Class CommentLexer.

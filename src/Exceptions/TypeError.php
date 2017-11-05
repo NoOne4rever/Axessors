@@ -7,7 +7,7 @@
  * @license GPL
  */
 
-namespace Axessors\Exceptions;
+namespace NoOne4rever\Axessors\Exceptions;
 
 /**
  * Class TypeError.

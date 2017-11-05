@@ -7,10 +7,10 @@
  * @license GPL
  */
 
-namespace Axessors;
+namespace NoOne4rever\Axessors;
 
-use Axessors\Exceptions\InternalError;
-use Axessors\Exceptions\OopError;
+use NoOne4rever\Axessors\Exceptions\InternalError;
+use NoOne4rever\Axessors\Exceptions\OopError;
 
 const NUM_OF_PREDEFINED_CLASSES = 132;
 

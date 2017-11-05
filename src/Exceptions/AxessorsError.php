@@ -8,7 +8,7 @@
  * @return int changed integer
  */
 
-namespace Axessors\Exceptions;
+namespace NoOne4rever\Axessors\Exceptions;
 
 /**
  * Class AxessorsError.

@@ -1,6 +1,6 @@
 <?php
 
-use Axessors\Axessors;
+use NoOne4rever\Axessors\Axessors;
 
 /**
  * Class Man.
@@ -14,7 +14,7 @@ use Axessors\Axessors;
  */
 class Man
 {
-    use Axessors;
+    use NoOne4rever\Axessors;
 
     /** @var string name */
     protected $name; #> +axs string

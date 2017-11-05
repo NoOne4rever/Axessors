@@ -7,9 +7,9 @@
  * @license GPL
  */
 
-namespace Axessors;
+namespace NoOne4rever\Axessors;
 
-use Axessors\Exceptions\InternalError;
+use NoOne4rever\Axessors\Exceptions\InternalError;
 
 /**
  * Class Data.

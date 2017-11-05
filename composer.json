@@ -1,20 +1,22 @@
 {
-	"name": "noone4rever/axessors",
-	"description": "Generator of getters and setters for PHP",
-	"homepage": "https://github.com/NoOne4rever/Axessors",
-	"keywords":
-	[
-		"fields",
-		"properties",
-		"accessors",
-		"getters",
-		"setters"
-	],
-	"license": "GPL",
-	"type": "library",
-	"require":
-	{
-		"php": ">=7.1"
-	}
+  "name": "noone4rever/axessors",
+  "description": "Generator of getters and setters for PHP",
+  "homepage": "https://github.com/NoOne4rever/Axessors",
+  "keywords": [
+    "fields",
+    "properties",
+    "accessors",
+    "getters",
+    "setters"
+  ],
+  "license": "GPL",
+  "type": "library",
+  "require": {
+    "php": ">=7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "NoOne4rever\\Axessors": "src/"
+    }
+  }
 }
-

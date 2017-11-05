@@ -7,9 +7,9 @@
  * @license GPL
  */
 
-namespace Axessors;
+namespace NoOne4rever\Axessors;
 
-use Axessors\Exceptions\ReThrownError;
+use NoOne4rever\Axessors\Exceptions\ReThrownError;
 
 require_once __DIR__ . '\Axs.php';
 

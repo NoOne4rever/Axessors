@@ -1,6 +1,6 @@
 <?php
 
-use Axessors\Axessors;
+use NoOne4rever\Axessors\Axessors;
 
 /**
  * Class Employee.
@@ -21,7 +21,7 @@ use Axessors\Axessors;
  */
 class Employee extends Man
 {
-    use Axessors;
+    use NoOne4rever\Axessors;
 
     /** @var string employee's position */
     private $position; #> +axs string >> `$this->addPastPosition(new PastPosition($this->position, $this->departament))`

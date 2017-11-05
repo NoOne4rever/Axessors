@@ -1,6 +1,6 @@
 <?php
 
-use Axessors\Axessors;
+use NoOne4rever\Axessors\Axessors;
 
 /**
  * Class IdCard.
@@ -14,7 +14,7 @@ use Axessors\Axessors;
  */
 class IdCard
 {
-    use Axessors;
+    use NoOne4rever\Axessors;
 
     /** @var int card number */
     private $number; #> +axs int

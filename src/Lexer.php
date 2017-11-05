@@ -7,9 +7,9 @@
  * @license GPL
  */
 
-namespace Axessors;
+namespace NoOne4rever\Axessors;
 
-use Axessors\Exceptions\ParseError;
+use NoOne4rever\Axessors\Exceptions\ParseError;
 
 /**
  * Class Lexer.

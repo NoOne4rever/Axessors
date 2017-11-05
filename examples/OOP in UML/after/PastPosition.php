@@ -1,6 +1,6 @@
 <?php
 
-use Axessors\Axessors;
+use NoOne4rever\Axessors\Axessors;
 
 /**
  * Class PastPosition.
@@ -14,7 +14,7 @@ use Axessors\Axessors;
  */
 class PastPosition
 {
-    use Axessors;
+    use NoOne4rever\Axessors;
 
     /** @var string position name */
     private $name; #> +axs string

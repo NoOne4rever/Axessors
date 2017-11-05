@@ -8,7 +8,7 @@
  * @return int changed integer
  */
 
-namespace Axessors\Types;
+namespace NoOne4rever\Axessors\Types;
 
 /**
  * Class Iterateable.

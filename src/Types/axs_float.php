@@ -7,7 +7,7 @@
  * @license GPL
  */
 
-namespace Axessors\Types;
+namespace NoOne4rever\Axessors\Types;
 
 /**
  * Class axs_float

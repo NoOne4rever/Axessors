@@ -1,6 +1,6 @@
 <?php
 
-use Axessors\Axessors;
+use NoOne4rever\Axessors\Axessors;
 
 /**
  * Class Departament.
@@ -16,7 +16,7 @@ use Axessors\Axessors;
  */
 class Departament implements Unit
 {
-    use Axessors;
+    use NoOne4rever\Axessors;
 
     /** @var string departament name */
     private $name; #> +axs string
