@@ -14,7 +14,7 @@ use NoOne4rever\Axessors\Axessors;
  */
 class PastPosition
 {
-    use NoOne4rever\Axessors;
+    use Axessors;
 
     /** @var string position name */
     private $name; #> +axs string

@@ -21,7 +21,7 @@ use NoOne4rever\Axessors\Axessors;
  */
 class Employee extends Man
 {
-    use NoOne4rever\Axessors;
+    use Axessors;
 
     /** @var string employee's position */
     private $position; #> +axs string >> `$this->addPastPosition(new PastPosition($this->position, $this->departament))`

@@ -12,7 +12,7 @@ use NoOne4rever\Axessors\Axessors;
  */
 class Room
 {
-    use NoOne4rever\Axessors;
+    use Axessors;
 
     /** @var int room number */
     private $number; #> +axs int

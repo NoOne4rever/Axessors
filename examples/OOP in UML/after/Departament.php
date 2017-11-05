@@ -16,7 +16,7 @@ use NoOne4rever\Axessors\Axessors;
  */
 class Departament implements Unit
 {
-    use NoOne4rever\Axessors;
+    use Axessors;
 
     /** @var string departament name */
     private $name; #> +axs string

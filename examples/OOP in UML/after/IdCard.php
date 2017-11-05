@@ -14,7 +14,7 @@ use NoOne4rever\Axessors\Axessors;
  */
 class IdCard
 {
-    use NoOne4rever\Axessors;
+    use Axessors;
 
     /** @var int card number */
     private $number; #> +axs int

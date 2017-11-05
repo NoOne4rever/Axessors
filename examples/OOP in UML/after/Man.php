@@ -14,7 +14,7 @@ use NoOne4rever\Axessors\Axessors;
  */
 class Man
 {
-    use NoOne4rever\Axessors;
+    use Axessors;
 
     /** @var string name */
     protected $name; #> +axs string
