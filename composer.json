@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-      "NoOne4rever\\Axessors": "src/"
+      "NoOne4rever\\Axessors\\": "src/"
     }
   }
 }
