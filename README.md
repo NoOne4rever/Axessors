@@ -85,7 +85,7 @@ The same structure of accessors allows me to make a short syntax for getters and
 
 To start using **Axessors**, `use` *Axessors* trait in your class.
 ```php
-use Axessors\Axessors;
+use NoOne4rever\Axessors\Axessors;
 
 class WithTrait
 {
