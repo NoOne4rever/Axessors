@@ -1,10 +1,19 @@
 # Axessors
+
 Generator of getters and setters for PHP.
+
 ## Installation
+
 `composer require "noone4rever/axessors @dev"`
 
 You can see this package on [packagist](https://packagist.org/packages/noone4rever/axessors).
+
+## System requirements
+
+You need to use PHP 7.1 or newer to run a code with **Axessors**.
+
 ## Problem
+
 When you write your code in object-oriented style, you need to provide almost every class with getters and setters for `private` fields. For example, you have a class named `Email`. It stores email address and can parse it, e.g. to get an email domain.
 ```php
 class Email
@@ -47,7 +56,9 @@ To avoid writing getters and setters manually we can:
 * use special libraries for generating accessors (in fact there are almost no such libraries for PHP, that can help you to write less code)
 
 **Axessors** introduce a short syntax to describe getters and setters.
+
 ## Structure of getters and setters
+
 We can extend setter for the field `$email`.
 ```php
 public function setEmail(string $val): void
@@ -69,7 +80,9 @@ In this case setter:
 
 Any accessor with additional logic has the same structure, excluding rewriting of the field - getter returns field value.
 The same structure of accessors allows me to make a short syntax for getters and setters.
+
 ## Usage
+
 To start using **Axessors**, `use` *Axessors* trait in your class.
 ```php
 use Axessors\Axessors;
@@ -87,6 +100,7 @@ private $field; #> +axs mixed
 ```
 
 ## File structure
+
 To use **Axessors** you should follow this file structure:
 * include of `/Axessors/Axessors.php` (not needed, if you use autoloader)
 * declaration of all your classes
@@ -103,6 +117,7 @@ include '/Axessors/Axessors.php';
 ```
 
 ## Axessors comments
+
 *Axessors comment* has simple syntax. It starts with `#>` and contains:
 * special keywords
 * access modifiers
@@ -112,6 +127,7 @@ include '/Axessors/Axessors.php';
 * field aliases
 
 ### Keywords
+
 *Axessors comments* should contain special keywords. Keywords are used to generate accessors. Write `readable` or `rdb` for getter, `writable` or `wrt` for setter and `accessible` or `axs` for both methods.
 ```php
 class WithKeywords
@@ -130,7 +146,9 @@ $test->getC();
 $test->setC(1);
 ```
 Generated methods have automatically formed names: `get<Field>` and `set<Field>`.
+
 ### Access modifiers
+
 Access modifiers should be written before the keywords. To shorten syntax `public`, `protected` and `private` are replaced with `+`, `~` and `-` symbols.
 ```php
 class WithAccessModifiers
@@ -150,7 +168,9 @@ We can define different access modifiers for getter and setter:
 ```php
 private $field = 'smth'; #> ~wrt +rdb
 ```
+
 ### Type declarations
+
 Type declaration should be placed after the keyword. **Axessors** support standard PHP types: `int`, `float`, `bool`, `string`, `array`, `object`, `resource`and `callable`. Type can also be described with class' name or `mixed`.
 ```php
 class WithTypeDeclarations
@@ -188,7 +208,9 @@ class Config
 }
 ```
 **Axessors** also support *extended* types, that have additional methods. *Extended* types have capitalized names. See [axessors methods](https://github.com/NoOne4rever/Axessors#axessors-methods).
+
 ### Conditions
+
 Sometimes we need to make a short condition for getter or setter. For example, field `$age` can contain any integer in range [1..120]. To perform a checkout of integer, we will write something like this:
 ```php
 class WithConditionalSetter
@@ -243,7 +265,9 @@ class Email
 }
 ```
 Here we can ensure, that `$email` will contain a string with length less than 120 symbols and this string will match our regex.
+
 ### Callbacks
+
 **Axessors** support short callbacks in getters and setters. Callback expressions are written after conditions and callback sign: `>>`.
 
 Most of standard types have their own predefined callbacks:
@@ -291,6 +315,7 @@ class WithNumber
 ```
 
 ### Fields' aliases
+
 You can choose, which name of the field will be used in getter or setter signature. For example, you have a field with really long name:
 ```php
 class WithLongField
@@ -328,6 +353,7 @@ class ChildClass extends ParentClass
 So, automatically generated methods won't collide.
 
 ## Axessors methods
+
 **Axessors** can generate not only getters and setters. The library can emulate different standard methods, that are defined in extended library types. For example, extended `array` type has methods `add<Field>`, `delete<Field>` and `count<Field>`.
 
 For example, we have an indexed array with strings.
@@ -342,6 +368,7 @@ class WithArrayOfStrings
 Now our class have methods `addStrings()`, `deleteStrings()` - this methods take index as argument - and `countStrings()`.
 
 ## Implementing interfaces
+
 **Axessors** support implementation of interfaces. You can comment a method in interface or abstract class in **UNIX** style, - **Axessors** will check class hierarchy and stop the program if there are not implemented methods.
 ```php
 interface Locatable
@@ -392,6 +419,7 @@ class WithAxessorsMethods
 At an nearly date I will create a plugin for PHPStorm, that will provide this IDE with full integration with the library.
 
 ## Conclusions
+
 With **Axessors** you can shorten description of every getter and setter in your code. The most complex *Axessors comment* have this structure:
 1. `#>`
 2. setter access modifier
