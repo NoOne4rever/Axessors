@@ -1,7 +1,17 @@
 <?php
 
+/**
+ * Class Menu.
+ * 
+ * App menu.
+ */
 class Menu
 {
+    /**
+     * Shows all employees.
+     * 
+     * @param Employee[] $employees employees to show
+     */
 	public static function showEmployees(array $employees): void
 	{
 		echo "List of employees:";

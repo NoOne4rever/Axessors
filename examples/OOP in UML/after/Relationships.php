@@ -1,19 +1,20 @@
 <?php
 
-const DIR = 'C:\Users\NoOne\Documents\UML (after)';
+const EXAMPLES_HOME = 'C:/Users/NoOne/Documents/GitHub/Axessors/examples/OOP in UML/after';
+const AXESSORS_HOME = 'C:/Users/NoOne/Documents/GitHub/Axessors/src';
 
-require 'C:\Users\NoOne\OneDrive\Documents\Axessors 2.0\Axessors.php';
+require AXESSORS_HOME . '/Axessors.php';
 
-require_once DIR . '\Unit.php';
-require_once DIR . '\Man.php';
-require_once DIR . '\Employee.php';
-require_once DIR . '\IdCard.php';
-require_once DIR . '\Room.php';
-require_once DIR . '\Departament.php';
-require_once DIR . '\PastPosition.php';
-require_once DIR . '\Menu.php';
+require_once EXAMPLES_HOME . '/Unit.php';
+require_once EXAMPLES_HOME . '/Man.php';
+require_once EXAMPLES_HOME . '/Employee.php';
+require_once EXAMPLES_HOME . '/IdCard.php';
+require_once EXAMPLES_HOME . '/Room.php';
+require_once EXAMPLES_HOME . '/Departament.php';
+require_once EXAMPLES_HOME . '/PastPosition.php';
+require_once EXAMPLES_HOME . '/Menu.php';
 
-require 'C:\Users\NoOne\OneDrive\Documents\Axessors 2.0\Startup.php';
+require AXESSORS_HOME . '/Startup.php';
 
 $programmersDepartament = new Departament('Programmers');
 $card = new IdCard(1);
