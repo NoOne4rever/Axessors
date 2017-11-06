@@ -3,7 +3,7 @@
 const EXAMPLES_HOME = 'C:/Users/NoOne/Documents/GitHub/Axessors/examples/OOP in UML/after';
 const AXESSORS_HOME = 'C:/Users/NoOne/Documents/GitHub/Axessors/src';
 
-require AXESSORS_HOME . '/Axessors.php';
+require 'C:/Users/NoOne/Documents/GitHub/Axessors/vendor/autoload.php';
 
 require_once EXAMPLES_HOME . '/Unit.php';
 require_once EXAMPLES_HOME . '/Man.php';
