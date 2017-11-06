@@ -15,6 +15,7 @@ use NoOne4rever\Axessors\Exceptions\TypeError;
 use NoOne4rever\Axessors\Types\axs_bool;
 use NoOne4rever\Axessors\Types\axs_float;
 use NoOne4rever\Axessors\Types\axs_int;
+use NoOne4rever\Axessors\Types\axs_mixed;
 
 /**
  * Class Parser.
@@ -206,7 +207,7 @@ class Parser
                     if (is_int($treeType)) {
                         $treeType = $subType;
                     }
-                    if ($type == $treeType || "{$type}_ext" == $treeType) {
+                    if ($type === $treeType || "{$type}_ext" === $treeType || $treeType === axs_mixed::class) {
                         $this->validateTypeTree($this->typeTree);
                         return $this->typeTree;
                     }
