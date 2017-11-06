@@ -14,8 +14,6 @@ use NoOne4rever\Axessors\Exceptions\OopError;
 
 const NUM_OF_PREDEFINED_CLASSES = 132;
 
-require_once __DIR__ . '\autoload.php';
-
 $classes = get_declared_classes();
 $totalClasses = count($classes);
 
