@@ -38,7 +38,7 @@ trait Axessors
             $var = $_var;
             try {
                 $result = eval('return ' . $code . ';'); // evaluation of the code written in Axessors comment
-            } catch (\ParseError $error) {
+            } catch (\Throwable $error) {
                 throw new ReThrownError("an error occurred while evaluating executable string \"$code\": {$error->getMessage()}");
             }
             if ($var != $_var) {
@@ -68,7 +68,7 @@ trait Axessors
             list($code, $var) = $args;
             try {
                 $result = eval('return ' . $code . ';'); // evaluation of the code written in Axessors comment
-            } catch (\ParseError $error) {
+            } catch (\Throwable $error) {
                 $class = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)[1]['class'];
                 throw new ReThrownError("an error occurred while evaluating executable string in class $class: " . $error->getMessage());
             }
