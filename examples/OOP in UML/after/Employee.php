@@ -32,7 +32,7 @@ class Employee extends Man
     /** @var Departament employee's departament */
     private $departament; #> +axs Departament
     /** @var PastPosition[] past positions */
-    private $pastPosition = []; #> +axs Array
+    private $pastPosition = []; #> +axs Array[PastPosition]
 
     /**
      * Employee constructor.
