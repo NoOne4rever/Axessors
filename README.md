@@ -406,14 +406,16 @@ You can solve this problem by disabling such inspection in your IDE settings or 
 /**
  * Class with Axessors methods.
  * 
- * @method int getField() getter for the field
- * @methdd void setField() setter for the field
+ * @method int getInstanceField() getter for instace field
+ * @methdd static int getClassField() getter for class field
  */
 class WithAxessorsMethods
 {
     use Axessors;
     
-    private $field; #> +axs int
+    private static $classField; #> +axs int
+    
+    private $instanceField; #> +axs int
 }
 ```
 At an nearly date I will create a plugin for PHPStorm, that will provide this IDE with full integration with the library.
