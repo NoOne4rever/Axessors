@@ -256,13 +256,10 @@ class Parser
      */
     private function validateType(string $class): string
     {
-        try {
-            class_exists($class);
+        if ($class[0] === '\\' or class_exists($class)) {
             return $class;
-        } catch (InternalError $error) {
-            $class = "$this->namespace\\$class";
-            class_exists($class);
-            return $class;
+        } else {
+            return "{$this->namespace}\\$class";
         }
     }
 
