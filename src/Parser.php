@@ -12,6 +12,9 @@ namespace NoOne4rever\Axessors;
 use NoOne4rever\Axessors\Exceptions\InternalError;
 use NoOne4rever\Axessors\Exceptions\SyntaxError;
 use NoOne4rever\Axessors\Exceptions\TypeError;
+use NoOne4rever\Axessors\Types\axs_bool;
+use NoOne4rever\Axessors\Types\axs_float;
+use NoOne4rever\Axessors\Types\axs_int;
 
 /**
  * Class Parser.
@@ -358,18 +361,33 @@ class Parser
     {
         $_type = lcfirst($type);
         switch ($_type) {
-            case 'int':
-            case 'float':
+            case 'boolean':
             case 'bool':
+                $_type = axs_bool::class;
+                break;
+            case 'double':
+            case 'float':
+                $_type = axs_float::class;
+                break;
+            case 'int':
+            case 'integer':
+                $_type = axs_int::class;
+                break;
             case 'string':
             case 'array':
             case 'object':
             case 'resource':
             case 'callable':
             case 'mixed':
-                $type = "NoOne4rever\\Axessors\\Types\\axs_{$_type}" . ($type !== $_type ? '_ext' : '');
+                $_type = "NoOne4rever\\Axessors\\Types\\axs_{$_type}";
+                break;
+            default:
+                return $type;
         }
-        return $type;
+        if ($type !== lcfirst($type)) {
+            $_type .= '_ext';
+        }
+        return $_type;
     }
 
     /**
