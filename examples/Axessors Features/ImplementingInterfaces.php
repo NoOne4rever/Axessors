@@ -17,25 +17,25 @@ require 'C:/Users/NoOne/Documents/GitHub/Axessors/vendor/autoload.php';
 /** Interface iSample. */
 interface iSample
 {
-	# public function getField
+    # public function getField
 }
 
 /** Class IncrementSample. */
 abstract class IncrementSample
 {
-	use Axs;
+    use Axs;
 
-	# abstract protected function incrementField
-	# abstract protected function setField
+    # abstract protected function incrementField
+    # abstract protected function setField
 }
 
 /** Sample class. */
 class SampleClass extends IncrementSample implements iSample
 {
-	use Axessors;
+    use Axessors;
 
-	/** @var string a field */
-	private $field = 'value'; #> ~wrt string|int +rdb
+    /** @var string a field */
+    private $field = 'value'; #> ~wrt string|int +rdb
 }
 
 require 'C:/Users/NoOne/Documents/GitHub/Axessors/src/Startup.php';

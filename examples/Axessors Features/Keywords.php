@@ -28,7 +28,7 @@ require 'C:/Users/NoOne/Documents/GitHub/Axessors/vendor/autoload.php';
 class SampleClass
 {
     use Axessors;
-    
+
     private $fullReadable = 2; #> +readable mixed
     private $fullWritable = 4; #> +writable mixed
     private $fullAccessible = 8; #> +accessible mixed

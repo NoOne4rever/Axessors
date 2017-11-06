@@ -43,14 +43,16 @@ require 'C:/Users/NoOne/Documents/GitHub/Axessors/src/Startup.php';
 $test = new SampleClass();
 
 try {
-    $test->setInt(function () {});
+    $test->setInt(function () {
+    });
 } catch (TypeError $error) {
     echo $error->getMessage() . PHP_EOL;
     $test->setInt(1);
 }
 
 try {
-    $test->setIntOrBoolOrString(function () {});
+    $test->setIntOrBoolOrString(function () {
+    });
 } catch (TypeError $error) {
     echo $error->getMessage() . PHP_EOL;
     $test->setIntOrBoolOrString(1);
@@ -59,14 +61,16 @@ try {
 }
 
 try {
-    $test->setCustomClass(function () {});
+    $test->setCustomClass(function () {
+    });
 } catch (TypeError $error) {
     echo $error->getMessage() . PHP_EOL;
     $test->setCustomClass(new Type());
 }
 
 try {
-    $test->setStdClass(function () {});
+    $test->setStdClass(function () {
+    });
 } catch (TypeError $error) {
     echo $error->getMessage() . PHP_EOL;
     $test->setStdClass(new \stdClass());
