@@ -560,7 +560,7 @@ class Parser
         $expression = preg_replace_callback('/"[^"]"|\'[^\']\'/', function (array $matches) {
             return str_replace(':', ':\\', $matches[0]);
         }, $expression);
-        $expression = preg_replace('/:(?=([a-zA-Z_][a-zA-Z0-9_]*))/', "$this->namespace\\", $expression);
+        $expression = preg_replace('/(?<!:):(?=([a-zA-Z_][a-zA-Z0-9_]*))/', "$this->namespace\\", $expression);
         $expression = preg_replace_callback('/"[^"]"|\'[^\']\'/', function (array $matches) {
             return str_replace(':\\', ':', $matches[0]);
         }, $expression);
