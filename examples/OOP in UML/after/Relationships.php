@@ -1,4 +1,13 @@
 <?php
+/**
+ * This file is a part of "Axessors" library.
+ *
+ * @author <NoOne4rever@gmail.com>
+ * @package NoOne4rever\Axessors
+ * @license GPL
+ */
+
+namespace NoOne4rever\Axessors\Examples;
 
 const EXAMPLES_HOME = 'C:/Users/NoOne/Documents/GitHub/Axessors/examples/OOP in UML/after';
 const AXESSORS_HOME = 'C:/Users/NoOne/Documents/GitHub/Axessors/src';

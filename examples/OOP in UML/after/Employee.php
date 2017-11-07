@@ -1,4 +1,13 @@
 <?php
+/**
+ * This file is a part of "Axessors" library.
+ *
+ * @author <NoOne4rever@gmail.com>
+ * @package NoOne4rever\Axessors
+ * @license GPL
+ */
+
+namespace NoOne4rever\Axessors\Examples;
 
 use NoOne4rever\Axessors\Axessors;
 
@@ -24,7 +33,7 @@ class Employee extends Man
     use Axessors;
 
     /** @var string employee's position */
-    private $position; #> +axs string >> `$this->addPastPosition(new PastPosition($this->position, $this->departament))`
+    private $position; #> +axs string >> `$this->addPastPosition(new :PastPosition($this->position, $this->departament))`
     /** @var IdCard employee's id card */
     private $idCard; #> +axs IdCard
     /** @var Room[] rooms */
