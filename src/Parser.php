@@ -405,7 +405,7 @@ class Parser
         );
         $result = preg_split('{(?<!\\\\),\s*}', $result);
         foreach ($result as &$handler) {
-            $handler = stripcslashes($handler);
+            $handler = $this->resolveClassNames(stripcslashes($handler));
         }
         return $result;
     }
@@ -486,7 +486,7 @@ class Parser
         foreach ($conditions as $number => $condition) {
             foreach ($condition as $token) {
                 if (count($condition) === 1) {
-                    $result[] = $token;
+                    $result[] = $this->resolveClassNames($token);
                 } else {
                     $result[$number][] = $token;
                 }
@@ -553,5 +553,17 @@ class Parser
         } else {
             throw new InternalError('not a valid keyword token given');
         }
+    }
+    
+    private function resolveClassNames(string $expression): string
+    {
+        $expression = preg_replace_callback('/"[^"]"|\'[^\']\'/', function (array $matches) {
+            return str_replace(':', ':\\', $matches[0]);
+        }, $expression);
+        $expression = preg_replace('/:(?=([a-zA-Z_][a-zA-Z0-9_]*))/', "$this->namespace\\", $expression);
+        $expression = preg_replace_callback('/"[^"]"|\'[^\']\'/', function (array $matches) {
+            return str_replace(':\\', ':', $matches[0]);
+        }, $expression);
+        return $expression;
     }
 }
