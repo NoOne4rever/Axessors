@@ -313,7 +313,19 @@ class WithNumber
     private $number; #> +axs int >> inc, dec
 }
 ```
+#### Resolving class names
 
+If you use relative class names in the *injected* callback or condition, write `:` before the class' name to use current namespace.
+```php
+class WithRelativeNames
+{
+    use Axessors;
+    
+    private $field; #> +axs `:CurrentNamespaceClass::doSmth()` >> `globalNamespaceClass::doSmthElse()`
+}
+```
+**Axessors** recognize relative class names as absolute. It is not a bug, just a feature, but maybe such behavior will be removed in next versions of library.
+ 
 ### Fields' aliases
 
 You can choose, which name of the field will be used in getter or setter signature. For example, you have a field with really long name:
