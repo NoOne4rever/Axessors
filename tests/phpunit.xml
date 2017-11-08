@@ -1,0 +1,17 @@
+<phpunit bootstrap="C:\Users\NoOne\Documents\GitHub\Axessors\vendor\autoload.php">
+    <testsuites>
+        <testsuite name="Axessors">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">C:\Users\NoOne\Documents\GitHub\Axessors\src\</directory>
+            <exclude>
+                <directory>C:\Users\NoOne\Documents\GitHub\Axessors\examples</directory>
+                <directory>C:\Users\NoOne\Documents\GitHub\Axessors\tests</directory>
+                <directory>C:\Users\NoOne\Documents\GitHub\Axessors\vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
