@@ -51,6 +51,7 @@ class axs_array extends Iterateable
      */
     public static function h_shuffle($var): array
     {
-        return shuffle($var);
+        shuffle($var);
+        return $var;
     }
 }
