@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests Numeric class.
- * 
+ *
  * @package NoOne4rever\Axessors
  */
 class NumericTest extends TestCase

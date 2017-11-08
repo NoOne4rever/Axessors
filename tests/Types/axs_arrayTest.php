@@ -13,16 +13,16 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests Axessors array type.
- * 
+ *
  * @package NoOne4rever\Axessors
  */
 class axs_arrayTest extends TestCase
 {
     /**
      * Tests if correct data pass.
-     * 
+     *
      * @dataProvider correctDataProvider
-     * 
+     *
      * @param $var mixed variable
      */
     public function testCorrectTypePasses($var): void
@@ -32,9 +32,9 @@ class axs_arrayTest extends TestCase
 
     /**
      * Tests if incorrect data does not pass.
-     * 
+     *
      * @dataProvider incorrectDataProvider
-     * 
+     *
      * @param $var mixed variable
      */
     public function testIncorrectTypeDoesNotPass($var): void
@@ -44,15 +44,14 @@ class axs_arrayTest extends TestCase
 
     /**
      * Tests if an array is shuffled by handler.
-     * 
+     *
      * @dataProvider variablesToChangeProvider
-     * 
+     *
      * @param $var array variable
      */
     public function testArrayIsShuffledByHandler(array $var): void
     {
-        while (true)
-        {
+        while (true) {
             $modified = axs_array::h_shuffle($var);
             if ($modified !== $var) {
                 $this->assertNotEquals($modified, $var);
@@ -63,9 +62,9 @@ class axs_arrayTest extends TestCase
 
     /**
      * Tests if an array if flipped by handler.
-     * 
+     *
      * @dataProvider variablesToChangeProvider
-     * 
+     *
      * @param $var array variable
      */
     public function testArrayIsFlippedByHandler(array $var): void
@@ -75,10 +74,10 @@ class axs_arrayTest extends TestCase
 
     /**
      * Provides correct data.
-     * 
+     *
      * @return array data
      */
-    public function correctDataProvider(): array 
+    public function correctDataProvider(): array
     {
         return [
             [[]],
@@ -88,10 +87,10 @@ class axs_arrayTest extends TestCase
 
     /**
      * Provides incorrect data.
-     * 
+     *
      * @return array data
      */
-    public function incorrectDataProvider(): array 
+    public function incorrectDataProvider(): array
     {
         return [
             [1],

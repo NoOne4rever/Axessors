@@ -13,46 +13,46 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests extended Axessors array type.
- * 
+ *
  * @package NoOne4rever\Axessors
  */
 class axs_array_extTest extends TestCase
 {
     /**
      * Tests if an array item is deleted by Axessors method.
-     * 
+     *
      * @dataProvider variablesToDeleteProvider
-     * 
+     *
      * @param array $var variable
      * @param array $args function arguments
      */
     public function testItemIsDeletedByAxessorsMethod(array $var, array $args): void
     {
         $modified = axs_array_ext::m_in_deletePROPERTY($var, $args);
-        
+
         $this->assertFalse(isset($modified[$args[0]]));
     }
 
     /**
      * Tests if an item is added to array by Axessors method.
-     * 
+     *
      * @dataProvider variablesToAddProvider
-     * 
+     *
      * @param array $var variable
      * @param array $args function arguments
      */
     public function testItemIsAddedByAxessorsMethod(array $var, array $args): void
     {
         $modified = axs_array_ext::m_in_addPROPERTY($var, $args);
-        
+
         $this->assertEquals($modified[$args[1] ?? count($modified) - 1], $args[0]);
     }
 
     /**
      * Tests if array elements is counted correctly.
-     * 
-     * @dataProvider variablesToCountProvider 
-     * 
+     *
+     * @dataProvider variablesToCountProvider
+     *
      * @param array $var variable
      */
     public function testArrayItemsIsCountedByAxessorsMethodCorrectly(array $var): void
@@ -62,10 +62,10 @@ class axs_array_extTest extends TestCase
 
     /**
      * Provides arrays and variables to add.
-     * 
+     *
      * @return array data
      */
-    public function variablesToAddProvider(): array 
+    public function variablesToAddProvider(): array
     {
         return [
             [[256, 512], [1024]],
@@ -76,10 +76,10 @@ class axs_array_extTest extends TestCase
 
     /**
      * Provides arrays and variables to delete.
-     * 
+     *
      * @return array data
      */
-    public function variablesToDeleteProvider(): array 
+    public function variablesToDeleteProvider(): array
     {
         return [
             [[256, 512], [0]],
@@ -90,7 +90,7 @@ class axs_array_extTest extends TestCase
 
     /**
      * Provides arrays to count.
-     * 
+     *
      * @return array data
      */
     public function variablesToCountProvider(): array
