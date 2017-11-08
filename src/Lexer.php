@@ -3,7 +3,6 @@
  * This file is a part of "Axessors" library.
  *
  * @author <NoOne4rever@gmail.com>
- * @package NoOne4rever\Axessors
  * @license GPL
  */
 
@@ -15,6 +14,8 @@ use NoOne4rever\Axessors\Exceptions\ParseError;
  * Class Lexer.
  *
  * A general implementation of Axessors tokenizer.
+ *
+ * @package NoOne4rever\Axessors
  */
 abstract class Lexer
 {
@@ -77,7 +78,7 @@ abstract class Lexer
 
     /**
      * Skips whitespace symbols in code.
-     * 
+     *
      * @param string $code line of code
      */
     private function skipWhitespace(string $code): void
@@ -109,7 +110,7 @@ abstract class Lexer
 
     /**
      * Checks if the line is empty.
-     * 
+     *
      * @return bool result of the checkout
      */
     protected function isLineEmpty(): bool

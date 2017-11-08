@@ -1,18 +1,20 @@
 <?php
 /**
- * Axessors method.
+ * This file is a part of "Axessors" library.
  *
- * Increments variable.
- *
- * @param $var mixed variable
- * @return int changed integer
+ * @author <NoOne4rever@gmail.com>
+ * @license GPL
  */
 
 namespace NoOne4rever\Axessors\Exceptions;
 
 /**
  * Class AxessorsError.
- * 
+ *
  * Is thrown when invalid Axessors method called.
+ *
+ * @package NoOne4rever\Axessors
  */
-class AxessorsError extends \Exception {}
+class AxessorsError extends \Exception
+{
+}

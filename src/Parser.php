@@ -3,7 +3,6 @@
  * This file is a part of "Axessors" library.
  *
  * @author <NoOne4rever@gmail.com>
- * @package NoOne4rever\Axessors
  * @license GPL
  */
 
@@ -21,6 +20,8 @@ use NoOne4rever\Axessors\Types\axs_mixed;
  * Class Parser.
  *
  * Analyses tokens from the Axessors comment.
+ *
+ * @package NoOne4rever\Axessors
  */
 class Parser
 {

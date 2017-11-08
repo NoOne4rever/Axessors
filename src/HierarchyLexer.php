@@ -3,7 +3,6 @@
  * This file is a part of "Axessors" library.
  *
  * @author <NoOne4rever@gmail.com>
- * @package NoOne4rever\Axessors
  * @license GPL
  */
 
@@ -13,8 +12,10 @@ use NoOne4rever\Axessors\Exceptions\InternalError;
 
 /**
  * Class HierarchyLexer
- * 
+ *
  * Searches for Axessors methods in abstract classes and interfaces.
+ *
+ * @package NoOne4rever\Axessors
  */
 class HierarchyLexer extends Lexer
 {
@@ -25,7 +26,7 @@ class HierarchyLexer extends Lexer
 
     /**
      * HierarchyLexer constructor.
-     * 
+     *
      * @param \ReflectionClass $reflection class' reflection
      * @throws InternalError if given class is not abstract or is not an interface
      */
@@ -56,7 +57,7 @@ class HierarchyLexer extends Lexer
 
     /**
      * Returns Axessors methods' names.
-     * 
+     *
      * @return string[] Axessors methods' names
      */
     public function getMethods(): array
@@ -82,7 +83,7 @@ class HierarchyLexer extends Lexer
 
     /**
      * Returns Axessors method slit into array of tokens.
-     * 
+     *
      * @return string[] found tokens
      */
     private function getMethod(): array
@@ -96,7 +97,7 @@ class HierarchyLexer extends Lexer
 
     /**
      * Checks if the line of code given is an Axessors method declaration.
-     * 
+     *
      * @return bool result of the checkout
      */
     private function isAxsMethod(): bool

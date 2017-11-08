@@ -3,7 +3,6 @@
  * This file is a part of "Axessors" library.
  *
  * @author <NoOne4rever@gmail.com>
- * @package NoOne4rever\Axessors
  * @license GPL
  */
 
@@ -13,6 +12,8 @@ namespace NoOne4rever\Axessors;
  * Class PropertyData.
  *
  * Stores information about Axessors property.
+ *
+ * @package NoOne4rever\Axessors
  */
 class PropertyData
 {
@@ -38,7 +39,7 @@ class PropertyData
 
     /**
      * PropertyData constructor.
-     * 
+     *
      * @param \ReflectionProperty $reflection property's information
      * @param array $tokens tokens form Axessors comment
      */
@@ -59,7 +60,7 @@ class PropertyData
 
     /**
      * Getter for {@link PropertyData::$accessibility}.
-     * 
+     *
      * @return string[] {@link PropertyData::$accessibility}
      */
     public function getAccessibility(): array
@@ -69,7 +70,7 @@ class PropertyData
 
     /**
      * Getter for {@link PropertyData::$alias}.
-     * 
+     *
      * @return string {@link PropertyData::$alias}
      */
     public function getAlias(): string
@@ -79,7 +80,7 @@ class PropertyData
 
     /**
      * Getter for {@link PropertyData::$methods}.
-     * 
+     *
      * @return string[] {@link PropertyData::$methods}
      */
     public function getMethods(): array
@@ -89,7 +90,7 @@ class PropertyData
 
     /**
      * Getter for {@link PropertyData::$conditionsIn}.
-     * 
+     *
      * @return string[] {@link PropertyData::$conditionsIn}
      */
     public function getInputConditions(): array
@@ -99,7 +100,7 @@ class PropertyData
 
     /**
      * Getter for {@link PropertyData::$conditionsOut}.
-     * 
+     *
      * @return string[] {@link PropertyData::$conditionsOut}
      */
     public function getOutputConditions(): array
@@ -109,7 +110,7 @@ class PropertyData
 
     /**
      * Getter for {@link PropertyData::$handlersOut}.
-     * 
+     *
      * @return string[] {@link PropertyData::$handlersOut}
      */
     public function getOutputHandlers(): array
@@ -119,7 +120,7 @@ class PropertyData
 
     /**
      * Getter for {@link PropertyData::$handlersIn}.
-     * 
+     *
      * @return string[] {@link PropertyData::$handlersIn}
      */
     public function getInputHandlers(): array
@@ -129,7 +130,7 @@ class PropertyData
 
     /**
      * Getter for {@link PropertyData::$type}.
-     * 
+     *
      * @return array {@link PropertyData::$type}
      */
     public function getTypeTree(): array
@@ -139,7 +140,7 @@ class PropertyData
 
     /**
      * Getter for {@link PropertyData::$alias}.
-     * 
+     *
      * @return string {@link PropertyData::$alias}
      */
     public function getName(): string

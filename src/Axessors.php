@@ -3,7 +3,6 @@
  * This file is a part of "Axessors" library.
  *
  * @author <NoOne4rever@gmail.com>
- * @package NoOne4rever\Axessors
  * @license GPL
  */
 
@@ -15,15 +14,17 @@ require_once __DIR__ . '\Axs.php';
 
 /**
  * Trait Axessors.
- * 
+ *
  * This trait is used to indicate that a class uses the library and provides them with method call handlers.
- * If you wouldn't use method handling functionality, you can add trait {@link Axessors\Axs}. 
+ * If you wouldn't use method handling functionality, you can add trait {@link Axessors\Axs}.
+ *
+ * @package NoOne4rever\Axessors
  */
 trait Axessors
 {
     /**
      * Redirects an instance method call.
-     * 
+     *
      * @param string $method the name of the called method
      * @param array $args the arguments of the called method
      * @return mixed return value of the called method
@@ -54,7 +55,7 @@ trait Axessors
 
     /**
      * Redirects a static method call.
-     * 
+     *
      * @param string $method the name of the called method
      * @param array $args the arguments of the called method
      * @return mixed return value of the called method

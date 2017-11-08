@@ -1,11 +1,9 @@
 <?php
 /**
- * Axessors method.
+ * This file is a part of "Axessors" library.
  *
- * Increments variable.
- *
- * @param $var mixed variable
- * @return int changed integer
+ * @author <NoOne4rever@gmail.com>
+ * @license GPL
  */
 
 namespace NoOne4rever\Axessors\Types;
@@ -14,6 +12,8 @@ namespace NoOne4rever\Axessors\Types;
  * Class Iterateable.
  * 
  * General iterateable type.
+ * 
+ * @package NoOne4rever\Axessors
  */
 abstract class Iterateable implements TypeDefinition
 {

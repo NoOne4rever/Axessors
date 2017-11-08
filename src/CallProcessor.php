@@ -3,7 +3,6 @@
  * This file is a part of "Axessors" library.
  *
  * @author <NoOne4rever@gmail.com>
- * @package NoOne4rever\Axessors
  * @license GPL
  */
 
@@ -16,8 +15,10 @@ use NoOne4rever\Axessors\Exceptions\TypeError;
 
 /**
  * Class CallProcessor
- * 
+ *
  * Handles method call.
+ *
+ * @package NoOne4rever\Axessors
  */
 class CallProcessor
 {
@@ -38,9 +39,9 @@ class CallProcessor
 
     /**
      * CallProcessor constructor.
-     * 
+     *
      * @param array $backtrace contains call stack
-     * @param mixed|null $object an object the method is called on (might not be given, if the method is static) 
+     * @param mixed|null $object an object the method is called on (might not be given, if the method is static)
      */
     public function __construct(array $backtrace, $object = null)
     {
@@ -51,9 +52,9 @@ class CallProcessor
 
     /**
      * General function of calling the method.
-     * 
+     *
      * Processes method's name to extract property name and checks if the method is accessible.
-     * 
+     *
      * @param array $args the arguments of the method called
      * @param string $method the name of the method called
      * @return mixed return value of the method called
@@ -95,7 +96,7 @@ class CallProcessor
 
     /**
      * Emulates execution of the method.
-     * 
+     *
      * @param PropertyData $propertyData data of the property
      * @param array $args the arguments of the method called
      * @return mixed return value of the method called
@@ -170,7 +171,7 @@ class CallProcessor
 
     /**
      * Checks if the type of new property's value is correct.
-     * 
+     *
      * @param array $typeTree all possible types
      * @param $var mixed new value of the property
      * @throws TypeError if the type of new property's value does not match the type defined in Axessors comment
@@ -202,7 +203,7 @@ class CallProcessor
 
     /**
      * Executes handlers defined in the Axessors comment.
-     * 
+     *
      * @param $value mixed value of the property
      * @return mixed new value of the property
      * @throws OopError if the property does not have one of the handlers defined in the Axessors comment
@@ -242,9 +243,9 @@ class CallProcessor
 
     /**
      * Checks the conditions defined in the Axessors comment.
-     * 
+     *
      * Creates logical tree of the conditions and then checks if the general result is true.
-     * 
+     *
      * @param $value mixed value of the property
      * @return bool result of checking of the conditions
      */
@@ -272,7 +273,7 @@ class CallProcessor
 
     /**
      * Calculates every condition defined in the Axessors comment.
-     * 
+     *
      * @param $value mixed value of the property
      * @return bool[] results of the conditions
      */
@@ -294,7 +295,7 @@ class CallProcessor
 
     /**
      * Calculates a condition defined in the Axessors comment.
-     * 
+     *
      * @param $condition string the condition
      * @param $value mixed value of the property
      * @return bool result of the condition
@@ -321,10 +322,10 @@ class CallProcessor
 
     /**
      * Casts the property to integer.
-     * 
+     *
      * If the property is string or array returns it's length.
      * If the property is integer of float returns the property itself.
-     * 
+     *
      * @param $value mixed value of the property
      * @return int integer value of the property
      * @throws TypeError if the property can't be turned into integer
@@ -349,7 +350,7 @@ class CallProcessor
 
     /**
      * Checks if the method is accessible.
-     * 
+     *
      * @param string $accessModifier access modifier
      * @param \ReflectionClass $reflection class data
      * @return bool result of the checkout
@@ -375,7 +376,7 @@ class CallProcessor
 
     /**
      * Checks if the method called in right place and it is accessible there.
-     * 
+     *
      * @param \ReflectionClass $reflection class data
      * @return bool result of the checkout
      */

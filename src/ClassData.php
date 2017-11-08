@@ -3,7 +3,6 @@
  * This file is a part of "Axessors" library.
  *
  * @author <NoOne4rever@gmail.com>
- * @package NoOne4rever\Axessors
  * @license GPL
  */
 
@@ -13,20 +12,22 @@ use NoOne4rever\Axessors\Exceptions\InternalError;
 
 /**
  * Class ClassData.
- * 
+ *
  * Stores the reflection of a class and Axessors properties.
+ *
+ * @package NoOne4rever\Axessors
  */
 class ClassData
 {
     /** @var \ReflectionClass class data */
     public $reflection;
-    
+
     /** @var PropertyData[] Axessors properties */
     private $properties = [];
 
     /**
      * ClassData constructor.
-     * 
+     *
      * @param \ReflectionClass $reflection reflection of the class
      */
     public function __construct(\ReflectionClass $reflection)
@@ -36,7 +37,7 @@ class ClassData
 
     /**
      * Adds property information to class data.
-     * 
+     *
      * @param string $name name of the property
      * @param PropertyData $propertyData property data
      */
@@ -47,7 +48,7 @@ class ClassData
 
     /**
      * Returns property by name.
-     * 
+     *
      * @param string $name property name
      * @return PropertyData information about property
      * @throws InternalError if property not found
@@ -63,7 +64,7 @@ class ClassData
 
     /**
      * Returns all Axessors properties.
-     * 
+     *
      * @return PropertyData[] class' properties
      */
     public function getAllProperties(): array
@@ -73,8 +74,8 @@ class ClassData
 
     /**
      * Returns all Axessors methods names.
-     * 
-     * @param bool $skipPrivate a flag; indicates if private methods are skipped 
+     *
+     * @param bool $skipPrivate a flag; indicates if private methods are skipped
      * @return string[] Axessors methods' names
      */
     public function getAllMethods(bool $skipPrivate = false): array

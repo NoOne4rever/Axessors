@@ -3,7 +3,6 @@
  * This file is a part of "Axessors" library.
  *
  * @author <NoOne4rever@gmail.com>
- * @package NoOne4rever\Axessors
  * @license GPL
  */
 
@@ -11,8 +10,10 @@ namespace NoOne4rever\Axessors;
 
 /**
  * Class CommentLexer.
- * 
+ *
  * Splits Axessors comment into array of possible tokens.
+ * 
+ * @package NoOne4rever\Axessors
  */
 class CommentLexer extends Lexer
 {
