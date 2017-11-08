@@ -19,7 +19,7 @@ use NoOne4rever\Axessors\Types\axs_mixed;
 
 /**
  * Class Parser.
- * 
+ *
  * Analyses tokens from the Axessors comment.
  */
 class Parser
@@ -62,7 +62,7 @@ class Parser
 
     /**
      * Parser constructor.
-     * 
+     *
      * @param \ReflectionProperty $reflection property's reflection
      * @param array $tokens tokens from the Axessors comment
      */
@@ -78,7 +78,7 @@ class Parser
 
     /**
      * Returns property's alias.
-     * 
+     *
      * @return string property's alias
      */
     public function getAlias(): string
@@ -88,7 +88,7 @@ class Parser
 
     /**
      * Generates list of methods for property.
-     * 
+     *
      * @return string[] methods' names
      */
     public function processMethods(): array
@@ -128,7 +128,7 @@ class Parser
 
     /**
      * Creates list of handlers for input data.
-     * 
+     *
      * @return string[] handlers
      */
     public function processInputHandlers(): array
@@ -139,7 +139,7 @@ class Parser
 
     /**
      * Creates list of handlers for output data.
-     * 
+     *
      * @return string[] handlers
      */
     public function processOutputHandlers(): array
@@ -150,7 +150,7 @@ class Parser
 
     /**
      * Creates list of conditions for input data.
-     * 
+     *
      * @return string[] conditions
      */
     public function processInputConditions(): array
@@ -160,7 +160,7 @@ class Parser
 
     /**
      * Creates list of conditions for output data.
-     * 
+     *
      * @return string[] conditions
      */
     public function processOutputConditions(): array
@@ -170,7 +170,7 @@ class Parser
 
     /**
      * Processes access modifiers for getter and setter.
-     * 
+     *
      * @return string[] access modifiers
      */
     public function processAccessModifier(): array
@@ -193,7 +193,7 @@ class Parser
 
     /**
      * Creates type tree.
-     * 
+     *
      * @return array
      * @throws TypeError if type defined in Axessors comment does not match default type of property
      */
@@ -232,7 +232,7 @@ class Parser
 
     /**
      * Returns default type of property.
-     * 
+     *
      * @return string type
      */
     private function getDefaultType(): string
@@ -251,7 +251,7 @@ class Parser
 
     /**
      * Checks if the class defined in the current namespace and fixes class' name.
-     * 
+     *
      * @param string $class class' name
      * @return string full name of class
      */
@@ -266,7 +266,7 @@ class Parser
 
     /**
      * Validates type tree.
-     * 
+     *
      * @param array $tree type tree
      * @throws TypeError the type is not iterateable, but it is defined as array-compatible type
      */
@@ -291,7 +291,7 @@ class Parser
 
     /**
      * Makes type tree form type's string.
-     * 
+     *
      * @param string $typeDefinition type definition
      * @return array type tree
      */
@@ -315,7 +315,7 @@ class Parser
 
     /**
      * Turns short style of access modifier to the full keyword.
-     * 
+     *
      * @param string $sign access modifier sign
      * @return string access modifier
      * @throws InternalError if access modifier is invalid
@@ -336,7 +336,7 @@ class Parser
 
     /**
      * Returns type of variable.
-     * 
+     *
      * @param $var mixed variable
      * @return string type of variable
      */
@@ -351,7 +351,7 @@ class Parser
 
     /**
      * Replaces internal PHP type with an Axessors type.
-     * 
+     *
      * @param string $type type
      * @return string axessors type
      */
@@ -390,7 +390,7 @@ class Parser
 
     /**
      * Creates list of handlers from a string of handlers definition.
-     * 
+     *
      * @param string $handlers handlers
      * @return string[] handlers
      */
@@ -412,7 +412,7 @@ class Parser
 
     /**
      * Creates list of conditions from a string of conditions definition.
-     * 
+     *
      * @param string $conditions conditions
      * @return string[] conditions
      */
@@ -444,7 +444,7 @@ class Parser
 
     /**
      * Processes tokens.
-     * 
+     *
      * @param bool $mode a flag; mode of execution
      * @param int $token1 first token
      * @param int $token2 second token
@@ -464,7 +464,7 @@ class Parser
 
     /**
      * Processes conditions.
-     * 
+     *
      * @param bool $mode mode of execution
      * @return string[] conditions
      */
@@ -475,7 +475,7 @@ class Parser
 
     /**
      * Makes tree of conditions.
-     * 
+     *
      * @param string $conditions string with conditions definition
      * @return array tree of conditions
      */
@@ -497,7 +497,7 @@ class Parser
 
     /**
      * Replaces type delimiters in type definition.
-     * 
+     *
      * @param string $subject string with type definition
      * @return string with replaces delimiters
      */
@@ -519,7 +519,7 @@ class Parser
 
     /**
      * Validates order of statements in Axessors comment.
-     * 
+     *
      * @throws SyntaxError if the statements go in incorrect order
      */
     private function validateStatements(): void
@@ -537,7 +537,7 @@ class Parser
 
     /**
      * Returns normalized keyword with type of access.
-     * 
+     *
      * @param int $token token
      * @return string keyword
      * @throws InternalError if the token with keyword is not valid
@@ -554,7 +554,13 @@ class Parser
             throw new InternalError('not a valid keyword token given');
         }
     }
-    
+
+    /**
+     * Resolves class names in *injected* callbacks and conditions.
+     *
+     * @param string $expression executable string
+     * @return string expression with resolved class names
+     */
     private function resolveClassNames(string $expression): string
     {
         $expression = preg_replace_callback('/"[^"]"|\'[^\']\'/', function (array $matches) {
