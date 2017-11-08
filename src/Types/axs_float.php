@@ -9,13 +9,13 @@
 namespace NoOne4rever\Axessors\Types;
 
 /**
- * Class axs_float
+ * Class axs_float.
  *
  * Replaces internal float type.
  *
  * @package NoOne4rever\Axessors
  */
-class axs_float implements TypeDefinition
+class axs_float extends Numeric
 {
     /**
      * Checks the type of the variable.

@@ -15,7 +15,7 @@ namespace NoOne4rever\Axessors\Types;
  *
  * @package NoOne4rever\Axessors
  */
-class axs_int implements TypeDefinition
+class axs_int extends Numeric
 {
     /**
      * Checks the type of the variable.
@@ -26,31 +26,5 @@ class axs_int implements TypeDefinition
     public static function is($var): bool
     {
         return is_int($var) || (is_float($var) && (int)$var == $var);
-    }
-
-    /**
-     * Axessors method.
-     *
-     * Increments variable.
-     *
-     * @param $var mixed variable
-     * @return int changed integer
-     */
-    public static function m_in_incrementPROPERTY($var): int
-    {
-        return ++$var;
-    }
-
-    /**
-     * Axessors handler.
-     *
-     * Increments variable.
-     *
-     * @param $var mixed variable
-     * @return int changed integer
-     */
-    public static function h_inc($var): int
-    {
-        return ++$var;
     }
 }
