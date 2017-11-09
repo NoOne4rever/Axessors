@@ -49,7 +49,7 @@ trait Axessors
     private static function __axessorsCall(string $method, array $args, $object = null)
     {
         if (method_exists(static::class, $method)) {
-            return call_user_func_array([static::class, $method], $args);
+            return call_user_func_array([$object ?? static::class, $method], $args);
         } else {
             $callProcessor = new CallProcessor(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2), $object);
             return $callProcessor->call($args, $method);
