@@ -13,7 +13,7 @@ build:
   tests:
     before:
       - 'composer self-update'
-      - 'composer --install --prefer-source --no-interaction'
+      - 'composer install --prefer-source --no-interaction'
     override:
       -
         command: 'vendor/bin/phpunit --coverage-clover=clover.xml'
