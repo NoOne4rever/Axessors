@@ -32,12 +32,7 @@ trait Axessors
      */
     public function __call(string $method, array $args)
     {
-        if (method_exists(static::class, $method)) {
-            return call_user_func_array([$this, $method], $args);
-        } else {
-            $callProcessor = new CallProcessor(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2), $this);
-            return $callProcessor->call($args, $method);
-        }
+        return self::__axessorsCall($method, $args, $this);
     }
 
     /**
@@ -50,10 +45,15 @@ trait Axessors
      */
     public static function __callStatic(string $method, array $args)
     {
+        return self::__axessorsCall($method, $args);
+    }
+    
+    private static function __axessorsCall(string $method, array $args, $object = null)
+    {
         if (method_exists(static::class, $method)) {
             return call_user_func_array([static::class, $method], $args);
         } else {
-            $callProcessor = new CallProcessor(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
+            $callProcessor = new CallProcessor(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2), $object);
             return $callProcessor->call($args, $method);
         }
     }

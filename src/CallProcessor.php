@@ -215,9 +215,9 @@ class CallProcessor
             if (strpos($handler, '`') !== false) {
                 $handler = str_replace('\\`', '`', substr($handler, 1, strlen($handler) - 2));
                 if (is_null($this->object)) {
-                    $value = call_user_func("{$this->reflection->name}::__axessorsExecuteStatic", $handler, $value, false);
+                    $value = call_user_func("{$this->reflection->name}::__axessorsExecute", $handler, $value, false);
                 } else {
-                    $value = $this->object->__axessorsExecuteInstance($handler, $value, false);
+                    $value = $this->object->__axessorsExecute($handler, $value, false);
                 }
             } else {
                 foreach ($this->propertyData->getTypeTree() as $type => $subType) {
@@ -303,9 +303,9 @@ class CallProcessor
         if (strpos($condition, '`') !== false) {
             $condition = str_replace('\\`', '`', substr($condition, 1, strlen($condition) - 2));
             if (is_null($this->object)) {
-                return call_user_func("{$this->backtrace['class']}::__axessorsExecuteStatic", $condition, $value, true);
+                return call_user_func("{$this->backtrace['class']}::__axessorsExecute", $condition, $value, true);
             } else {
-                return $this->object->__axessorsExecuteInstance($condition, $value, true);
+                return $this->object->__axessorsExecute($condition, $value, true);
             }
         } else {
             $value = $this->count($value);
