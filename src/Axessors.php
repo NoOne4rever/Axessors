@@ -10,8 +10,6 @@ namespace NoOne4rever\Axessors;
 
 use NoOne4rever\Axessors\Exceptions\ReThrownError;
 
-require_once __DIR__ . '\Axs.php';
-
 /**
  * Trait Axessors.
  *
