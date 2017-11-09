@@ -213,13 +213,12 @@ class CallProcessor
         $handlers = $this->mode ? $this->propertyData->getOutputHandlers() : $this->propertyData->getInputHandlers();
         foreach ($handlers as $handler) {
             if (strpos($handler, '`') !== false) {
-                //$handler = trim($handler, '`');
                 $handler = str_replace('\\`', '`', substr($handler, 1, strlen($handler) - 2));
                 if (is_null($this->object)) {
                     $value = call_user_func([$this->reflection->name, '__axessors_execute_static'], $handler, $value,
                         false);
                 } else {
-                    $value = call_user_func([$this->object, '__axessors_execute_instance'], $handler, $value, false);
+                    $value = $this->object->__axessorsExecuteInstance($handler, $value, false);
                 }
             } else {
                 foreach ($this->propertyData->getTypeTree() as $type => $subType) {
@@ -308,7 +307,7 @@ class CallProcessor
                 return call_user_func([$this->backtrace['class'], '__axessors_execute_static'], $condition, $value,
                     true);
             } else {
-                return call_user_func([$this->object, '__axessors_execute_instance'], $condition, $value, true);
+                return $this->object->__axessorsExecuteInstance($condition, $value, true);
             }
         } else {
             $value = $this->count($value);

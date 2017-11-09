@@ -74,7 +74,7 @@ trait Axessors
         }
     }
     
-    private function __axessorsExecuteInstance(string $code, $_var, bool $mode)
+    public function __axessorsExecuteInstance(string $code, $_var, bool $mode)
     {
         $var = $_var;
         try {
