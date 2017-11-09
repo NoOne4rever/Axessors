@@ -57,23 +57,8 @@ trait Axessors
             return $callProcessor->call($args, $method);
         }
     }
-
-    public function __axessorsExecuteStatic(string $code, $_var, bool $mode)
-    {
-        $var = $_var;
-        try {
-            $result = eval('return ' . $code . ';'); // evaluation of the code written in Axessors comment
-        } catch (\Throwable $error) {
-            throw new ReThrownError("an error occurred while evaluating executable string \"$code\": {$error->getMessage()}");
-        }
-        if ($var != $_var) {
-            return $var;
-        } else {
-            return $mode ? $result : $var;
-        }
-    }
     
-    public function __axessorsExecuteInstance(string $code, $_var, bool $mode)
+    public function __axessorsExecute(string $code, $_var, bool $mode)
     {
         $var = $_var;
         try {
