@@ -1,4 +1,4 @@
-<phpunit bootstrap="C:\Users\NoOne\Documents\GitHub\Axessors\vendor\autoload.php">
+<phpunit bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="Axessors">
             <directory>tests</directory>
@@ -6,12 +6,12 @@
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">C:\Users\NoOne\Documents\GitHub\Axessors\src\</directory>
-            <exclude>
-                <directory>C:\Users\NoOne\Documents\GitHub\Axessors\examples</directory>
-                <directory>C:\Users\NoOne\Documents\GitHub\Axessors\tests</directory>
-                <directory>C:\Users\NoOne\Documents\GitHub\Axessors\vendor</directory>
-            </exclude>
+            <directory suffix=".php">src/</directory>
         </whitelist>
+        <exclude>
+            <directory>examples/</directory>
+            <directory>tests/</directory>
+            <directory>vendor/</directory>
+        </exclude>
     </filter>
 </phpunit>
