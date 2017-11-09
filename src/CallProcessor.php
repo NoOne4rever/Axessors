@@ -215,8 +215,7 @@ class CallProcessor
             if (strpos($handler, '`') !== false) {
                 $handler = str_replace('\\`', '`', substr($handler, 1, strlen($handler) - 2));
                 if (is_null($this->object)) {
-                    $value = call_user_func([$this->reflection->name, '__axessors_execute_static'], $handler, $value,
-                        false);
+                    $value = call_user_func("{$this->reflection->name}::__axessorsExecuteStatic", $handler, $value, false);
                 } else {
                     $value = $this->object->__axessorsExecuteInstance($handler, $value, false);
                 }
@@ -304,8 +303,7 @@ class CallProcessor
         if (strpos($condition, '`') !== false) {
             $condition = str_replace('\\`', '`', substr($condition, 1, strlen($condition) - 2));
             if (is_null($this->object)) {
-                return call_user_func([$this->backtrace['class'], '__axessors_execute_static'], $condition, $value,
-                    true);
+                return call_user_func("{$this->backtrace['class']}::__axessorsExecuteStatic", $condition, $value, true);
             } else {
                 return $this->object->__axessorsExecuteInstance($condition, $value, true);
             }
