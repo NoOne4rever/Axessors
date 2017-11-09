@@ -1,6 +1,4 @@
 language: php
 php:
   - 7.1
-env:
-  CODECLIMATE_REPO_TOKEN: 5203250f8fbb1827ce44ffd7e8a2cfc8bdbd0b68d0313c9c441dbaaea28aa479
 script: phpunit
