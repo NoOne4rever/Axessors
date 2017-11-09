@@ -1,7 +1,10 @@
 language: php
+
 php:
   - 7.1
-befire_script:
+
+before_script:
   - composer self-update
   - composer install --no-interaction --prefer-source --dev
+
 script: phpunit
