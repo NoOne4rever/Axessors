@@ -13,6 +13,7 @@ build:
   tests:
     before:
       - 'composer self-update'
+      - 'composer install phpunit/phpunit'
       - 'composer install --prefer-source --no-interaction'
     override:
       -
