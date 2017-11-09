@@ -36,17 +36,7 @@ trait Axessors
             return call_user_func_array([$this, $method], $args);
         } elseif ($method == '__axessors_execute_instance') {
             list($code, $_var, $mode) = $args;
-            $var = $_var;
-            try {
-                $result = eval('return ' . $code . ';'); // evaluation of the code written in Axessors comment
-            } catch (\Throwable $error) {
-                throw new ReThrownError("an error occurred while evaluating executable string \"$code\": {$error->getMessage()}");
-            }
-            if ($var != $_var) {
-                return $var;
-            } else {
-                return $mode ? $result : $var;
-            }
+            return $this->__axessorsExecuteInstance($code, $_var, $mode);
         } else {
             $callProcessor = new CallProcessor(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2), $this);
             return $callProcessor->call($args, $method);
@@ -81,6 +71,21 @@ trait Axessors
         } else {
             $callProcessor = new CallProcessor(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
             return $callProcessor->call($args, $method);
+        }
+    }
+    
+    private function __axessorsExecuteInstance(string $code, $_var, bool $mode)
+    {
+        $var = $_var;
+        try {
+            $result = eval('return ' . $code . ';'); // evaluation of the code written in Axessors comment
+        } catch (\Throwable $error) {
+            throw new ReThrownError("an error occurred while evaluating executable string \"$code\": {$error->getMessage()}");
+        }
+        if ($var != $_var) {
+            return $var;
+        } else {
+            return $mode ? $result : $var;
         }
     }
 }
