@@ -113,7 +113,8 @@ class CallProcessor
             $value = is_null($this->object) ? $propertyData->reflection->getValue() : $propertyData->reflection->getValue($this->object);
             $this->checkType($this->propertyData->getTypeTree(), $value);
             $propertyData->reflection->setAccessible(false);
-            if ($this->processConditions($value)) {
+            $conditionsSuit = new ConditionsSuit(ConditionsSuit::GETTER_MODE, $this->propertyData, $this->class, $this->method, $this->object);
+            if ($conditionsSuit->processConditions($value)) {
                 $value = $this->executeHandlers($value);
                 return $value;
             } else {
@@ -122,7 +123,8 @@ class CallProcessor
         } elseif ($prefix == 'set') {
             $this->mode = false;
             $this->checkType($this->propertyData->getTypeTree(), $args[0]);
-            if ($this->processConditions($args[0])) {
+            $conditionsSuit = new ConditionsSuit(ConditionsSuit::SETTER_MODE, $this->propertyData, $this->class, $this->method, $this->object);
+            if ($conditionsSuit->processConditions($args[0])) {
                 $propertyData->reflection->setAccessible(true);
                 $value = $this->executeHandlers($args[0]);
                 is_null($this->object) ? $propertyData->reflection->setValue($value) : $propertyData->reflection->setValue($this->object,
@@ -235,112 +237,6 @@ class CallProcessor
                 }
                 throw new OopError("property {$this->backtrace['class']}::\${$this->propertyData->getName()} does not have handler \"$handler\"");
             }
-        }
-        return $value;
-    }
-
-    /**
-     * Checks the conditions defined in the Axessors comment.
-     *
-     * Creates logical tree of the conditions and then checks if the general result is true.
-     *
-     * @param $value mixed value of the property
-     * @return bool result of checking of the conditions
-     */
-    private function processConditions($value): bool
-    {
-        $conditions = $this->calculateConditions($value);
-        if (empty($conditions)) {
-            return true;
-        }
-        foreach ($conditions as $condition) {
-            if (is_array($condition)) {
-                foreach ($condition as $subCondition) {
-                    if (!$subCondition) {
-                        continue 2;
-                    }
-                }
-                return true;
-            }
-            if ($condition) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Calculates every condition defined in the Axessors comment.
-     *
-     * @param $value mixed value of the property
-     * @return bool[] results of the conditions
-     */
-    private function calculateConditions($value): array
-    {
-        $calculatedConditions = [];
-        $conditions = $this->mode ? $this->propertyData->getOutputConditions() : $this->propertyData->getInputConditions();
-        foreach ($conditions as $number => $complexCondition) {
-            if (is_array($complexCondition)) {
-                foreach ($complexCondition as $condition) {
-                    $calculatedConditions[$number][] = $this->executeCondition($condition, $value);
-                }
-            } else {
-                $calculatedConditions[$number] = $this->executeCondition($complexCondition, $value);
-            }
-        }
-        return $calculatedConditions;
-    }
-
-    /**
-     * Calculates a condition defined in the Axessors comment.
-     *
-     * @param $condition string the condition
-     * @param $value mixed value of the property
-     * @return bool result of the condition
-     */
-    private function executeCondition(string $condition, $value): bool
-    {
-        if (strpos($condition, '`') !== false) {
-            $condition = str_replace('\\`', '`', substr($condition, 1, strlen($condition) - 2));
-            if (is_null($this->object)) {
-                return call_user_func("{$this->backtrace['class']}::__axessorsExecute", $condition, $value, true);
-            } else {
-                return $this->object->__axessorsExecute($condition, $value, true);
-            }
-        } else {
-            $value = $this->count($value);
-            if (strpos($condition, '..') !== false) {
-                $condition = explode('..', $condition);
-                $condition = "<= {$condition[1]} && $value >= {$condition[0]}";
-            }
-            return eval("return $value $condition;");
-        }
-    }
-
-    /**
-     * Casts the property to integer.
-     *
-     * If the property is string or array returns it's length.
-     * If the property is integer of float returns the property itself.
-     *
-     * @param $value mixed value of the property
-     * @return int integer value of the property
-     * @throws TypeError if the property can't be turned into integer
-     */
-    private function count($value): int
-    {
-        switch (gettype($value)) {
-            case 'integer':
-            case 'float':
-                break;
-            case 'string':
-                $value = strlen($value);
-                break;
-            case 'array':
-                $value = count($value);
-                break;
-            default:
-                throw new TypeError('value "' . var_export($value, true) . "\" passed to {$this->backtrace['class']}::{$this->method}() is not countable");
         }
         return $value;
     }
