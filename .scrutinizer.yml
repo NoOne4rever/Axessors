@@ -9,15 +9,5 @@ filter:
 
 build:
   environment:
-    php: '7.1.6'
-  tests:
-    before:
-      - 'composer self-update'
-      - 'composer install phpunit/phpunit'
-      - 'composer install --prefer-source --no-interaction'
-    override:
-      -
-        command: 'vendor/bin/phpunit --coverage-clover=clover.xml'
-        coverage:
-          file: 'clover.xml'
-          format: 'clover'
+    php:
+      version: '7.1.6'
