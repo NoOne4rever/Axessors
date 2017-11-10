@@ -113,9 +113,10 @@ class CallProcessor
             $value = is_null($this->object) ? $propertyData->reflection->getValue() : $propertyData->reflection->getValue($this->object);
             $this->checkType($this->propertyData->getTypeTree(), $value);
             $propertyData->reflection->setAccessible(false);
-            $conditionsSuit = new ConditionsSuit(ConditionsSuit::GETTER_MODE, $this->propertyData, $this->class, $this->method, $this->object);
+            $conditionsSuit = new ConditionsSuit(RunningSuit::OUTPUT_MODE, $this->propertyData, $this->class, $this->method, $this->object);
             if ($conditionsSuit->processConditions($value)) {
-                $value = $this->executeHandlers($value);
+                $handlersSuit = new HandlersSuit(RunningSuit::OUTPUT_MODE, $this->propertyData, $this->class, $this->object);
+                $value = $handlersSuit->executeHandlers($value);
                 return $value;
             } else {
                 throw new AxessorsError("conditions for {$this->backtrace['class']}::{$this->method}() did not pass");
@@ -123,10 +124,11 @@ class CallProcessor
         } elseif ($prefix == 'set') {
             $this->mode = false;
             $this->checkType($this->propertyData->getTypeTree(), $args[0]);
-            $conditionsSuit = new ConditionsSuit(ConditionsSuit::SETTER_MODE, $this->propertyData, $this->class, $this->method, $this->object);
+            $conditionsSuit = new ConditionsSuit(RunningSuit::INPUT_MODE, $this->propertyData, $this->class, $this->method, $this->object);
             if ($conditionsSuit->processConditions($args[0])) {
                 $propertyData->reflection->setAccessible(true);
-                $value = $this->executeHandlers($args[0]);
+                $handlersSuit = new HandlersSuit(RunningSuit::INPUT_MODE, $this->propertyData, $this->class, $this->object);
+                $value = $handlersSuit->executeHandlers($args[0]);
                 is_null($this->object) ? $propertyData->reflection->setValue($value) : $propertyData->reflection->setValue($this->object,
                     $value);
                 $propertyData->reflection->setAccessible(false);
@@ -201,44 +203,6 @@ class CallProcessor
             }
         }
         throw new TypeError("not a valid type of {$this->backtrace['class']}::\${$this->propertyData->getName()}");
-    }
-
-    /**
-     * Executes handlers defined in the Axessors comment.
-     *
-     * @param $value mixed value of the property
-     * @return mixed new value of the property
-     * @throws OopError if the property does not have one of the handlers defined in the Axessors comment
-     */
-    private function executeHandlers($value)
-    {
-        $handlers = $this->mode ? $this->propertyData->getOutputHandlers() : $this->propertyData->getInputHandlers();
-        foreach ($handlers as $handler) {
-            if (strpos($handler, '`') !== false) {
-                $handler = str_replace('\\`', '`', substr($handler, 1, strlen($handler) - 2));
-                if (is_null($this->object)) {
-                    $value = call_user_func("{$this->reflection->name}::__axessorsExecute", $handler, $value, false);
-                } else {
-                    $value = $this->object->__axessorsExecute($handler, $value, false);
-                }
-            } else {
-                foreach ($this->propertyData->getTypeTree() as $type => $subType) {
-                    $reflection = new \ReflectionClass('\Axessors\Types\\' . is_int($type) ? $subType : $type);
-                    foreach ($reflection->getMethods() as $method) {
-                        $isAccessible = $method->isPublic() && $method->isStatic() && !$method->isAbstract();
-                        $isThat = call_user_func([$reflection->name, 'is'], $value);
-                        if ($isAccessible && $isThat && "h_$handler" == $method->name) {
-                            $value = call_user_func([$reflection->name, $method->name], $value, false);
-                            continue 3;
-                        } elseif ($isAccessible && "h_$handler" == $method->name && !$isThat) {
-                            continue 3;
-                        }
-                    }
-                }
-                throw new OopError("property {$this->backtrace['class']}::\${$this->propertyData->getName()} does not have handler \"$handler\"");
-            }
-        }
-        return $value;
     }
 
     /**
