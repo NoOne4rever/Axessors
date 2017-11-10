@@ -51,7 +51,7 @@ trait Axessors
         if (method_exists(static::class, $method)) {
             return call_user_func_array([$object ?? static::class, $method], $args);
         } else {
-            $callProcessor = new CallProcessor(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2), $object);
+            $callProcessor = new CallProcessor(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), $object);
             return $callProcessor->call($args, $method);
         }
     }
