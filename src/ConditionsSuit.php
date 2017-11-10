@@ -17,19 +17,8 @@ use NoOne4rever\Axessors\Exceptions\TypeError;
  * 
  * @package NoOne4rever\Axessors
  */
-class ConditionsSuit
+class ConditionsSuit extends RunningSuit
 {
-    public const SETTER_MODE = 4;
-    public const GETTER_MODE = 8;
-    
-    /** @var object|null object */
-    private $object;
-    /** @var PropertyData property data */
-    private $propertyData;
-    /** @var int mode of execution */
-    private $runningMode;
-    /** @var string class */
-    private $class;
     /** @var string method name */
     private $method;
 
@@ -44,10 +33,7 @@ class ConditionsSuit
      */
     public function __construct(int $mode, PropertyData $data, string $class, string $method, $object = null)
     {
-        $this->runningMode = $mode;
-        $this->propertyData = $data;
-        $this->object = $object;
-        $this->class = $class;
+        parent::__construct($mode, $data, $class, $object);
         $this->method = $method;
     }
 
@@ -90,7 +76,7 @@ class ConditionsSuit
     private function calculateConditions($value): array
     {
         $calculatedConditions = [];
-        $conditions = $this->runningMode == self::GETTER_MODE ? $this->propertyData->getOutputConditions() : $this->propertyData->getInputConditions();
+        $conditions = $this->mode == RunningSuit::OUTPUT_MODE ? $this->propertyData->getOutputConditions() : $this->propertyData->getInputConditions();
         foreach ($conditions as $number => $complexCondition) {
             if (is_array($complexCondition)) {
                 foreach ($complexCondition as $condition) {
