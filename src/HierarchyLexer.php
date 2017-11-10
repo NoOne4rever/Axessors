@@ -102,6 +102,6 @@ class HierarchyLexer extends Lexer
      */
     private function isAxsMethod(): bool
     {
-        return preg_match('{^\s*#}', $this->currentLine);
+        return (bool)preg_match('{^\s*#}', $this->currentLine);
     }
 }

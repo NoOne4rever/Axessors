@@ -340,7 +340,7 @@ class CallProcessor
                 $value = count($value);
                 break;
             default:
-                throw new TypeError('value "' . var_export($value) . "\" passed to {$this->backtrace['class']}::{$this->method}() is not countable");
+                throw new TypeError('value "' . var_export($value, true) . "\" passed to {$this->backtrace['class']}::{$this->method}() is not countable");
         }
         return $value;
     }
@@ -351,6 +351,7 @@ class CallProcessor
      * @param string $accessModifier access modifier
      * @param \ReflectionClass $reflection class data
      * @return bool result of the checkout
+     * @throws InternalError if not a valid it's impossible to check accessibility.
      */
     private function isAccessible(string $accessModifier, \ReflectionClass $reflection): bool
     {
@@ -369,6 +370,7 @@ class CallProcessor
         if ($accessModifier == 'protected') {
             return ($isThis && $inThisFile) || ($isThis && $inBranchFile) || ($isThisBranch && $inBranchFile);
         }
+        throw new InternalError('not a valid access modifier given');
     }
 
     /**

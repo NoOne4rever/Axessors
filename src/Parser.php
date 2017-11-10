@@ -72,7 +72,7 @@ class Parser
         $this->reflection = $reflection;
         $this->tokens = $tokens;
         $this->namespace = $reflection->getDeclaringClass()->getNamespaceName();
-        $this->readableFirst = preg_match('{^(rdb|readable)$}', $this->tokens[self::KEYWORD_1]);
+        $this->readableFirst = (bool)preg_match('{^(rdb|readable)$}', $this->tokens[self::KEYWORD_1]);
         $this->validateStatements();
         $this->processAlias();
     }
@@ -220,8 +220,6 @@ class Parser
             }
         } else {
             if ($type == 'NULL') {
-                var_dump($type);
-                var_dump($this->tokens);
                 throw new TypeError('type not defined');
             } else {
                 $this->typeTree = [$type];
@@ -415,7 +413,7 @@ class Parser
      * Creates list of conditions from a string of conditions definition.
      *
      * @param string $conditions conditions
-     * @return string[] conditions
+     * @return array conditions
      */
     private function explodeConditions(string $conditions): array
     {

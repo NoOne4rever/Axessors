@@ -108,7 +108,7 @@ class CommentLexer extends Lexer
      */
     private function isAxsPropertyDef(): bool
     {
-        return preg_match('{^\s*(public|private|protected)\s+(static\s+)?\$[a-zA-Z_][a-zA-Z0-9_]*.*?;\s+#>}',
+        return (bool)preg_match('{^\s*(public|private|protected)\s+(static\s+)?\$[a-zA-Z_][a-zA-Z0-9_]*.*?;\s+#>}',
             $this->currentLine);
     }
 }
