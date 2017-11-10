@@ -63,18 +63,18 @@ class MethodRunner extends RunningSuit
             return;
         } else {
             $this->method = str_replace(ucfirst($this->propertyData->getName()), 'PROPERTY', $this->method);
-            return $this->executeAxessorsMethod($args);
+            return $this->runAxessorsMethod($args);
         }
     }
 
     /**
-     * Executes Axessors method.
+     * Searches and runs Axessors method.
      *
      * @param array $args method parameters
      * @return mixed result of function
      * @throws AxessorsError if requested method not found
      */
-    private function executeAxessorsMethod(array $args)
+    private function runAxessorsMethod(array $args)
     {
         $this->propertyData->reflection->setAccessible(true);
         $value = $this->propertyData->reflection->getValue($this->object);
@@ -86,20 +86,34 @@ class MethodRunner extends RunningSuit
                 if (!($method->isStatic() && $method->isPublic() && !$method->isAbstract())) {
                     continue;
                 }
-                if ($method->name == "m_in_$this->method") {
-                    // add support for static properties
-                    $this->propertyData->reflection->setValue($this->object,
-                        call_user_func([$type, "m_in_$this->method"], $value, $args));
-                    $this->propertyData->reflection->setAccessible(false);
-                    return;
-                } elseif ($method->name == "m_out_$this->method") {
-                    $result = call_user_func([$type, "m_out_$this->method"], $value, $args);
-                    $this->propertyData->reflection->setAccessible(false);
-                    return $result;
-                }
+                return $this->executeAxessorsMethod($type, $method->name, $value, $args);
             }
         }
         throw new AxessorsError("method {$this->class}::{$this->method}() not found");
+    }
+
+    /**
+     * Executes Axessors method.
+     * 
+     * @param string $type type name
+     * @param string $name method name
+     * @param mixed $value value to read/write 
+     * @param array $args arguments
+     * @return mixed function result
+     */
+    private function executeAxessorsMethod(string $type, string $name, $value, array $args)
+    {
+        if ($name == "m_in_$this->method") {
+            // add support for static properties
+            $this->propertyData->reflection->setValue($this->object,
+                call_user_func([$type, "m_in_$this->method"], $value, $args));
+            $this->propertyData->reflection->setAccessible(false);
+            return;
+        } elseif ($name == "m_out_$this->method") {
+            $result = call_user_func([$type, "m_out_$this->method"], $value, $args);
+            $this->propertyData->reflection->setAccessible(false);
+            return $result;
+        }        
     }
 
     /**
