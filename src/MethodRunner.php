@@ -83,9 +83,7 @@ class MethodRunner extends RunningSuit
             $type = is_int($type) ? $subType : $type;
             $reflection = new \ReflectionClass($type);
             foreach ($reflection->getMethods() as $method) {
-                if (!($method->isStatic() && $method->isPublic() && !$method->isAbstract())) {
-                    continue;
-                } elseif ($method->name === "m_in_$this->method" || $method->name === "m_out_$this->method") {
+                if ($this->isCalledAxessorsMethod($method)) {
                     return $this->executeAxessorsMethod($type, $method->name, $value, $args);
                 }
             }
@@ -93,6 +91,13 @@ class MethodRunner extends RunningSuit
         throw new AxessorsError("method {$this->class}::{$this->method}() not found");
     }
 
+    private function isCalledAxessorsMethod(\ReflectionMethod $method): bool 
+    {
+        $isAccessible = $method->isStatic() && $method->isPublic() && !$method->isAbstract();
+        $isCalled = $method->name === "m_in_$this->method" || $method->name === "m_out_$this->method";
+        return $isAccessible && $isCalled;
+    }
+    
     /**
      * Executes Axessors method.
      *

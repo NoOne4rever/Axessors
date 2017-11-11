@@ -14,34 +14,6 @@ use NoOne4rever\Axessors\Exceptions\OopError;
 
 require 'C:/Users/NoOne/Documents/GitHub/Axessors/vendor/autoload.php';
 
-/** Class ParentClass. */
-class ParentClass
-{
-    /** Tests a method with public access. */
-    public function testPublic(): void
-    {
-        $sample = new SampleClass();
-        $sample->setPublicAccess('public:parent');
-        echo $sample->getPublicAccess();
-    }
-
-    /** Tests a method with protected access. */
-    public function testProtected(): void
-    {
-        $sample = new SampleClass();
-        $sample->setProtectedAccess('protected:parent');
-        echo $sample->getProtectedAccess();
-    }
-
-    /** Tests a method with private access. */
-    public function testPrivate(): void
-    {
-        $sample = new SampleClass();
-        $sample->setPrivateAccess('private:parent');
-        echo $sample->getPrivateAccess();
-    }
-}
-
 /**
  * Class SampleClass.
  *
@@ -52,7 +24,7 @@ class ParentClass
  * @method void setProtectedAccess(mixed $val) setter for $protectedAccess
  * @method void setPrivateAccess(mixed $val) setter for $privateAccess
  */
-class SampleClass extends ParentClass
+class SampleClass
 {
     use Axessors;
 
@@ -130,23 +102,6 @@ class ChildClass extends SampleClass
 
 require 'C:/Users/NoOne/Documents/GitHub/Axessors/src/Startup.php';
 
-// Testing parent:
-
-$parent = new ParentClass();
-
-$parent->testPublic();
-echo PHP_EOL;
-
-$parent->testProtected();
-echo PHP_EOL;
-
-try {
-    $parent->testPrivate();
-} catch (OopError $error) {
-    echo $error->getMessage();
-}
-echo PHP_EOL;
-
 // Testing TestCase:
 
 $sample = new SampleClass();
@@ -158,9 +113,6 @@ $sample->testProtected();
 echo PHP_EOL;
 
 $sample->testPrivate();
-echo PHP_EOL;
-
-$sample->testInstance();
 echo PHP_EOL;
 
 // Testing child:
@@ -178,9 +130,6 @@ try {
 } catch (OopError $error) {
     echo $error->getMessage() . PHP_EOL;
 }
-
-$child->testInstance();
-echo PHP_EOL;
 
 // Global usage tests:
 
