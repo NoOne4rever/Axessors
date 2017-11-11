@@ -59,7 +59,8 @@ class PropertyData
         $this->handlersIn = $handlersProcessor->processInputHandlers();
         $this->handlersOut = $handlersProcessor->processOutputHandlers();
         $this->alias = $parser->getAlias();
-        $this->methods = $parser->processMethods($typeProcessor->getTypeTree());
+        $methodsProcessor = new MethodsProcessor($this->accessibility['write'] ?? '', $this->accessibility['read'] ?? '', $this->getAlias());
+        $this->methods = $methodsProcessor->processMethods($typeProcessor->getTypeTree());
     }
 
     /**
