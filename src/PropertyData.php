@@ -49,13 +49,15 @@ class PropertyData
         $this->reflection = $reflection;
 
         $this->accessibility = $parser->processAccessModifier();
-        $this->type = $parser->processType();
+        
+        $typeProcessor = new TypeProcessor($parser->getReflection(), $parser->getNamespace(), $parser->getTypeDef());
+        $this->type = $typeProcessor->processType();
         $this->conditionsIn = $parser->processInputConditions();
         $this->conditionsOut = $parser->processOutputConditions();
         $this->handlersIn = $parser->processInputHandlers();
         $this->handlersOut = $parser->processOutputHandlers();
         $this->alias = $parser->getAlias();
-        $this->methods = $parser->processMethods();
+        $this->methods = $parser->processMethods($typeProcessor->getTypeTree());
     }
 
     /**
