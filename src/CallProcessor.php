@@ -26,10 +26,11 @@ class CallProcessor
     private $method;
     /** @var mixed|null an object */
     private $object;
-    /** @var mixed call stack */
-    private $backtrace;
     /** @var string class name */
     private $class;
+    private $line;
+    private $file;
+    private $callingClass;
     /** @var \ReflectionClass class data */
     private $reflection;
 
@@ -43,7 +44,9 @@ class CallProcessor
     {
         $this->object = $object;
         $this->class = $backtrace[0]['class'];
-        $this->backtrace = $backtrace[count($backtrace) - 1];
+        $this->line = $backtrace[1]['line'];
+        $this->file = $backtrace[1]['file'];
+        $this->callingClass = $backtrace[1]['class'];
     }
 
     /**
@@ -113,22 +116,18 @@ class CallProcessor
      */
     private function isAccessible(string $accessModifier, \ReflectionClass $reflection): bool
     {
-        if ($accessModifier == 'public') {
+        if ($accessModifier === 'public') {
             return true;
         }
-        $isThis = $reflection->name == $this->backtrace['class'];
-        $inThisFile = $this->backtrace['file'] == $reflection->getFileName() && $this->in($reflection);
-        if ($accessModifier == 'private') {
-            return $isThis && $inThisFile;
+        $isCalledClass = $this->callingClass === $reflection->name;
+        $inCalledClass = $this->file === $reflection->getFileName() && $this->in($reflection);
+        if ($accessModifier === 'private') {
+            return $isCalledClass && $inCalledClass;
         }
-        $isThisBranch = is_subclass_of($this->backtrace['class'], $reflection->name) || is_subclass_of($reflection->name,
-                $this->backtrace['class']);
-        $reflection = new \ReflectionClass($this->class);
-        $inBranchFile = $this->backtrace['file'] == $reflection->getFileName() && $this->in(new \ReflectionClass($this->backtrace['class']));
-        if ($accessModifier == 'protected') {
-            return ($isThis && $inThisFile) || ($isThis && $inBranchFile) || ($isThisBranch && $inBranchFile);
-        }
-        throw new InternalError('not a valid access modifier given');
+        $isSubclass = is_subclass_of($this->callingClass, $reflection->name);
+        $reflection = new \ReflectionClass($this->callingClass);
+        $inSubclass = $this->file === $reflection->getFileName() && $this->in($reflection);
+        return ($isSubclass && $inSubclass) || ($isCalledClass && $inCalledClass); 
     }
 
     /**
@@ -139,6 +138,6 @@ class CallProcessor
      */
     private function in(\ReflectionClass $reflection): bool
     {
-        return $reflection->getStartLine() <= $this->backtrace['line'] && $reflection->getEndLine() >= $this->backtrace['line'];
+        return $reflection->getStartLine() <= $this->line && $reflection->getEndLine() >= $this->line;
     }
 }
