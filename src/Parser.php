@@ -95,6 +95,16 @@ class Parser
         return $this->tokens[$this->readableFirst ? self::CONDITIONS_1 : self::CONDITIONS_2] ?? '';
     }
     
+    public function getInHandlers(): string 
+    {
+        return $this->tokens[$this->readableFirst ? self::HANDLERS_2 : self::HANDLERS_1] ?? '';
+    }
+
+    public function getOutHandlers(): string
+    {
+        return $this->tokens[$this->readableFirst ? self::HANDLERS_1 : self::HANDLERS_2] ?? '';
+    }
+    
     /**
      * Returns property's alias.
      *
@@ -148,28 +158,6 @@ class Parser
     }
 
     /**
-     * Creates list of handlers for input data.
-     *
-     * @return string[] handlers
-     */
-    public function processInputHandlers(): array
-    {
-        return $this->processTokens(!$this->readableFirst, self::HANDLERS_1, self::HANDLERS_2,
-            [$this, 'makeHandlersList']);
-    }
-
-    /**
-     * Creates list of handlers for output data.
-     *
-     * @return string[] handlers
-     */
-    public function processOutputHandlers(): array
-    {
-        return $this->processTokens($this->readableFirst, self::HANDLERS_1, self::HANDLERS_2,
-            [$this, 'makeHandlersList']);
-    }
-
-    /**
      * Processes access modifiers for getter and setter.
      *
      * @return string[] access modifiers
@@ -218,49 +206,6 @@ class Parser
                 return 'private';
             default:
                 throw new InternalError('not a valid access modifier given');
-        }
-    }
-
-    /**
-     * Creates list of handlers from a string of handlers definition.
-     *
-     * @param string $handlers handlers
-     * @return string[] handlers
-     */
-    private function makeHandlersList(string $handlers): array
-    {
-        $result = preg_replace_callback(
-            '{`([^`]|\\\\`)+((?<!\\\\)`)}',
-            function (array $matches) {
-                return addcslashes($matches[0], ',');
-            },
-            $handlers
-        );
-        $result = preg_split('{(?<!\\\\),\s*}', $result);
-        foreach ($result as &$handler) {
-            $injProcessor = new InjectedStringParser(stripcslashes($handler));
-            $handler = $injProcessor->resolveClassNames($this->namespace);
-        }
-        return $result;
-    }
-
-    /**
-     * Processes tokens.
-     *
-     * @param bool $mode a flag; mode of execution
-     * @param int $token1 first token
-     * @param int $token2 second token
-     * @param callable $callback special callback
-     * @return string[] normalized array of Axessors tokens
-     */
-    private function processTokens(bool $mode, int $token1, int $token2, callable $callback): array
-    {
-        if ($mode && isset($this->tokens[$token1])) {
-            return $callback($this->tokens[$token1]);
-        } elseif (!$mode && isset($this->tokens[$token2])) {
-            return $callback($this->tokens[$token2]);
-        } else {
-            return [];
         }
     }
 
