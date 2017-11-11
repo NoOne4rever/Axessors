@@ -85,8 +85,9 @@ class MethodRunner extends RunningSuit
             foreach ($reflection->getMethods() as $method) {
                 if (!($method->isStatic() && $method->isPublic() && !$method->isAbstract())) {
                     continue;
+                } elseif ($method->name === "m_in_$this->method" || $method->name === "m_out_$this->method") {
+                    return $this->executeAxessorsMethod($type, $method->name, $value, $args);
                 }
-                return $this->executeAxessorsMethod($type, $method->name, $value, $args);
             }
         }
         throw new AxessorsError("method {$this->class}::{$this->method}() not found");
@@ -94,10 +95,10 @@ class MethodRunner extends RunningSuit
 
     /**
      * Executes Axessors method.
-     * 
+     *
      * @param string $type type name
      * @param string $name method name
-     * @param mixed $value value to read/write 
+     * @param mixed $value value to read/write
      * @param array $args arguments
      * @return mixed function result
      */
@@ -113,7 +114,7 @@ class MethodRunner extends RunningSuit
             $result = call_user_func([$type, "m_out_$this->method"], $value, $args);
             $this->propertyData->reflection->setAccessible(false);
             return $result;
-        }        
+        }
     }
 
     /**
