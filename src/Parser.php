@@ -85,6 +85,16 @@ class Parser
         return $this->reflection;
     }
 
+    public function getInConditions(): string 
+    {
+        return $this->tokens[$this->readableFirst ? self::CONDITIONS_2 : self::CONDITIONS_1] ?? '';
+    }
+    
+    public function getOutConditions(): string 
+    {
+        return $this->tokens[$this->readableFirst ? self::CONDITIONS_1 : self::CONDITIONS_2] ?? '';
+    }
+    
     /**
      * Returns property's alias.
      *
@@ -160,26 +170,6 @@ class Parser
     }
 
     /**
-     * Creates list of conditions for input data.
-     *
-     * @return string[] conditions
-     */
-    public function processInputConditions(): array
-    {
-        return $this->processConditions(!$this->readableFirst);
-    }
-
-    /**
-     * Creates list of conditions for output data.
-     *
-     * @return string[] conditions
-     */
-    public function processOutputConditions(): array
-    {
-        return $this->processConditions($this->readableFirst);
-    }
-
-    /**
      * Processes access modifiers for getter and setter.
      *
      * @return string[] access modifiers
@@ -248,39 +238,8 @@ class Parser
         );
         $result = preg_split('{(?<!\\\\),\s*}', $result);
         foreach ($result as &$handler) {
-            $handler = $this->resolveClassNames(stripcslashes($handler));
-        }
-        return $result;
-    }
-
-    /**
-     * Creates list of conditions from a string of conditions definition.
-     *
-     * @param string $conditions conditions
-     * @return array conditions
-     */
-    private function explodeConditions(string $conditions): array
-    {
-        $result = [];
-        $conditions = preg_replace_callback(
-            '{`([^`]|\\\\`)+((?<!\\\\)`)}',
-            function (array $matches) {
-                return addcslashes($matches[0], '&|');
-            },
-            $conditions
-        );
-        $conditions = preg_split('{\s*\|\|\s*}', $conditions);
-        foreach ($conditions as $condition) {
-            $result[] = preg_split('{\s*&&\s*}', $condition);
-        }
-        foreach ($result as $number => &$complexCondition) {
-            if (is_array($complexCondition)) {
-                foreach ($complexCondition as $num => &$condition) {
-                    $condition = stripcslashes($condition);
-                }
-            } else {
-                $complexCondition = stripcslashes($complexCondition);
-            }
+            $injProcessor = new InjectedStringParser(stripcslashes($handler));
+            $handler = $injProcessor->resolveClassNames($this->namespace);
         }
         return $result;
     }
@@ -303,39 +262,6 @@ class Parser
         } else {
             return [];
         }
-    }
-
-    /**
-     * Processes conditions.
-     *
-     * @param bool $mode mode of execution
-     * @return string[] conditions
-     */
-    private function processConditions(bool $mode): array
-    {
-        return $this->processTokens($mode, self::CONDITIONS_1, self::CONDITIONS_2, [$this, 'makeConditionsTree']);
-    }
-
-    /**
-     * Makes tree of conditions.
-     *
-     * @param string $conditions string with conditions definition
-     * @return array tree of conditions
-     */
-    private function makeConditionsTree(string $conditions): array
-    {
-        $result = [];
-        $conditions = $this->explodeConditions($conditions);
-        foreach ($conditions as $number => $condition) {
-            foreach ($condition as $token) {
-                if (count($condition) === 1) {
-                    $result[] = $this->resolveClassNames($token);
-                } else {
-                    $result[$number][] = $token;
-                }
-            }
-        }
-        return $result;
     }
 
     /**
@@ -374,23 +300,5 @@ class Parser
         } else {
             throw new InternalError('not a valid keyword token given');
         }
-    }
-
-    /**
-     * Resolves class names in *injected* callbacks and conditions.
-     *
-     * @param string $expression executable string
-     * @return string expression with resolved class names
-     */
-    private function resolveClassNames(string $expression): string
-    {
-        $expression = preg_replace_callback('/"[^"]"|\'[^\']\'/', function (array $matches) {
-            return str_replace(':', ':\\', $matches[0]);
-        }, $expression);
-        $expression = preg_replace('/(?<!:):(?=([a-zA-Z_][a-zA-Z0-9_]*))/', "$this->namespace\\", $expression);
-        $expression = preg_replace_callback('/"[^"]"|\'[^\']\'/', function (array $matches) {
-            return str_replace(':\\', ':', $matches[0]);
-        }, $expression);
-        return $expression;
     }
 }
