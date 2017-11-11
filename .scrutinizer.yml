@@ -12,6 +12,9 @@ build:
     php:
       version: '7.1.9'
   tests:
+    before:
+      - 'composer self-update'
+      - 'composer require --dev phpunit/phpunit'
     override:
       -
         command: 'phpunit --coverage-clover=coverage.xml'
