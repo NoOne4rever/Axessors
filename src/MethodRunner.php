@@ -138,6 +138,13 @@ class MethodRunner extends RunningSuit
         }
     }
 
+    private function is($var, string $type): bool
+    {
+        $isExactClass = $var instanceof $type;
+        $isAxessorsType = ((new \ReflectionClass($type))->hasMethod('is') && call_user_func([$type, 'is'], $var));
+        return $isExactClass || $isAxessorsType;
+    }
+
     /**
      * Checks if the type of new property's value is correct.
      *
@@ -148,23 +155,13 @@ class MethodRunner extends RunningSuit
     private function checkType(array $typeTree, $var): void
     {
         foreach ($typeTree as $type => $subType) {
-            if (is_int($type)) {
-                if ($var instanceof $subType || ((new \ReflectionClass($subType))->hasMethod('is') && call_user_func([
-                            $subType,
-                            'is'
-                        ], $var))) {
-                    return;
+            if (is_int($type) && $this->is($var, $subType)) {
+                return;
+            } elseif (is_iterable($var) && $this->is($var, $type)) {
+                foreach ($var as $subVar) {
+                    $this->checkType($subType, $subVar);
                 }
-            } else {
-                if (is_iterable($var) && ($var instanceof $type || ((new \ReflectionClass($type))->hasMethod('is') && call_user_func([
-                                $type,
-                                'is'
-                            ], $var)))) {
-                    foreach ($var as $subVar) {
-                        $this->checkType($subType, $subVar);
-                    }
-                    return;
-                }
+                return;
             }
         }
         throw new TypeError("not a valid type of {$this->class}::\${$this->propertyData->getName()}");
