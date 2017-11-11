@@ -31,29 +31,36 @@ class HandlersSuit extends RunningSuit
         $handlers = $this->mode == RunningSuit::OUTPUT_MODE ? $this->propertyData->getOutputHandlers() : $this->propertyData->getInputHandlers();
         foreach ($handlers as $handler) {
             if (strpos($handler, '`') !== false) {
-                $handler = str_replace('\\`', '`', substr($handler, 1, strlen($handler) - 2));
-                if (is_null($this->object)) {
-                    $value = call_user_func("{$this->class}::__axessorsExecute", $handler, $value, false);
-                } else {
-                    $value = $this->object->__axessorsExecute($handler, $value, false);
-                }
+                $value = $this->runInjectedHandler($handler, $value);
             } else {
-                foreach ($this->propertyData->getTypeTree() as $type => $subType) {
-                    $reflection = new \ReflectionClass('\Axessors\Types\\' . is_int($type) ? $subType : $type);
-                    foreach ($reflection->getMethods() as $method) {
-                        $isAccessible = $method->isPublic() && $method->isStatic() && !$method->isAbstract();
-                        $isThat = call_user_func([$reflection->name, 'is'], $value);
-                        if ($isAccessible && $isThat && "h_$handler" == $method->name) {
-                            $value = call_user_func([$reflection->name, $method->name], $value, false);
-                            continue 3;
-                        } elseif ($isAccessible && "h_$handler" == $method->name && !$isThat) {
-                            continue 3;
-                        }
-                    }
-                }
-                throw new OopError("property {$this->class}::\${$this->propertyData->getName()} does not have handler \"$handler\"");
+                $value = $this->runStandardHandler($handler, $value);
             }
         }
         return $value;
+    }
+    
+    private function runInjectedHandler(string $handler, $value)
+    {
+        $handler = str_replace('\\`', '`', substr($handler, 1, strlen($handler) - 2));
+        if (is_null($this->object)) {
+            return call_user_func("{$this->class}::__axessorsExecute", $handler, $value, false);
+        } else {
+            return $this->object->__axessorsExecute($handler, $value, false);
+        }        
+    }
+    
+    private function runStandardHandler(string $handler, $value)
+    {
+        foreach ($this->propertyData->getTypeTree() as $type => $subType) {
+            $reflection = new \ReflectionClass('\Axessors\Types\\' . is_int($type) ? $subType : $type);
+            foreach ($reflection->getMethods() as $method) {
+                $isAccessible = $method->isPublic() && $method->isStatic() && !$method->isAbstract();
+                $isThat = call_user_func([$reflection->name, 'is'], $value);
+                if ($isAccessible && $isThat && "h_$handler" == $method->name) {
+                    return call_user_func([$reflection->name, $method->name], $value, false);
+                }
+            }
+        }
+        throw new OopError("property {$this->class}::\${$this->propertyData->getName()} does not have handler \"$handler\"");
     }
 }
