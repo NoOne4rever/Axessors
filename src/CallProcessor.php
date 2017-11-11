@@ -93,7 +93,8 @@ class CallProcessor
     {
         $reflection = $classData->reflection->getParentClass();
         if ($reflection === false) {
-            throw new InternalError('no parent class found');
+            //throw new InternalError('no parent class found');
+            return null;
         }
         try {
             return $data->getClass($reflection->name);
