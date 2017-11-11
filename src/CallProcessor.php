@@ -116,18 +116,29 @@ class CallProcessor
      */
     private function isAccessible(string $accessModifier, \ReflectionClass $reflection): bool
     {
-        if ($accessModifier === 'public') {
-            return true;
-        }
+        switch ($accessModifier) {
+            case 'public':
+                return true;
+            case 'protected':
+                return $this->isAccessibleProtected($reflection);
+            case 'private':
+                return $this->isAccessiblePrivate($reflection);
+        } 
+    }
+    
+    private function isAccessiblePrivate(\ReflectionClass $reflection): bool 
+    {
         $isCalledClass = $this->callingClass === $reflection->name;
         $inCalledClass = $this->file === $reflection->getFileName() && $this->in($reflection);
-        if ($accessModifier === 'private') {
-            return $isCalledClass && $inCalledClass;
-        }
+        return $isCalledClass && $inCalledClass;
+    }
+    
+    private function isAccessibleProtected(\ReflectionClass $reflection): bool 
+    {
         $isSubclass = is_subclass_of($this->callingClass, $reflection->name);
         $reflection = new \ReflectionClass($this->callingClass);
         $inSubclass = $this->file === $reflection->getFileName() && $this->in($reflection);
-        return ($isSubclass && $inSubclass) || ($isCalledClass && $inCalledClass); 
+        return ($isSubclass && $inSubclass) || $this->isAccessiblePrivate($reflection);
     }
 
     /**
