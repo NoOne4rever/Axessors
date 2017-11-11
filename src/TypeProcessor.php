@@ -51,22 +51,12 @@ class TypeProcessor
     public function processType(): array
     {
         $type = $this->getDefaultType();
-        if (isset($this->typeDeclaration)) {
+        if ($this->typeDeclaration !== '') {
             $this->typeTree = $this->makeTypeTree($this->typeDeclaration);
             if ($type != 'NULL') {
-                foreach ($this->typeTree as $treeType => $subType) {
-                    if (is_int($treeType)) {
-                        $treeType = $subType;
-                    }
-                    if ($type === $treeType || "{$type}_ext" === $treeType || axs_mixed::class === $treeType) {
-                        $this->validateTypeTree($this->typeTree);
-                        return $this->typeTree;
-                    }
-                }
-                throw new TypeError(
-                    "type in Axessors comment for {$this->reflection->getDeclaringClass()->name}::\${$this->reflection->name} "
-                    . "does not equal default type of property"
-                );
+                $this->validateDefaultType($type);
+                $this->validateTypeTree($this->typeTree);
+                return $this->typeTree;
             }
         } else {
             if ($type == 'NULL') {
@@ -79,6 +69,22 @@ class TypeProcessor
         return $this->typeTree;
     }
 
+    private function validateDefaultType(string $type): void
+    {
+        foreach ($this->typeTree as $treeType => $subType) {
+            if (is_int($treeType)) {
+                $treeType = $subType;
+            }
+            if ($type === $treeType || "{$type}_ext" === $treeType || axs_mixed::class === $treeType) {
+                return;
+            }
+        }
+        throw new TypeError(
+            "type in Axessors comment for {$this->reflection->getDeclaringClass()->name}::\${$this->reflection->name} "
+            . "does not equal default type of property"
+        );
+    }
+    
     /**
      * Returns default type of property.
      *

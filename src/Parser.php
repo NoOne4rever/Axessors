@@ -72,7 +72,7 @@ class Parser
     
     public function getTypeDef(): string 
     {
-        return $this->tokens[self::TYPE];
+        return $this->tokens[self::TYPE] ?? '';
     }
     
     public function getNamespace(): string 
