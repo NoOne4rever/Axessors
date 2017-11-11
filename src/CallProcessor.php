@@ -96,7 +96,6 @@ class CallProcessor
     {
         $reflection = $classData->reflection->getParentClass();
         if ($reflection === false) {
-            //throw new InternalError('no parent class found');
             return null;
         }
         try {
@@ -123,7 +122,8 @@ class CallProcessor
                 return $this->isAccessibleProtected($reflection);
             case 'private':
                 return $this->isAccessiblePrivate($reflection);
-        } 
+        }
+        throw new InternalError('not a valid access modifier given');
     }
     
     private function isAccessiblePrivate(\ReflectionClass $reflection): bool 
