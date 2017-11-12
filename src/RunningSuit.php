@@ -28,7 +28,15 @@ abstract class RunningSuit
     protected $class;
     /** @var int running mode */
     protected $mode;
-    
+
+    /**
+     * RunningSuit constructor.
+     * 
+     * @param int $mode running mode
+     * @param PropertyData $data property data
+     * @param string $class class name
+     * @param object|null $object object with called method
+     */
     public function __construct(int $mode, PropertyData $data, string $class, $object = null)
     {
         $this->mode = $mode;
