@@ -25,11 +25,19 @@ class TypeProcessor
 {
     /** @var \ReflectionProperty reflection */
     private $reflection;
+    /** @var string class namespace */
     private $namespace;
-    
+    /** @var string type declaration string */
     private $typeDeclaration;    
+    /** @var array type tree */
     private $typeTree;
-    
+
+    /**
+     * TypeProcessor constructor.
+     * @param \ReflectionProperty $reflection
+     * @param string $namespace class namespace
+     * @param string $typeDeclaration type declaration
+     */
     public function __construct(\ReflectionProperty $reflection, string $namespace, string $typeDeclaration)
     {
         $this->reflection = $reflection;
@@ -37,6 +45,7 @@ class TypeProcessor
         $this->typeDeclaration = $typeDeclaration;
     }
 
+    
     public function getTypeTree(): array 
     {
         return $this->typeTree;
