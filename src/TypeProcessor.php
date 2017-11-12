@@ -179,34 +179,77 @@ class TypeProcessor
     private function replacePhpTypeWithAxsType(string $type): string
     {
         $_type = lcfirst($type);
-        switch ($_type) {
-            case 'boolean':
+        $this->replaceBool($_type);
+        $this->replaceInt($_type);
+        $this->replaceFloat($_type);
+        $this->replaceAxs($_type);
+        if ($_type === lcfirst($type)) {
+            return $type;
+        } elseif ($type !== lcfirst($type)) {
+            return $_type . '_ext';
+        } else {
+            return $_type;
+        }
+    }
+
+    /**
+     * Replaces PHP boolean type with Axessors type.
+     * 
+     * @param string $type type
+     */
+    private function replaceBool(string &$type): void
+    {
+        switch ($type) {
             case 'bool':
-                $_type = axs_bool::class;
-                break;
-            case 'double':
-            case 'float':
-                $_type = axs_float::class;
-                break;
+            case 'boolean':
+                $type = axs_bool::class;
+        }
+    }
+
+    /**
+     * Replaces PHP integer type with Axessors type.
+     *
+     * @param string $type type
+     */
+    private function replaceInt(string &$type): void
+    {
+        switch ($type) {
             case 'int':
             case 'integer':
-                $_type = axs_int::class;
-                break;
+                $type = axs_float::class;
+        }
+    }
+
+    /**
+     * Replaces PHP float type with Axessors type.
+     *
+     * @param string $type type
+     */
+    private function replaceFloat(string &$type): void
+    {
+        switch ($type) {
+            case 'int':
+            case 'integer':
+                $type = axs_int::class;
+        }
+    }
+
+    /**
+     * Replaces PHP type with Axessors type.
+     *
+     * @param string $type type
+     */
+    private function replaceAxs(string &$type): void
+    {
+        switch ($type) {
             case 'string':
             case 'array':
             case 'object':
             case 'resource':
             case 'callable':
             case 'mixed':
-                $_type = "NoOne4rever\\Axessors\\Types\\axs_{$_type}";
-                break;
-            default:
-                return $type;
+                $type = "NoOne4rever\\Axessors\\Types\\axs_{$type}";
         }
-        if ($type !== lcfirst($type)) {
-            $_type .= '_ext';
-        }
-        return $_type;
     }
 
     /**
