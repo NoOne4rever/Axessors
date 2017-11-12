@@ -50,21 +50,32 @@ class ConditionsSuit extends RunningSuit
         $conditions = $this->calculateConditions($value);
         if (empty($conditions)) {
             return true;
+        } else {
+            return array_reduce($conditions, function ($carry, $item) {
+                return $this->reduce($carry, $item, true);
+            });
         }
-        foreach ($conditions as $condition) {
-            if (is_array($condition)) {
-                foreach ($condition as $subCondition) {
-                    if (!$subCondition) {
-                        continue 2;
-                    }
-                }
-                return true;
-            }
-            if ($condition) {
-                return true;
-            }
+    }
+
+    /**
+     * Reduces conditions tree and returns the result.
+     * 
+     * @param mixed $carry previous item
+     * @param mixed $item item
+     * @param bool $mode mode
+     * @return bool the result of reducing
+     */
+    private function reduce($carry, $item, bool $mode): bool 
+    {
+        if ($item === $mode || $carry === $mode) {
+            return $mode;
+        } elseif (is_array($item)) {
+            return array_reduce($item, function ($carry, $item) {
+                return $this->reduce($carry, $item, false);
+            });
+        } else {
+            return !$mode;
         }
-        return false;
     }
 
     /**
