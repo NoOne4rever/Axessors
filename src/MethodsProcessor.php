@@ -54,15 +54,24 @@ class MethodsProcessor
         $this->methods = [];
         $this->processAccessors();
         foreach ($typeTree as $index => $type) {
-            $class = is_int($index) ? $type : $index;
-            foreach ((new \ReflectionClass($class))->getMethods() as $method) {
-                if (!($method->isStatic() && $method->isPublic() && !$method->isAbstract())) {
-                    continue;
-                }
-                $this->processAxessorsMethod($method);
-            }
+            $this->addMethods(is_int($index) ? $type : $index);
         }
         return $this->methods;
+    }
+
+    /**
+     * Adds Axessors methods from type to methods list.
+     * 
+     * @param string $type class name
+     */
+    private function addMethods(string $type): void
+    {
+        foreach ((new \ReflectionClass($type))->getMethods() as $method) {
+            if (!($method->isStatic() && $method->isPublic() && !$method->isAbstract())) {
+                continue;
+            }
+            $this->processAxessorsMethod($method);
+        }
     }
 
     /**
