@@ -38,7 +38,14 @@ class HandlersSuit extends RunningSuit
         }
         return $value;
     }
-    
+
+    /**
+     * Runs *injected* handler.
+     * 
+     * @param string $handler *injected* handler
+     * @param mixed $value a value to process
+     * @return mixed the result of handler execution
+     */
     private function runInjectedHandler(string $handler, $value)
     {
         $handler = str_replace('\\`', '`', substr($handler, 1, strlen($handler) - 2));
@@ -48,7 +55,15 @@ class HandlersSuit extends RunningSuit
             return $this->object->__axessorsExecute($handler, $value, false);
         }        
     }
-    
+
+    /**
+     * Runs Axessors handler.
+     * 
+     * @param string $handler handler name
+     * @param mixed $value the value to process
+     * @return mixed the result of handler execution 
+     * @throws OopError if the called handler not found
+     */
     private function runStandardHandler(string $handler, $value)
     {
         foreach ($this->propertyData->getTypeTree() as $type => $subType) {
