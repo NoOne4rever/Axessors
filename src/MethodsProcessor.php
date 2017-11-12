@@ -19,11 +19,22 @@ use NoOne4rever\Axessors\Exceptions\InternalError;
  */
 class MethodsProcessor
 {
+    /** @var string access modifier for setter */
     private $writingAccess;
+    /** @var string access modifier for getter */
     private $readingAccess;
+    /** @var string field name */
     private $name;
+    /** @var array generated methods */
     private $methods = [];
 
+    /**
+     * MethodsProcessor constructor.
+     * 
+     * @param string $writingAccess access modifier for setter
+     * @param string $readingAccess access modifier for getter
+     * @param string $name field name
+     */
     public function __construct(string $writingAccess, string $readingAccess, string $name)
     {
         $this->name = $name;
@@ -54,6 +65,9 @@ class MethodsProcessor
         return $this->methods;
     }
 
+    /**
+     * Adds getter and setter to methods list.
+     */
     private function processAccessors(): void
     {
         if ($this->readingAccess !== '') {
@@ -64,6 +78,11 @@ class MethodsProcessor
         }
     }
 
+    /**
+     * Adds Axessors method to methods list.
+     * 
+     * @param \ReflectionMethod $method reflection
+     */
     private function processAxessorsMethod(\ReflectionMethod $method): void
     {
         if (substr($method->name, 0, 5) == 'm_in_' && $this->writingAccess !== '') {
