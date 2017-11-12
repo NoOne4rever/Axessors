@@ -60,13 +60,7 @@ class CommentLexer extends Lexer
             if (!$this->isAxsPropertyDef()) {
                 continue;
             }
-            $code = preg_replace_callback(
-                '/`([^`]|\\\\`)+((?<!\\\\)`)/',
-                function (array $matches): string {
-                    return addcslashes($matches[0], '\\');
-                },
-                $this->getAxsComment()
-            );
+            $code = $this->addSlashes($this->getAxsComment());
             $propertyData = new PropertyData(
                 $this->reflection->getProperty($this->getPropertyName()),
                 $this->parse(
@@ -78,6 +72,23 @@ class CommentLexer extends Lexer
             $classData->addProperty($this->getPropertyName(), $propertyData);
         }
         return $classData;
+    }
+
+    /**
+     * Adds slashes to special symbols in the *injected* string.
+     * 
+     * @param string $expr expression to handle
+     * @return string processed string
+     */
+    private function addSlashes(string $expr): string 
+    {
+        return preg_replace_callback(
+            '/`([^`]|\\\\`)+((?<!\\\\)`)/',
+            function (array $matches): string {
+                return addcslashes($matches[0], '\\');
+            },
+            $expr
+        );
     }
 
     /**
