@@ -8,9 +8,11 @@
 
 namespace NoOne4rever\Axessors;
 
-use NoOne4rever\Axessors\Exceptions\AxessorsError;
-use NoOne4rever\Axessors\Exceptions\InternalError;
-use NoOne4rever\Axessors\Exceptions\OopError;
+use NoOne4rever\Axessors\Exceptions\{
+    AxessorsError,
+    InternalError,
+    OopError
+};
 
 /**
  * Class CallProcessor
