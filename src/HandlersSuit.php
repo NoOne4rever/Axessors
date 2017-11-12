@@ -52,13 +52,48 @@ class HandlersSuit extends RunningSuit
         foreach ($this->propertyData->getTypeTree() as $type => $subType) {
             $reflection = new \ReflectionClass('\Axessors\Types\\' . is_int($type) ? $subType : $type);
             foreach ($reflection->getMethods() as $method) {
-                $isAccessible = $method->isPublic() && $method->isStatic() && !$method->isAbstract();
-                $isThat = call_user_func([$reflection->name, 'is'], $value);
-                if ($isAccessible && $isThat && "h_$handler" == $method->name) {
+                if ($this->isCalledHandler($method, $handler, $reflection->name, $value)) {
                     return call_user_func([$reflection->name, $method->name], $value, false);
                 }
             }
         }
         throw new OopError("property {$this->class}::\${$this->propertyData->getName()} does not have handler \"$handler\"");
+    }
+
+    /**
+     * Checks if the method can be called.
+     * 
+     * @param \ReflectionMethod $method method reflection
+     * @return bool the result of the checkout
+     */
+    private function isMethodAccessible(\ReflectionMethod $method): bool
+    {
+        return $method->isPublic() && $method->isStatic() && !$method->isAbstract();
+    }
+
+    /**
+     * Checks if the value match handler's type.
+     * 
+     * @param string $type type
+     * @param mixed $value value
+     * @return bool the result of the checkout
+     */
+    private function valueMatchType(string $type, $value): bool
+    {
+        return call_user_func([$type, 'is'], $value);
+    }
+
+    /**
+     * Checks if the handler can be called.
+     * 
+     * @param \ReflectionMethod $method method reflection
+     * @param string $handler handler name
+     * @param string $type type
+     * @param mixed $value value
+     * @return bool the result of the checkout
+     */
+    private function isCalledHandler(\ReflectionMethod $method, string $handler, string $type, $value): bool 
+    {
+        return $this->isMethodAccessible($method) && $this->valueMatchType($type, $value) && "h_$handler" === $method->name;
     }
 }
