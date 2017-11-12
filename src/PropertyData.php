@@ -64,7 +64,6 @@ class PropertyData
         $this->handlersIn = $handlersProcessor->processInputHandlers();
         $this->handlersOut = $handlersProcessor->processOutputHandlers();
         
-        
         $methodsProcessor = new MethodsProcessor($this->accessibility['write'] ?? '',
             $this->accessibility['read'] ?? '', $this->getAlias());
         $this->methods = $methodsProcessor->processMethods($typeProcessor->getTypeTree());
