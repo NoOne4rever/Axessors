@@ -49,7 +49,7 @@ class Parser
     private $reflection;
     /** @var string[] access modifiers for getter and setter */
     private $accessModifiers;
-    /** @var string alias of property */
+    /** @var bool order of statements */
     private $readableFirst;
 
     /**
