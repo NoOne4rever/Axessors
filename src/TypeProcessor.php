@@ -45,7 +45,11 @@ class TypeProcessor
         $this->typeDeclaration = $typeDeclaration;
     }
 
-    
+    /**
+     * Getter for {@see TypeProcessor::$typeTree}.
+     * 
+     * @return array type tree
+     */
     public function getTypeTree(): array 
     {
         return $this->typeTree;
@@ -78,6 +82,12 @@ class TypeProcessor
         return $this->typeTree;
     }
 
+    /**
+     * Validates default type of field.
+     * 
+     * @param string $type default type
+     * @throws TypeError if default type of filed is not valid
+     */
     private function validateDefaultType(string $type): void
     {
         foreach ($this->typeTree as $treeType => $subType) {
