@@ -91,6 +91,12 @@ class MethodRunner extends RunningSuit
         throw new AxessorsError("method {$this->class}::{$this->method}() not found");
     }
 
+    /**
+     * Checks if the method given is called method.
+     * 
+     * @param \ReflectionMethod $method method
+     * @return bool the result of the checkout
+     */
     private function isCalledAxessorsMethod(\ReflectionMethod $method): bool 
     {
         $isAccessible = $method->isStatic() && $method->isPublic() && !$method->isAbstract();
@@ -143,6 +149,13 @@ class MethodRunner extends RunningSuit
         }
     }
 
+    /**
+     * Checks if the variable belongs to defined type.
+     * 
+     * @param mixed $var variable
+     * @param string $type type
+     * @return bool the result of the checkout
+     */
     private function is($var, string $type): bool
     {
         $isExactClass = $var instanceof $type;
