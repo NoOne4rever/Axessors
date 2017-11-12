@@ -12,7 +12,6 @@ use NoOne4rever\Axessors\Exceptions\TypeError;
 use NoOne4rever\Axessors\Types\axs_bool;
 use NoOne4rever\Axessors\Types\axs_float;
 use NoOne4rever\Axessors\Types\axs_int;
-use NoOne4rever\Axessors\Types\axs_mixed;
 
 /**
  * Class TypeProcessor.
@@ -31,7 +30,9 @@ class TypeProcessor
     private $typeDeclaration;    
     /** @var array type tree */
     private $typeTree;
-
+    /** @var TypeValidator type validator */
+    private $validator;
+    
     /**
      * TypeProcessor constructor.
      * @param \ReflectionProperty $reflection
@@ -43,6 +44,7 @@ class TypeProcessor
         $this->reflection = $reflection;
         $this->namespace = $namespace;
         $this->typeDeclaration = $typeDeclaration;
+        $this->validator = new TypeValidator($reflection);
     }
 
     /**
@@ -67,8 +69,8 @@ class TypeProcessor
         if ($this->typeDeclaration !== '') {
             $this->typeTree = $this->makeTypeTree($this->typeDeclaration);
             if ($type != 'NULL') {
-                $this->validateDefaultType($type);
-                $this->validateTypeTree($this->typeTree);
+                $this->validator->validateDefaultType($type, $this->typeTree);
+                $this->validator->validateTypeTree($this->typeTree);
                 return $this->typeTree;
             }
         } else {
@@ -78,30 +80,8 @@ class TypeProcessor
                 $this->typeTree = [$type];
             }
         }
-        $this->validateTypeTree($this->typeTree);
+        $this->validator->validateTypeTree($this->typeTree);
         return $this->typeTree;
-    }
-
-    /**
-     * Validates default type of field.
-     * 
-     * @param string $type default type
-     * @throws TypeError if default type of filed is not valid
-     */
-    private function validateDefaultType(string $type): void
-    {
-        foreach ($this->typeTree as $treeType => $subType) {
-            if (is_int($treeType)) {
-                $treeType = $subType;
-            }
-            if ($type === $treeType || "{$type}_ext" === $treeType || axs_mixed::class === $treeType) {
-                return;
-            }
-        }
-        throw new TypeError(
-            "type in Axessors comment for {$this->reflection->getDeclaringClass()->name}::\${$this->reflection->name} "
-            . "does not equal default type of property"
-        );
     }
     
     /**
@@ -117,57 +97,10 @@ class TypeProcessor
             $this->reflection->setAccessible(false);
         } else {
             $properties = $this->reflection->getDeclaringClass()->getDefaultProperties();
-            $type = isset($properties[$this->reflection->name]) ? $this->replacePhpTypeWithAxsType($this->getType($properties[$this->reflection->name]))
+            $type = isset($properties[$this->reflection->name]) ? $this->replacePhpTypeWithAxsType(gettype($properties[$this->reflection->name]))
                 : 'NULL';
         }
         return $type;
-    }
-
-    /**
-     * Checks if the class defined in the current namespace and fixes class' name.
-     *
-     * @param string $class class' name
-     * @return string full name of class
-     */
-    private function validateType(string $class): string
-    {
-        if ($class[0] === '\\' or class_exists($class)) {
-            return $class;
-        } else {
-            return "{$this->namespace}\\$class";
-        }
-    }
-
-    /**
-     * Validates type tree.
-     *
-     * @param array $tree type tree
-     * @throws TypeError the type is not iterateable, but it is defined as array-compatible type
-     */
-    private function validateTypeTree(array $tree): void
-    {
-        foreach ($tree as $type => $subtype) {
-            if (!is_int($type)) {
-                if (!is_subclass_of($type, 'NoOne4rever\Axessors\Types\Iterateable')) {
-                    throw new TypeError("\"$type\" is not iterateable {$this->reflection->getDeclaringClass()->name}::\${$this->reflection->name} Axessors comment");
-                }
-            }
-        }
-    }
-
-    /**
-     * Returns type of variable.
-     *
-     * @param $var mixed variable
-     * @return string type of variable
-     */
-    private function getType($var): string
-    {
-        if (is_callable($var)) {
-            return 'callable';
-        }
-        $type = gettype($var);
-        return $type == 'integer' ? 'int' : $type;
     }
 
     /**
@@ -279,10 +212,10 @@ class TypeProcessor
             if (($bracket = strpos($type, '[')) !== false) {
                 $subtype = substr($type, $bracket + 1, strlen($type) - $bracket - 2);
                 $type = substr($type, 0, $bracket);
-                $type = $this->validateType($this->replacePhpTypeWithAxsType($type));
+                $type = $this->validator->validateType($this->replacePhpTypeWithAxsType($type), $this->namespace);
                 $typeTree[$type] = $this->makeTypeTree($subtype);
             } else {
-                $type = $this->validateType($this->replacePhpTypeWithAxsType($type));
+                $type = $this->validator->validateType($this->replacePhpTypeWithAxsType($type), $this->namespace);
                 $typeTree[] = $type;
             }
         }
