@@ -41,7 +41,13 @@ class InjectedStringSuit
         }, $expression);
         return $expression;
     }
-    
+
+    /**
+     * Adds slashes to string.
+     * 
+     * @param string $charlist symbols add slashes to
+     * @return string string with slashes
+     */
     public function addSlashes(string $charlist): string 
     {
         return preg_replace_callback(
