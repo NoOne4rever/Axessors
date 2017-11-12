@@ -8,8 +8,10 @@
 
 namespace NoOne4rever\Axessors;
 
-use NoOne4rever\Axessors\Exceptions\InternalError;
-use NoOne4rever\Axessors\Exceptions\SyntaxError;
+use NoOne4rever\Axessors\Exceptions\{
+    InternalError,
+    SyntaxError
+};
 
 /**
  * Class Parser.
@@ -49,8 +51,6 @@ class Parser
     private $accessModifiers;
     /** @var string alias of property */
     private $alias;
-    /** @var string class' namespace */
-    private $namespace;
     /** @var bool information about order of tokens */
     private $readableFirst;
 
@@ -64,42 +64,76 @@ class Parser
     {
         $this->reflection = $reflection;
         $this->tokens = $tokens;
-        $this->namespace = $reflection->getDeclaringClass()->getNamespaceName();
         $this->readableFirst = (bool)preg_match('{^(rdb|readable)$}', $this->tokens[self::KEYWORD_1]);
         $this->validateStatements();
         $this->processAlias();
     }
-    
+
+    /**
+     * Returns type declaration.
+     * 
+     * @return string type declaration
+     */
     public function getTypeDef(): string 
     {
         return $this->tokens[self::TYPE] ?? '';
     }
-    
+
+    /**
+     * Returns class namespace.
+     * 
+     * @return string class namespace
+     */
     public function getNamespace(): string 
     {
-        return $this->namespace;
+        return $this->reflection->getDeclaringClass()->getNamespaceName();
     }
-    
+
+    /**
+     * Getter for {@see Parser::$reflection}.
+     * 
+     * @return \ReflectionProperty property reflection
+     */
     public function getReflection(): \ReflectionProperty
     {
         return $this->reflection;
     }
 
+    /**
+     * Returns conditions for setter.
+     * 
+     * @return string input conditions.
+     */
     public function getInConditions(): string 
     {
         return $this->tokens[$this->readableFirst ? self::CONDITIONS_2 : self::CONDITIONS_1] ?? '';
     }
-    
+
+    /**
+     * Returns conditions for getter.
+     * 
+     * @return string output conditions
+     */
     public function getOutConditions(): string 
     {
         return $this->tokens[$this->readableFirst ? self::CONDITIONS_1 : self::CONDITIONS_2] ?? '';
     }
-    
+
+    /**
+     * Returns handlers for setter.
+     * 
+     * @return string input handlers
+     */
     public function getInHandlers(): string 
     {
         return $this->tokens[$this->readableFirst ? self::HANDLERS_2 : self::HANDLERS_1] ?? '';
     }
 
+    /**
+     * Returns handlers for getter.
+     * 
+     * @return string output handlers
+     */
     public function getOutHandlers(): string
     {
         return $this->tokens[$this->readableFirst ? self::HANDLERS_1 : self::HANDLERS_2] ?? '';
