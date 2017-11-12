@@ -49,24 +49,31 @@ class PropertyData
         $this->reflection = $reflection;
 
         $this->accessibility = $parser->processAccessModifier();
-        
+        $this->alias = $parser->getAlias();
+
         $typeProcessor = new TypeProcessor($parser->getReflection(), $parser->getNamespace(), $parser->getTypeDef());
         $this->type = $typeProcessor->processType();
-        $conditionsProcessor = new ConditionsProcessor($parser->getInConditions(), $parser->getOutConditions(), $parser->getNamespace());
+        
+        $conditionsProcessor = new ConditionsProcessor($parser->getInConditions(), $parser->getOutConditions(),
+            $parser->getNamespace());
         $this->conditionsIn = $conditionsProcessor->processInputConditions();
         $this->conditionsOut = $conditionsProcessor->processOutputConditions();
-        $handlersProcessor = new HandlersProcessor($parser->getInHandlers(), $parser->getOutHandlers(), $parser->getNamespace());
+        
+        $handlersProcessor = new HandlersProcessor($parser->getInHandlers(), $parser->getOutHandlers(),
+            $parser->getNamespace());
         $this->handlersIn = $handlersProcessor->processInputHandlers();
         $this->handlersOut = $handlersProcessor->processOutputHandlers();
-        $this->alias = $parser->getAlias();
-        $methodsProcessor = new MethodsProcessor($this->accessibility['write'] ?? '', $this->accessibility['read'] ?? '', $this->getAlias());
+        
+        
+        $methodsProcessor = new MethodsProcessor($this->accessibility['write'] ?? '',
+            $this->accessibility['read'] ?? '', $this->getAlias());
         $this->methods = $methodsProcessor->processMethods($typeProcessor->getTypeTree());
     }
 
     /**
-     * Getter for {@link PropertyData::$accessibility}.
+     * Getter for {@see PropertyData::$accessibility}.
      *
-     * @return string[] {@link PropertyData::$accessibility}
+     * @return string[] {@see PropertyData::$accessibility}
      */
     public function getAccessibility(): array
     {
@@ -74,9 +81,9 @@ class PropertyData
     }
 
     /**
-     * Getter for {@link PropertyData::$alias}.
+     * Getter for {@see PropertyData::$alias}.
      *
-     * @return string {@link PropertyData::$alias}
+     * @return string {@see PropertyData::$alias}
      */
     public function getAlias(): string
     {
@@ -84,9 +91,9 @@ class PropertyData
     }
 
     /**
-     * Getter for {@link PropertyData::$methods}.
+     * Getter for {@see PropertyData::$methods}.
      *
-     * @return string[] {@link PropertyData::$methods}
+     * @return string[] {@see PropertyData::$methods}
      */
     public function getMethods(): array
     {
@@ -94,9 +101,9 @@ class PropertyData
     }
 
     /**
-     * Getter for {@link PropertyData::$conditionsIn}.
+     * Getter for {@see PropertyData::$conditionsIn}.
      *
-     * @return string[] {@link PropertyData::$conditionsIn}
+     * @return string[] {@see PropertyData::$conditionsIn}
      */
     public function getInputConditions(): array
     {
@@ -104,9 +111,9 @@ class PropertyData
     }
 
     /**
-     * Getter for {@link PropertyData::$conditionsOut}.
+     * Getter for {@see PropertyData::$conditionsOut}.
      *
-     * @return string[] {@link PropertyData::$conditionsOut}
+     * @return string[] {@see PropertyData::$conditionsOut}
      */
     public function getOutputConditions(): array
     {
@@ -114,9 +121,9 @@ class PropertyData
     }
 
     /**
-     * Getter for {@link PropertyData::$handlersOut}.
+     * Getter for {@see PropertyData::$handlersOut}.
      *
-     * @return string[] {@link PropertyData::$handlersOut}
+     * @return string[] {@see PropertyData::$handlersOut}
      */
     public function getOutputHandlers(): array
     {
@@ -124,9 +131,9 @@ class PropertyData
     }
 
     /**
-     * Getter for {@link PropertyData::$handlersIn}.
+     * Getter for {@see PropertyData::$handlersIn}.
      *
-     * @return string[] {@link PropertyData::$handlersIn}
+     * @return string[] {@see PropertyData::$handlersIn}
      */
     public function getInputHandlers(): array
     {
@@ -134,9 +141,9 @@ class PropertyData
     }
 
     /**
-     * Getter for {@link PropertyData::$type}.
+     * Getter for {@see PropertyData::$type}.
      *
-     * @return array {@link PropertyData::$type}
+     * @return array {@see PropertyData::$type}
      */
     public function getTypeTree(): array
     {
@@ -144,9 +151,9 @@ class PropertyData
     }
 
     /**
-     * Getter for {@link PropertyData::$alias}.
+     * Getter for {@see PropertyData::$alias}.
      *
-     * @return string {@link PropertyData::$alias}
+     * @return string {@see PropertyData::$alias}
      */
     public function getName(): string
     {
