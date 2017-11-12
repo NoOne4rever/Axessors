@@ -46,13 +46,8 @@ class HandlersProcessor
      */
     private function makeHandlersList(string $handlers): array
     {
-        $result = preg_replace_callback(
-            '{`([^`]|\\\\`)+((?<!\\\\)`)}',
-            function (array $matches) {
-                return addcslashes($matches[0], ',');
-            },
-            $handlers
-        );
+        $injProcessor = new InjectedStringParser($handlers);
+        $result = $injProcessor->addSlashes(',');
         $result = preg_split('{(?<!\\\\),\s*}', $result);
         foreach ($result as &$handler) {
             $injProcessor = new InjectedStringParser(stripcslashes($handler));

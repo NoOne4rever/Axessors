@@ -70,13 +70,8 @@ class ConditionsProcessor
             return [];
         }
         $result = [];
-        $conditions = preg_replace_callback(
-            '{`([^`]|\\\\`)+((?<!\\\\)`)}',
-            function (array $matches) {
-                return addcslashes($matches[0], '&|');
-            },
-            $conditions
-        );
+        $injProcessor = new InjectedStringParser($conditions);
+        $conditions = $injProcessor->addSlashes('|&');
         $conditions = preg_split('{\s*\|\|\s*}', $conditions);
         foreach ($conditions as $condition) {
             $result[] = preg_split('{\s*&&\s*}', $condition);
@@ -105,8 +100,8 @@ class ConditionsProcessor
         $conditions = $this->explodeConditions($conditions);
         foreach ($conditions as $number => $condition) {
             foreach ($condition as $token) {
+                $injProcessor = new InjectedStringParser($token);
                 if (count($condition) === 1) {
-                    $injProcessor = new InjectedStringParser($token);
                     $result[] = $injProcessor->resolveClassNames($this->namespace);
                 } else {
                     $result[$number][] = $token;

@@ -41,4 +41,15 @@ class InjectedStringParser
         }, $expression);
         return $expression;
     }
+    
+    public function addSlashes(string $charlist): string 
+    {
+        return preg_replace_callback(
+            '/`([^`]|\\\\`)+((?<!\\\\)`)/',
+            function (array $matches) use($charlist): string {
+                return addcslashes($matches[0], $charlist);
+            },
+            $this->expression
+        );
+    }
 }
