@@ -17,10 +17,20 @@ namespace NoOne4rever\Axessors;
  */
 class ConditionsProcessor
 {
+    /** @var string conditions for setter */
     private $inputConditions;
+    /** @var string conditions for getter */
     private $outputConditions;
+    /** @var string class namespace */
     private $namespace;
-    
+
+    /**
+     * ConditionsProcessor constructor.
+     * 
+     * @param string $in input conditions
+     * @param string $out output conditions
+     * @param string $namespace class namespace
+     */
     public function __construct(string $in, string $out, string $namespace)
     {
         $this->inputConditions = $in;
