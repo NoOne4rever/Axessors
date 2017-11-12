@@ -36,4 +36,22 @@ abstract class RunningSuit
         $this->class = $class;
         $this->object = $object;
     }
+
+    /**
+     * Runs *injected* callback or condition.
+     * 
+     * @param string $expr *injected* string
+     * @param mixed $var variable to process 
+     * @param bool $mode mode of execution
+     * @return mixed the result of *injected* string execution
+     */
+    protected function executeInjectedString(string $expr, $var, bool $mode)
+    {
+        $handler = str_replace('\\`', '`', substr($expr, 1, strlen($expr) - 2));
+        if (is_null($this->object)) {
+            return call_user_func("{$this->class}::__axessorsExecute", $handler, $var, $mode);
+        } else {
+            return $this->object->__axessorsExecute($handler, $var, $mode);
+        }
+    }
 }

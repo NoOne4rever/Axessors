@@ -99,20 +99,27 @@ class ConditionsSuit extends RunningSuit
     private function executeCondition(string $condition, $value): bool
     {
         if (strpos($condition, '`') !== false) {
-            $condition = str_replace('\\`', '`', substr($condition, 1, strlen($condition) - 2));
-            if (is_null($this->object)) {
-                return call_user_func("{$this->class}::__axessorsExecute", $condition, $value, true);
-            } else {
-                return $this->object->__axessorsExecute($condition, $value, true);
-            }
+            return $this->executeInjectedString($condition, $value, true);
         } else {
-            $value = $this->count($value);
-            if (strpos($condition, '..') !== false) {
-                $condition = explode('..', $condition);
-                $condition = "<= {$condition[1]} && $value >= {$condition[0]}";
-            }
-            return eval("return $value $condition;");
+            return $this->runStandardCondition($condition, $value);
         }
+    }
+
+    /**
+     * Runs Axessors condition.
+     * 
+     * @param string $condition condition
+     * @param mixed $value value to check 
+     * @return bool the result of the checkout
+     */
+    private function runStandardCondition(string $condition, $value): bool 
+    {
+        $value = $this->count($value);
+        if (strpos($condition, '..') !== false) {
+            $condition = explode('..', $condition);
+            $condition = "<= {$condition[1]} && $value >= {$condition[0]}";
+        }
+        return eval("return $value $condition;");
     }
 
     /**

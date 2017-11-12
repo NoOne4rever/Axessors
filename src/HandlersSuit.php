@@ -31,29 +31,12 @@ class HandlersSuit extends RunningSuit
         $handlers = $this->mode == RunningSuit::OUTPUT_MODE ? $this->propertyData->getOutputHandlers() : $this->propertyData->getInputHandlers();
         foreach ($handlers as $handler) {
             if (strpos($handler, '`') !== false) {
-                $value = $this->runInjectedHandler($handler, $value);
+                $value = $this->executeInjectedString($handler, $value, false);
             } else {
                 $value = $this->runStandardHandler($handler, $value);
             }
         }
         return $value;
-    }
-
-    /**
-     * Runs *injected* handler.
-     * 
-     * @param string $handler *injected* handler
-     * @param mixed $value a value to process
-     * @return mixed the result of handler execution
-     */
-    private function runInjectedHandler(string $handler, $value)
-    {
-        $handler = str_replace('\\`', '`', substr($handler, 1, strlen($handler) - 2));
-        if (is_null($this->object)) {
-            return call_user_func("{$this->class}::__axessorsExecute", $handler, $value, false);
-        } else {
-            return $this->object->__axessorsExecute($handler, $value, false);
-        }        
     }
 
     /**
