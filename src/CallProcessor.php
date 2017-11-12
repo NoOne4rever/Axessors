@@ -66,11 +66,10 @@ class CallProcessor
      */
     public function call(array $args, string $method)
     {
-        $data = Data::getInstance();
-        $classData = $data->getClass($this->class);
+        $classData = Data::getClass($this->class);
         $this->method = $method;
         $this->reflection = $classData->reflection;
-        $propertyData = $this->searchMethod($classData, $data);
+        $propertyData = $this->searchMethod($classData);
         $runner = new MethodRunner(0, $propertyData, $this->class, $this->method, $this->object);
         return $runner->run($args);
     }
@@ -79,12 +78,11 @@ class CallProcessor
      * Searches called method in Axessors methods.
      * 
      * @param ClassData $classData class data
-     * @param Data $data global data
      * @return PropertyData property that has the called method
      * @throws AxessorsError if the called method not found
      * @throws OopError if the called method is not accessible
      */
-    private function searchMethod(ClassData $classData, Data $data): PropertyData
+    private function searchMethod(ClassData $classData): PropertyData
     {
         while (!is_null($classData)) {
             foreach ($classData->getAllProperties() as $propertyData) {
@@ -100,7 +98,7 @@ class CallProcessor
                     }
                 }
             }
-            $classData = $this->getParentClass($classData, $data);
+            $classData = $this->getParentClass($classData);
         }
         throw new AxessorsError("method {$this->class}::{$this->method}() not found");
     }
@@ -109,17 +107,16 @@ class CallProcessor
      * Returns parent class data.
      * 
      * @param ClassData $classData class data
-     * @param Data $data global data
      * @return ClassData|null parent class
      */
-    private function getParentClass(ClassData $classData, Data $data): ?ClassData
+    private function getParentClass(ClassData $classData): ?ClassData
     {
         $reflection = $classData->reflection->getParentClass();
         if ($reflection === false) {
             return null;
         }
         try {
-            return $data->getClass($reflection->name);
+            return Data::getClass($reflection->name);
         } catch (InternalError $error) {
             return null;
         }

@@ -17,8 +17,6 @@ const NUM_OF_PREDEFINED_CLASSES = 132;
 $classes = get_declared_classes();
 $totalClasses = count($classes);
 
-$data = Data::getInstance();
-
 for ($i = NUM_OF_PREDEFINED_CLASSES; $i < $totalClasses; ++$i) {
     $reflection = $_reflection = new \ReflectionClass($classes[$i]);
     if (!in_array(Axessors::class, $reflection->getTraitNames()) && !in_array(Axs::class,
@@ -27,7 +25,7 @@ for ($i = NUM_OF_PREDEFINED_CLASSES; $i < $totalClasses; ++$i) {
     }
     $lexer = new CommentLexer($reflection);
     $classData = $lexer->getClassData();
-    $data->addClass($reflection->name, $classData);
+    Data::addClass($reflection->name, $classData);
     $requiredMethods = $implementedMethods = [];
     foreach ($reflection->getInterfaces() as $interface) {
         $requiredMethods = array_merge_recursive($requiredMethods, (new HierarchyLexer($interface))->getMethods());
@@ -42,7 +40,7 @@ for ($i = NUM_OF_PREDEFINED_CLASSES; $i < $totalClasses; ++$i) {
             break;
         }
         try {
-            $methods = $data->getClass($reflection->name)->getAllMethods(true);
+            $methods = Data::getClass($reflection->name)->getAllMethods(true);
         } catch (InternalError $error) {
             $methods = (new CommentLexer($reflection))->getClassData()->getAllMethods(true);
         }
