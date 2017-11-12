@@ -60,7 +60,7 @@ class CommentLexer extends Lexer
             if (!$this->isAxsPropertyDef()) {
                 continue;
             }
-            $injProcessor = new InjectedStringParser($this->getAxsComment());
+            $injProcessor = new InjectedStringSuit($this->getAxsComment());
             $code = $injProcessor->addSlashes('\\');
             $propertyData = new PropertyData(
                 $this->reflection->getProperty($this->getPropertyName()),

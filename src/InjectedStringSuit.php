@@ -15,7 +15,7 @@ namespace NoOne4rever\Axessors;
  * 
  * @package NoOne4rever\Axessors
  */
-class InjectedStringParser
+class InjectedStringSuit
 {
     private $expression;
     

@@ -70,7 +70,7 @@ class ConditionsProcessor
             return [];
         }
         $result = [];
-        $injProcessor = new InjectedStringParser($conditions);
+        $injProcessor = new InjectedStringSuit($conditions);
         $conditions = $injProcessor->addSlashes('|&');
         $conditions = preg_split('{\s*\|\|\s*}', $conditions);
         foreach ($conditions as $condition) {
@@ -100,7 +100,7 @@ class ConditionsProcessor
         $conditions = $this->explodeConditions($conditions);
         foreach ($conditions as $number => $condition) {
             foreach ($condition as $token) {
-                $injProcessor = new InjectedStringParser($token);
+                $injProcessor = new InjectedStringSuit($token);
                 if (count($condition) === 1) {
                     $result[] = $injProcessor->resolveClassNames($this->namespace);
                 } else {

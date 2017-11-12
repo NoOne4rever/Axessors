@@ -46,11 +46,11 @@ class HandlersProcessor
      */
     private function makeHandlersList(string $handlers): array
     {
-        $injProcessor = new InjectedStringParser($handlers);
+        $injProcessor = new InjectedStringSuit($handlers);
         $result = $injProcessor->addSlashes(',');
         $result = preg_split('{(?<!\\\\),\s*}', $result);
         foreach ($result as &$handler) {
-            $injProcessor = new InjectedStringParser(stripcslashes($handler));
+            $injProcessor = new InjectedStringSuit(stripcslashes($handler));
             $handler = $injProcessor->resolveClassNames($this->namespace);
         }
         return $result;
