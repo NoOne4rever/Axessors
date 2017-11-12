@@ -17,10 +17,20 @@ namespace NoOne4rever\Axessors;
  */
 class HandlersProcessor
 {
+    /** @var string handlers for setter */
     private $inputHandlers;
+    /** @var string handlers for getter */
     private $outputHandlers;
+    /** @var string class namespace */
     private $namespace;
-    
+
+    /**
+     * HandlersProcessor constructor.
+     * 
+     * @param string $in input handlers
+     * @param string $out output handlers
+     * @param string $namespace class namespace
+     */
     public function __construct(string $in, string $out, string $namespace)
     {
         $this->inputHandlers = $in;
