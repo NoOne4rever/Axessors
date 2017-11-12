@@ -45,7 +45,7 @@ class ConditionsProcessor
      */
     public function processInputConditions(): array
     {
-        return $this->inputConditions === '' ? [] : $this->makeConditionsTree($this->inputConditions);
+        return $this->makeConditionsTree($this->inputConditions);
     }
 
     /**
@@ -55,7 +55,7 @@ class ConditionsProcessor
      */
     public function processOutputConditions(): array
     {
-        return $this->outputConditions === '' ? [] : $this->makeConditionsTree($this->outputConditions);
+        return $this->makeConditionsTree($this->outputConditions);
     }
 
     /**
@@ -66,6 +66,9 @@ class ConditionsProcessor
      */
     private function explodeConditions(string $conditions): array
     {
+        if ($conditions === '') {
+            return [];
+        }
         $result = [];
         $conditions = preg_replace_callback(
             '{`([^`]|\\\\`)+((?<!\\\\)`)}',
