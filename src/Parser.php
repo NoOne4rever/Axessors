@@ -50,8 +50,6 @@ class Parser
     /** @var string[] access modifiers for getter and setter */
     private $accessModifiers;
     /** @var string alias of property */
-    private $alias;
-    /** @var bool information about order of tokens */
     private $readableFirst;
 
     /**
@@ -66,7 +64,6 @@ class Parser
         $this->tokens = $tokens;
         $this->readableFirst = (bool)preg_match('{^(rdb|readable)$}', $this->tokens[self::KEYWORD_1]);
         $this->validateStatements();
-        $this->processAlias();
     }
 
     /**
@@ -146,7 +143,7 @@ class Parser
      */
     public function getAlias(): string
     {
-        return $this->alias;
+        return $this->tokens[self::ALIAS] ?? $this->reflection->name;
     }
 
     /**
@@ -170,14 +167,6 @@ class Parser
             $this->accessModifiers[$type] = $this->replaceSignWithWord($this->tokens[self::ACCESS_MODIFIER_2]);
         }
         return $this->accessModifiers;
-    }
-
-    /**
-     * Processes property's alias.
-     */
-    private function processAlias(): void
-    {
-        $this->alias = $this->tokens[self::ALIAS] ?? $this->reflection->name;
     }
 
     /**
