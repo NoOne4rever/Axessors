@@ -76,7 +76,18 @@ class ConditionsProcessor
         foreach ($conditions as $condition) {
             $result[] = preg_split('{\s*&&\s*}', $condition);
         }
-        foreach ($result as $number => &$complexCondition) {
+        return $this->rmSlashes($result);
+    }
+
+    /**
+     * Removes slashes from conditions.
+     * 
+     * @param array $conditions conditions
+     * @return array processed conditions
+     */
+    private function rmSlashes(array $conditions): array 
+    {
+        foreach ($conditions as $number => &$complexCondition) {
             if (is_array($complexCondition)) {
                 foreach ($complexCondition as $num => &$condition) {
                     $condition = stripcslashes($condition);
@@ -85,7 +96,7 @@ class ConditionsProcessor
                 $complexCondition = stripcslashes($complexCondition);
             }
         }
-        return $result;
+        return $conditions;
     }
 
     /**
