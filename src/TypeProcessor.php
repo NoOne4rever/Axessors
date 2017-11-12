@@ -182,6 +182,7 @@ class TypeProcessor
         $this->replaceBool($_type);
         $this->replaceInt($_type);
         $this->replaceFloat($_type);
+        $this->replaceComplex($_type);
         $this->replaceAxs($_type);
         if ($_type === lcfirst($type)) {
             return $type;
@@ -235,6 +236,21 @@ class TypeProcessor
     }
 
     /**
+     * Replaces complex PHP type with Axessors type.
+     * 
+     * @param string $type type
+     */
+    private function replaceComplex(string &$type): void
+    {
+        switch ($type) {
+            case 'array':
+            case 'object':
+            case 'resource':
+                $type = "NoOne4rever\\Axessors\\Types\\axs_{$type}";
+        }
+    }
+
+    /**
      * Replaces PHP type with Axessors type.
      *
      * @param string $type type
@@ -243,9 +259,6 @@ class TypeProcessor
     {
         switch ($type) {
             case 'string':
-            case 'array':
-            case 'object':
-            case 'resource':
             case 'callable':
             case 'mixed':
                 $type = "NoOne4rever\\Axessors\\Types\\axs_{$type}";
