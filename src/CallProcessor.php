@@ -11,7 +11,6 @@ namespace NoOne4rever\Axessors;
 use NoOne4rever\Axessors\Exceptions\AxessorsError;
 use NoOne4rever\Axessors\Exceptions\InternalError;
 use NoOne4rever\Axessors\Exceptions\OopError;
-use NoOne4rever\Axessors\Exceptions\TypeError;
 
 /**
  * Class CallProcessor
@@ -28,8 +27,11 @@ class CallProcessor
     private $object;
     /** @var string class name */
     private $class;
+    /** @var int method call line number */
     private $line;
+    /** @var string method call file name */
     private $file;
+    /** @var string the name of calling class */
     private $callingClass;
     /** @var \ReflectionClass class data */
     private $reflection;
@@ -71,6 +73,15 @@ class CallProcessor
         return $runner->run($args);
     }
 
+    /**
+     * Searches called method in Axessors methods.
+     * 
+     * @param ClassData $classData class data
+     * @param Data $data global data
+     * @return PropertyData property that has the called method
+     * @throws AxessorsError if the called method not found
+     * @throws OopError if the called method is not accessible
+     */
     private function searchMethod(ClassData $classData, Data $data): PropertyData
     {
         while (!is_null($classData)) {
@@ -92,6 +103,13 @@ class CallProcessor
         throw new AxessorsError("method {$this->class}::{$this->method}() not found");
     }
 
+    /**
+     * Returns parent class data.
+     * 
+     * @param ClassData $classData class data
+     * @param Data $data global data
+     * @return ClassData|null parent class
+     */
     private function getParentClass(ClassData $classData, Data $data): ?ClassData
     {
         $reflection = $classData->reflection->getParentClass();
@@ -125,14 +143,26 @@ class CallProcessor
         }
         throw new InternalError('not a valid access modifier given');
     }
-    
+
+    /**
+     * Checks if a private method is accessible.
+     * 
+     * @param \ReflectionClass $reflection reflection
+     * @return bool the result of the checkout
+     */
     private function isAccessiblePrivate(\ReflectionClass $reflection): bool 
     {
         $isCalledClass = $this->callingClass === $reflection->name;
         $inCalledClass = $this->file === $reflection->getFileName() && $this->in($reflection);
         return $isCalledClass && $inCalledClass;
     }
-    
+
+    /**
+     * Checks if a protected method is accessible.
+     * 
+     * @param \ReflectionClass $reflection reflection
+     * @return bool the result of the checkout
+     */
     private function isAccessibleProtected(\ReflectionClass $reflection): bool 
     {
         $isSubclass = is_subclass_of($this->callingClass, $reflection->name);
@@ -142,7 +172,7 @@ class CallProcessor
     }
 
     /**
-     * Checks if the method called in right place and it is accessible there.
+     * Checks if the method is called in right place and it is accessible there.
      *
      * @param \ReflectionClass $reflection class data
      * @return bool result of the checkout
