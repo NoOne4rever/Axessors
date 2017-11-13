@@ -8,9 +8,11 @@
 
 namespace NoOne4rever\Axessors;
 
-use NoOne4rever\Axessors\Types\axs_bool;
-use NoOne4rever\Axessors\Types\axs_float;
-use NoOne4rever\Axessors\Types\axs_int;
+use NoOne4rever\Axessors\Types\{
+    axs_bool,
+    axs_float,
+    axs_int
+};
 
 /**
  * Class TypeSuit.
@@ -21,18 +23,32 @@ use NoOne4rever\Axessors\Types\axs_int;
  */
 abstract class TypeSuit
 {
+    /** @var \ReflectionProperty property reflection */
     protected $reflection;
+    /** @var array type tree */
     protected $typeTree;
+    /** @var string class namespace */
     protected $namespace;
     /** @var string type */
     private $type;
 
+    /**
+     * TypeSuit constructor.
+     *
+     * @param \ReflectionProperty $reflection property reflection
+     * @param string $ns class namespace
+     */
     public function __construct(\ReflectionProperty $reflection, string $ns)
     {
         $this->reflection = $reflection;
         $this->namespace = $ns;
     }
 
+    /**
+     * Returns processed type tree.
+     *
+     * @return array type tree
+     */
     public function getTypeTree(): array
     {
         return $this->typeTree;

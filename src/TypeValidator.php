@@ -21,12 +21,22 @@ use NoOne4rever\Axessors\{
  */
 class TypeValidator extends TypeSuit
 {
+    /**
+     * TypeValidator constructor.
+     *
+     * @param \ReflectionProperty $reflection property reflection
+     * @param string $namespace class namespace
+     * @param array $typeTree type tree
+     */
     public function __construct(\ReflectionProperty $reflection, string $namespace, array $typeTree)
     {
         parent::__construct($reflection, $namespace);
         $this->typeTree = $typeTree;
     }
 
+    /**
+     * Validates type tree and writes it into TypeValidator::$typeTree.
+     */
     public function validateTypeTree(): void
     {
         $this->typeTree = $this->validateTree($this->typeTree);

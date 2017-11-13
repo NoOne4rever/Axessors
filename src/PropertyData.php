@@ -47,24 +47,19 @@ class PropertyData
     {
         $parser = new Parser($reflection, $tokens);
         $this->reflection = $reflection;
-
         $this->accessibility = $parser->processAccessModifier();
         $this->alias = $parser->getAlias();
-
         $typeProcessor = new TypeProcessor($parser->getReflection(), $parser->getNamespace(), $parser->getTypeDef());
         $typeProcessor->processType();
         $this->type = $typeProcessor->getTypeTree();
-        
         $conditionsProcessor = new ConditionsProcessor($parser->getInConditions(), $parser->getOutConditions(),
             $parser->getNamespace());
         $this->conditionsIn = $conditionsProcessor->processInputData();
         $this->conditionsOut = $conditionsProcessor->processOutputData();
-        
         $handlersProcessor = new HandlersProcessor($parser->getInHandlers(), $parser->getOutHandlers(),
             $parser->getNamespace());
         $this->handlersIn = $handlersProcessor->processInputData();
         $this->handlersOut = $handlersProcessor->processOutputData();
-        
         $methodsProcessor = new MethodsProcessor($this->accessibility['write'] ?? '',
             $this->accessibility['read'] ?? '', $this->getAlias());
         $this->methods = $methodsProcessor->processMethods($typeProcessor->getTypeTree());
