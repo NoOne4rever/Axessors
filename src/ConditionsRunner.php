@@ -17,7 +17,7 @@ use NoOne4rever\Axessors\Exceptions\TypeError;
  * 
  * @package NoOne4rever\Axessors
  */
-class ConditionsSuit extends RunningSuit
+class ConditionsRunner extends RunningSuit
 {
     /** @var string method name */
     private $method;

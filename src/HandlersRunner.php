@@ -17,7 +17,7 @@ use NoOne4rever\Axessors\Exceptions\OopError;
  * 
  * @package NoOne4rever\Axessors
  */
-class HandlersSuit extends RunningSuit
+class HandlersRunner extends RunningSuit
 {
     /**
      * Executes handlers defined in the Axessors comment.

@@ -141,9 +141,9 @@ class MethodRunner extends RunningSuit
     private function executeAccessor(int $mode, $value)
     {
         $this->checkType($this->propertyData->getTypeTree(), $value);
-        $conditionsSuit = new ConditionsSuit($mode, $this->propertyData, $this->class, $this->method, $this->object);
+        $conditionsSuit = new ConditionsRunner($mode, $this->propertyData, $this->class, $this->method, $this->object);
         if ($conditionsSuit->processConditions($value)) {
-            $handlersSuit = new HandlersSuit($mode, $this->propertyData, $this->class, $this->object);
+            $handlersSuit = new HandlersRunner($mode, $this->propertyData, $this->class, $this->object);
             $value = $handlersSuit->executeHandlers($value);
             return $value;
         } else {
