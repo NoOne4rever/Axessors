@@ -12,24 +12,16 @@ use NoOne4rever\Axessors\Exceptions\TypeError;
 
 /**
  * Class TypeProcessor.
- * 
+ *
  * Processes property's type.
- * 
+ *
  * @package NoOne4rever\Axessors
  */
-class TypeProcessor
+class TypeProcessor extends TypeSuit
 {
-    /** @var \ReflectionProperty reflection */
-    private $reflection;
-    /** @var string class namespace */
-    private $namespace;
     /** @var string type declaration string */
-    private $typeDeclaration;    
-    /** @var array type tree */
-    private $typeTree;
-    /** @var TypeValidator type validator */
-    private $validator;
-    
+    private $typeDeclaration;
+
     /**
      * TypeProcessor constructor.
      * @param \ReflectionProperty $reflection
@@ -38,49 +30,36 @@ class TypeProcessor
      */
     public function __construct(\ReflectionProperty $reflection, string $namespace, string $typeDeclaration)
     {
-        $this->reflection = $reflection;
-        $this->namespace = $namespace;
+        parent::__construct($reflection, $namespace);
         $this->typeDeclaration = $typeDeclaration;
-        $this->validator = new TypeValidator($reflection);
     }
 
     /**
-     * Getter for {@see TypeProcessor::$typeTree}.
-     * 
-     * @return array type tree
-     */
-    public function getTypeTree(): array 
-    {
-        return $this->typeTree;
-    }
-    
-    /**
      * Creates type tree.
      *
-     * @return array
      * @throws TypeError if type defined in Axessors comment does not match default type of property
      */
-    public function processType(): array
+    public function processType(): void
     {
         $type = $this->getDefaultType();
         if ($this->typeDeclaration !== '') {
             $this->typeTree = $this->makeTypeTree($this->typeDeclaration);
+            $validator = new TypeValidator($this->reflection, $this->namespace, $this->typeTree);
+            $validator->validateTypeTree();
             if ($type != 'NULL') {
-                $this->validator->validateDefaultType($type, $this->typeTree);
-                $this->validator->validateTypeTree($this->typeTree);
-                return $this->typeTree;
+                $validator->validateDefaultType($this->replacePhpTypeWithAxsType($type));
             }
         } else {
             if ($type == 'NULL') {
                 throw new TypeError('type not defined');
             } else {
-                $this->typeTree = [$type];
+                $validator = new TypeValidator($this->reflection, $this->namespace, [$type]);
+                $validator->validateTypeTree();
             }
         }
-        $this->validator->validateTypeTree($this->typeTree);
-        return $this->typeTree;
+        $this->typeTree = $validator->getTypeTree();
     }
-    
+
     /**
      * Returns default type of property.
      *
@@ -90,13 +69,11 @@ class TypeProcessor
     {
         if ($this->reflection->isStatic()) {
             $this->reflection->setAccessible(true);
-            $typeResolver = new TypeResolver(gettype($this->reflection->getValue()));
-            $type = $typeResolver->replacePhpTypeWithAxsType();
+            $type = $this->replacePhpTypeWithAxsType(gettype($this->reflection->getValue()));
             $this->reflection->setAccessible(false);
         } else {
             $properties = $this->reflection->getDeclaringClass()->getDefaultProperties();
-            $typeResolver = new TypeResolver(gettype($properties[$this->reflection->name]));
-            $type = isset($properties[$this->reflection->name]) ? $typeResolver->replacePhpTypeWithAxsType()
+            $type = isset($properties[$this->reflection->name]) ? $this->replacePhpTypeWithAxsType(gettype($properties[$this->reflection->name]))
                 : 'NULL';
         }
         return $type;
@@ -116,12 +93,8 @@ class TypeProcessor
             if (($bracket = strpos($type, '[')) !== false) {
                 $subtype = substr($type, $bracket + 1, strlen($type) - $bracket - 2);
                 $type = substr($type, 0, $bracket);
-                $typeResolver = new TypeResolver($type);
-                $type = $this->validator->validateType($typeResolver->replacePhpTypeWithAxsType(), $this->namespace);
                 $typeTree[$type] = $this->makeTypeTree($subtype);
             } else {
-                $typeResolver = new TypeResolver($type);
-                $type = $this->validator->validateType($typeResolver->replacePhpTypeWithAxsType(), $this->namespace);
                 $typeTree[] = $type;
             }
         }

@@ -8,41 +8,45 @@
 
 namespace NoOne4rever\Axessors;
 
-use NoOne4rever\Axessors\Types\{
-    axs_bool,
-    axs_int,
-    axs_float
-};
+use NoOne4rever\Axessors\Types\axs_bool;
+use NoOne4rever\Axessors\Types\axs_float;
+use NoOne4rever\Axessors\Types\axs_int;
 
 /**
- * Class TypeResolver.
- * 
- * Resolves Axessors types.
+ * Class TypeSuit.
+ *
+ * Provides common type tree processing functionality.
  * 
  * @package NoOne4rever\Axessors
  */
-class TypeResolver
+abstract class TypeSuit
 {
+    protected $reflection;
+    protected $typeTree;
+    protected $namespace;
     /** @var string type */
     private $type;
 
-    /**
-     * TypeResolver constructor.
-     *
-     * @param string $type type
-     */
-    public function __construct(string $type)
+    public function __construct(\ReflectionProperty $reflection, string $ns)
     {
-        $this->type = $type;
+        $this->reflection = $reflection;
+        $this->namespace = $ns;
+    }
+
+    public function getTypeTree(): array
+    {
+        return $this->typeTree;
     }
 
     /**
      * Replaces internal PHP type with an Axessors type.
      *
+     * @param string $type type
      * @return string axessors type
      */
-    public function replacePhpTypeWithAxsType(): string
+    public function replacePhpTypeWithAxsType(string $type): string
     {
+        $this->type = $type;
         $_type = $this->type;
         $this->type = lcfirst($this->type);
         $this->replaceBool();
@@ -53,9 +57,9 @@ class TypeResolver
         if ($_type === lcfirst($_type)) {
             return $this->type;
         } elseif ($this->type !== lcfirst($_type)) {
-            return $this->type . '_ext';
+            return ucfirst($this->type) . '_ext';
         } else {
-            return $this->type;
+            return ucfirst($this->type);
         }
     }
 

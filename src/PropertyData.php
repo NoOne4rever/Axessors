@@ -52,7 +52,8 @@ class PropertyData
         $this->alias = $parser->getAlias();
 
         $typeProcessor = new TypeProcessor($parser->getReflection(), $parser->getNamespace(), $parser->getTypeDef());
-        $this->type = $typeProcessor->processType();
+        $typeProcessor->processType();
+        $this->type = $typeProcessor->getTypeTree();
         
         $conditionsProcessor = new ConditionsProcessor($parser->getInConditions(), $parser->getOutConditions(),
             $parser->getNamespace());
