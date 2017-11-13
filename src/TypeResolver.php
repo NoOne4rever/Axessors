@@ -23,8 +23,14 @@ use NoOne4rever\Axessors\Types\{
  */
 class TypeResolver
 {
+    /** @var string type */
     private $type;
-    
+
+    /**
+     * TypeResolver constructor.
+     *
+     * @param string $type type
+     */
     public function __construct(string $type)
     {
         $this->type = $type;
