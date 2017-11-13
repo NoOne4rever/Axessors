@@ -15,37 +15,16 @@ namespace NoOne4rever\Axessors;
  * 
  * @package NoOne4rever\Axessors
  */
-class ConditionsProcessor
+class ConditionsProcessor extends TokenProcessor
 {
-    /** @var string conditions for setter */
-    private $inputConditions;
-    /** @var string conditions for getter */
-    private $outputConditions;
-    /** @var string class namespace */
-    private $namespace;
-
-    /**
-     * ConditionsProcessor constructor.
-     * 
-     * @param string $in input conditions
-     * @param string $out output conditions
-     * @param string $namespace class namespace
-     */
-    public function __construct(string $in, string $out, string $namespace)
-    {
-        $this->inputConditions = $in;
-        $this->outputConditions = $out;
-        $this->namespace = $namespace;
-    }
-
     /**
      * Creates list of conditions for input data.
      *
      * @return string[] conditions
      */
-    public function processInputConditions(): array
+    public function processInputData(): array
     {
-        return $this->makeConditionsTree($this->inputConditions);
+        return $this->makeConditionsTree($this->input);
     }
 
     /**
@@ -53,9 +32,9 @@ class ConditionsProcessor
      *
      * @return string[] conditions
      */
-    public function processOutputConditions(): array
+    public function processOutputData(): array
     {
-        return $this->makeConditionsTree($this->outputConditions);
+        return $this->makeConditionsTree($this->output);
     }
 
     /**

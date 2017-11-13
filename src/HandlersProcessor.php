@@ -15,29 +15,8 @@ namespace NoOne4rever\Axessors;
  * 
  * @package NoOne4rever\Axessors
  */
-class HandlersProcessor
+class HandlersProcessor extends TokenProcessor
 {
-    /** @var string handlers for setter */
-    private $inputHandlers;
-    /** @var string handlers for getter */
-    private $outputHandlers;
-    /** @var string class namespace */
-    private $namespace;
-
-    /**
-     * HandlersProcessor constructor.
-     * 
-     * @param string $in input handlers
-     * @param string $out output handlers
-     * @param string $namespace class namespace
-     */
-    public function __construct(string $in, string $out, string $namespace)
-    {
-        $this->inputHandlers = $in;
-        $this->outputHandlers = $out;
-        $this->namespace = $namespace;
-    }
-
     /**
      * Creates list of handlers from a string of handlers definition.
      *
@@ -46,6 +25,9 @@ class HandlersProcessor
      */
     private function makeHandlersList(string $handlers): array
     {
+        if ($handlers === '') {
+            return [];
+        }
         $injProcessor = new InjectedStringSuit($handlers);
         $result = $injProcessor->addSlashes(',');
         $result = preg_split('{(?<!\\\\),\s*}', $result);
@@ -61,9 +43,9 @@ class HandlersProcessor
      *
      * @return string[] handlers
      */
-    public function processInputHandlers(): array
+    public function processInputData(): array
     {
-        return $this->inputHandlers === '' ? [] : $this->makeHandlersList($this->inputHandlers);
+        return $this->makeHandlersList($this->input);
     }
 
     /**
@@ -71,8 +53,8 @@ class HandlersProcessor
      *
      * @return string[] handlers
      */
-    public function processOutputHandlers(): array
+    public function processOutputData(): array
     {
-        return $this->outputHandlers === '' ? [] : $this->makeHandlersList($this->outputHandlers);
+        return $this->makeHandlersList($this->output);
     }
 }

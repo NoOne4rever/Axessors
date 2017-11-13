@@ -56,13 +56,13 @@ class PropertyData
         
         $conditionsProcessor = new ConditionsProcessor($parser->getInConditions(), $parser->getOutConditions(),
             $parser->getNamespace());
-        $this->conditionsIn = $conditionsProcessor->processInputConditions();
-        $this->conditionsOut = $conditionsProcessor->processOutputConditions();
+        $this->conditionsIn = $conditionsProcessor->processInputData();
+        $this->conditionsOut = $conditionsProcessor->processOutputData();
         
         $handlersProcessor = new HandlersProcessor($parser->getInHandlers(), $parser->getOutHandlers(),
             $parser->getNamespace());
-        $this->handlersIn = $handlersProcessor->processInputHandlers();
-        $this->handlersOut = $handlersProcessor->processOutputHandlers();
+        $this->handlersIn = $handlersProcessor->processInputData();
+        $this->handlersOut = $handlersProcessor->processOutputData();
         
         $methodsProcessor = new MethodsProcessor($this->accessibility['write'] ?? '',
             $this->accessibility['read'] ?? '', $this->getAlias());
