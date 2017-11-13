@@ -17,8 +17,14 @@ namespace NoOne4rever\Axessors;
  */
 class InjectedStringSuit
 {
+    /** @var string expression */
     private $expression;
-    
+
+    /**
+     * InjectedStringSuit constructor.
+     *
+     * @param string $expression expression
+     */
     public function __construct(string $expression)
     {
         $this->expression = $expression;
