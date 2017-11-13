@@ -9,8 +9,10 @@
 
 namespace NoOne4rever\Axessors;
 
-use NoOne4rever\Axessors\Exceptions\InternalError;
-use NoOne4rever\Axessors\Exceptions\OopError;
+use NoOne4rever\Axessors\Exceptions\{
+    InternalError,
+    OopError
+};
 
 const NUM_OF_PREDEFINED_CLASSES = 132;
 

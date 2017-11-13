@@ -8,8 +8,10 @@
 
 namespace NoOne4rever\Axessors;
 
-use NoOne4rever\Axessors\Exceptions\TypeError;
-use NoOne4rever\Axessors\Types\axs_mixed;
+use NoOne4rever\Axessors\{
+    Exceptions\TypeError,
+    Types\axs_mixed
+};
 
 /**
  * Class TypeValidator.

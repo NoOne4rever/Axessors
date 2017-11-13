@@ -8,8 +8,6 @@
 
 namespace NoOne4rever\Axessors;
 
-use NoOne4rever\Axessors\Exceptions\InternalError;
-
 /**
  * Class MethodsProcessor.
  *
@@ -54,24 +52,15 @@ class MethodsProcessor
         $this->methods = [];
         $this->processAccessors();
         foreach ($typeTree as $index => $type) {
-            $this->addMethods(is_int($index) ? $type : $index);
+            $class = is_int($index) ? $type : $index;
+            foreach ((new \ReflectionClass($class))->getMethods() as $method) {
+                if (!($method->isStatic() && $method->isPublic() && !$method->isAbstract())) {
+                    continue;
+                }
+                $this->processAxessorsMethod($method);
+            }
         }
         return $this->methods;
-    }
-
-    /**
-     * Adds Axessors methods from type to methods list.
-     * 
-     * @param string $type class name
-     */
-    private function addMethods(string $type): void
-    {
-        foreach ((new \ReflectionClass($type))->getMethods() as $method) {
-            if (!($method->isStatic() && $method->isPublic() && !$method->isAbstract())) {
-                continue;
-            }
-            $this->processAxessorsMethod($method);
-        }
     }
 
     /**

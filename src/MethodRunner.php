@@ -8,8 +8,10 @@
 
 namespace NoOne4rever\Axessors;
 
-use NoOne4rever\Axessors\Exceptions\AxessorsError;
-use NoOne4rever\Axessors\Exceptions\TypeError;
+use NoOne4rever\Axessors\Exceptions\{
+    AxessorsError,
+    TypeError
+};
 
 /**
  * Class MethodRunner.

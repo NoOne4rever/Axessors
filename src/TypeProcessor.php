@@ -9,9 +9,6 @@
 namespace NoOne4rever\Axessors;
 
 use NoOne4rever\Axessors\Exceptions\TypeError;
-use NoOne4rever\Axessors\Types\axs_bool;
-use NoOne4rever\Axessors\Types\axs_float;
-use NoOne4rever\Axessors\Types\axs_int;
 
 /**
  * Class TypeProcessor.
