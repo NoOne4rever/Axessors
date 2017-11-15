@@ -59,15 +59,16 @@ trait Axessors
     {
         $var = $_var;
         try {
-            $result = eval('return ' . $code . ';'); // evaluation of the code written in Axessors comment
+            $result = (bool)eval('return ' . $code . ';'); // evaluation of the code written in Axessors comment
         } catch (\Throwable $error) {
             throw new ReThrownError("an error occurred while evaluating executable string \"$code\": {$error->getMessage()}");
         }
-        if ($var != $_var) {
+        /*if ($var != $_var) {
             return $var;
         } else {
             return $mode ? $result : $var;
-        }
+        }*/
+        return $mode ? $result : $var;
     }
 
     /**
