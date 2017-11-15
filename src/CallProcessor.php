@@ -48,8 +48,13 @@ class CallProcessor
     {
         $this->object = $object;
         $this->class = $backtrace[0]['class'];
-        $this->line = $backtrace[1]['line'];
-        $this->file = $backtrace[1]['file'];
+        for ($i = 1; ; ++$i) {
+            if (isset($backtrace[$i]['line'])) {
+                $this->line = $backtrace[$i]['line'];
+                $this->file = $backtrace[$i]['file'];
+                break;
+            }
+        }
         $this->callingClass = $backtrace[1]['class'];
     }
 
@@ -71,7 +76,7 @@ class CallProcessor
         $this->reflection = $classData->reflection;
         $propertyData = $this->searchMethod($classData);
         $runner = new MethodRunner(0, $propertyData, $this->class, $this->method, $this->object);
-        return $runner->run($args);
+        return $runner->run($args, $this->file, $this->line);
     }
 
     /**
