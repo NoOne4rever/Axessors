@@ -28,7 +28,7 @@ class KeywordsTest extends TestCase
     /**
      * Creates new stub instance.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->stub = new KeywordsStub();
     }
