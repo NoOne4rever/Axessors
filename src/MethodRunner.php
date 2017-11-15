@@ -44,11 +44,14 @@ class MethodRunner extends RunningSuit
      * Emulates execution of the method.
      *
      * @param array $args the arguments of the method called
+     * @param string $file filename
+     * @param int $line line number
+     * 
      * @return mixed return value of the method called
      * @throws AxessorsError if conditions for executing an accessor did not pass
      * @throws AxessorsError if Axessors method not found
      */
-    public function run(array $args)
+    public function run(array $args, string $file, int $line)
     {
         $prefix = substr($this->method, 0, 3);
         if ($prefix == 'get') {
@@ -57,6 +60,9 @@ class MethodRunner extends RunningSuit
             $this->propertyData->reflection->setAccessible(false);
             return $this->executeAccessor(RunningSuit::OUTPUT_MODE, $value);
         } elseif ($prefix == 'set') {
+            if (!isset($args[0])) {
+                throw new AxessorsError("setter could not be called without arguments at $file:$line");
+            }
             $value = $this->executeAccessor(RunningSuit::INPUT_MODE, $args[0]);
             $this->propertyData->reflection->setAccessible(true);
             is_null($this->object) ? $this->propertyData->reflection->setValue($value) : $this->propertyData->reflection->setValue($this->object,
