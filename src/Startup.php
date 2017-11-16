@@ -14,12 +14,12 @@ use NoOne4rever\Axessors\Exceptions\{
     OopError
 };
 
-const NUM_OF_PREDEFINED_CLASSES = 132;
+$numOfPredefinedClasses = 132;
 
 $classes = get_declared_classes();
 $totalClasses = count($classes);
 
-for ($i = NUM_OF_PREDEFINED_CLASSES; $i < $totalClasses; ++$i) {
+for ($i = $numOfPredefinedClasses; $i < $totalClasses; ++$i) {
     $reflection = $_reflection = new \ReflectionClass($classes[$i]);
     if (!in_array(Axessors::class, $reflection->getTraitNames()) && !in_array(Axs::class,
             $reflection->getTraitNames())) {
