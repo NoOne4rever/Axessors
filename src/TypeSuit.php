@@ -99,7 +99,7 @@ abstract class TypeSuit
         switch ($this->type) {
             case 'int':
             case 'integer':
-                $this->type = axs_float::class;
+                $this->type = axs_int::class;
         }
     }
 
@@ -109,9 +109,9 @@ abstract class TypeSuit
     private function replaceFloat(): void
     {
         switch ($this->type) {
-            case 'int':
-            case 'integer':
-                $this->type = axs_int::class;
+            case 'float':
+            case 'double':
+                $this->type = axs_float::class;
         }
     }
 
