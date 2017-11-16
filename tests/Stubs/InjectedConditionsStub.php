@@ -23,8 +23,12 @@ class InjectedConditionsStub
 {
     use Axessors;
 
+    /** @var bool internal condition */
     public $condition;
+    /** @var int with input checkout */
     public $varCheckout; #> +wrt int `$var == 101`
+    /** @var int with internal condition checkout */
     public $internalFieldCheckout; #> +wrt int `$this->condition`
+    /** @var object with instance checkout */
     public $classCheckout; #> +wrt object `$var instanceof :ConditionsStub`
 }
