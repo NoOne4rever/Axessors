@@ -24,7 +24,7 @@ use NoOne4rever\Axessors\Axessors;
  * @method void setFullWrt(string $val) setter for KeywordsStub::$fullWrt
  * @method void setFullAxs(string $val) setter for KeywordsStub::$fullAxs
  */
-class KeywordsStub
+class KeywordsStub extends NonAxessorsStub
 {
     use Axessors;
 

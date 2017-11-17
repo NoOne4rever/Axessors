@@ -11,6 +11,7 @@ namespace NoOne4rever\Axessors\Tests;
 use NoOne4rever\Axessors\Tests\Stubs\KeywordsStub;
 use PHPUnit\Framework\TestCase;
 
+require __DIR__ . '/Stubs/NonAxessorsStub.php';
 require __DIR__ . '/Stubs/KeywordsStub.php';
 
 /**
