@@ -8,8 +8,6 @@
 
 namespace NoOne4rever\Axessors;
 
-use NoOne4rever\Axessors\Exceptions\InternalError;
-
 /**
  * Class ClassData.
  *
@@ -44,22 +42,6 @@ class ClassData
     public function addProperty(string $name, PropertyData $propertyData)
     {
         $this->properties[$name] = $propertyData;
-    }
-
-    /**
-     * Returns property by name.
-     *
-     * @param string $name property name
-     * @return PropertyData information about property
-     * @throws InternalError if property not found
-     */
-    public function getProperty(string $name): PropertyData
-    {
-        if (isset($this->properties[$name])) {
-            return $this->properties[$name];
-        } else {
-            throw new InternalError("property {$this->reflection->name}::\$$name not found in Axessors\\ClassData");
-        }
     }
 
     /**
