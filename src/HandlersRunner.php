@@ -9,6 +9,7 @@
 namespace NoOne4rever\Axessors;
 
 use NoOne4rever\Axessors\Exceptions\OopError;
+use NoOne4rever\Axessors\Exceptions\TypeError;
 
 /**
  * Class HandlersSuit.
@@ -44,8 +45,8 @@ class HandlersRunner extends RunningSuit
      * 
      * @param string $handler handler name
      * @param mixed $value the value to process
-     * @return mixed the result of handler execution 
-     * @throws OopError if the called handler not found
+     * @return mixed the result of handler execution
+     * @throws TypeError if the called handler not found
      */
     private function runStandardHandler(string $handler, $value)
     {
@@ -57,7 +58,7 @@ class HandlersRunner extends RunningSuit
                 }
             }
         }
-        throw new OopError("property {$this->class}::\${$this->propertyData->getName()} does not have handler \"$handler\"");
+        throw new TypeError("property {$this->class}::\${$this->propertyData->getName()} does not have handler \"$handler\"");
     }
 
     /**
