@@ -44,6 +44,19 @@ class axs_string implements TypeDefinition
     /**
      * Axessors handler.
      *
+     * Casts a string to lowercase.
+     *
+     * @param $var mixed variable
+     * @return string changed string
+     */
+    public static function h_lower($var): string
+    {
+        return strtolower($var);
+    }
+
+    /**
+     * Axessors handler.
+     *
      * Reverses a string.
      *
      * @param $var mixed variable
