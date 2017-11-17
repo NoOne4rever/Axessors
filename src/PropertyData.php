@@ -66,16 +66,6 @@ class PropertyData
     }
 
     /**
-     * Getter for {@see PropertyData::$accessibility}.
-     *
-     * @return string[] {@see PropertyData::$accessibility}
-     */
-    public function getAccessibility(): array
-    {
-        return $this->accessibility;
-    }
-
-    /**
      * Getter for {@see PropertyData::$alias}.
      *
      * @return string {@see PropertyData::$alias}
