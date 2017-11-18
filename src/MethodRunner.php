@@ -55,11 +55,13 @@ class MethodRunner extends RunningSuit
     {
         $prefix = substr($this->method, 0, 3);
         if ($prefix == 'get') {
+            $this->mode = RunningSuit::OUTPUT_MODE;
             $this->propertyData->reflection->setAccessible(true);
             $value = is_null($this->object) ? $this->propertyData->reflection->getValue() : $this->propertyData->reflection->getValue($this->object);
             $this->propertyData->reflection->setAccessible(false);
             return $this->executeAccessor(RunningSuit::OUTPUT_MODE, $value);
         } elseif ($prefix == 'set') {
+            $this->mode = RunningSuit::INPUT_MODE;
             if (!isset($args[0])) {
                 throw new AxessorsError("setter could not be called without arguments at $file:$line");
             }
@@ -180,6 +182,9 @@ class MethodRunner extends RunningSuit
      */
     private function checkType(array $typeTree, $var): void
     {
+        if ($this->mode == RunningSuit::OUTPUT_MODE && is_null($var)) {
+            return;
+        }
         foreach ($typeTree as $type => $subType) {
             if (is_int($type) && $this->is($var, $subType)) {
                 return;

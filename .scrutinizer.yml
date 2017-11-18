@@ -17,7 +17,7 @@ build:
       - 'composer require --dev phpunit/phpunit'
     override:
       -
-        command: './vendor/bin/phpunit --coverage-clover=coverage.xml'
+        command: 'vendor/bin/phpunit --coverage-clover=coverage.xml'
         coverage:
           file: 'coverage.xml'
           format: 'clover'
