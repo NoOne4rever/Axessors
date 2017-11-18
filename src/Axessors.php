@@ -63,11 +63,6 @@ trait Axessors
         } catch (\Throwable $error) {
             throw new ReThrownError("an error occurred while evaluating executable string \"$code\": {$error->getMessage()}");
         }
-        /*if ($var != $_var) {
-            return $var;
-        } else {
-            return $mode ? $result : $var;
-        }*/
         return $mode ? $result : $var;
     }
 
@@ -81,11 +76,7 @@ trait Axessors
      */
     private static function __axessorsCall(string $method, array $args, $object = null)
     {
-        if (method_exists(static::class, $method)) {
-            return call_user_func_array([$object ?? static::class, $method], $args);
-        } else {
-            $callProcessor = new CallProcessor(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), $object);
-            return $callProcessor->call($args, $method);
-        }
+        $callProcessor = new CallProcessor(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), $object);
+        return $callProcessor->call($args, $method);
     }
 }
