@@ -70,4 +70,14 @@ class GeneralTest extends TestCase
     {
         $this->assertNotEquals($this->stub->field, $this->stub->getField());
     }
+
+    /**
+     * Tests if non-existing method fails.
+     *
+     * @expectedException \NoOne4rever\Axessors\Exceptions\AxessorsError
+     */
+    public function testNonExistingMethodFails(): void
+    {
+        $this->stub->nonExisting();
+    }
 }
