@@ -29,9 +29,9 @@ class Data
      * @param string $name class' name
      * @param ClassData $class class to add
      */
-    public static function addClass(string $name, ClassData $class): void
+    public static function addClass(ClassData $class): void
     {
-        self::$classes[$name] = $class;
+        self::$classes[$class->reflection->name] = $class;
     }
 
     /**
