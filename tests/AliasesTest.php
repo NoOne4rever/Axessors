@@ -9,7 +9,6 @@
 namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Tests\Stubs\AliasesStub;
-use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/Stubs/AliasesStub.php';
 
@@ -20,11 +19,8 @@ require __DIR__ . '/Stubs/AliasesStub.php';
  *
  * @package NoOne4rever\Axessors\Tests
  */
-class AliasesTest extends TestCase
+class AliasesTest extends AxessorsTestCase
 {
-    /** @var AliasesStub stub for Axessors field aliases */
-    private $stub;
-
     /**
      * Creates new stub instance.
      */

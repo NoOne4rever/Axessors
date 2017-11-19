@@ -10,7 +10,6 @@
 namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Tests\Stubs\HandlersStub;
-use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/Stubs/HandlersStub.php';
 
@@ -21,11 +20,8 @@ require __DIR__ . '/Stubs/HandlersStub.php';
  *
  * @package NoOne4rever\Axessors\Tests
  */
-class HandlersTest extends TestCase
+class HandlersTest extends AxessorsTestCase
 {
-    /** @var HandlersStub */
-    private $stub;
-
     /**
      * Creates new stub instance.
      */

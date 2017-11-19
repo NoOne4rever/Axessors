@@ -9,7 +9,6 @@
 namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Tests\Stubs\ShortConditionsStub;
-use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/Stubs/ShortConditionsStub.php';
 
@@ -20,11 +19,8 @@ require __DIR__ . '/Stubs/ShortConditionsStub.php';
  *
  * @package NoOne4rever\Axessors\Tests
  */
-class ShortConditionsTest extends TestCase
+class ShortConditionsTest extends AxessorsTestCase
 {
-    /** @var ShortConditionsStub stub for Axessors mathematical expressions */
-    private $stub;
-
     /**
      * Creates new stub instance.
      */

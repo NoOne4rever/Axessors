@@ -9,7 +9,6 @@
 namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Tests\Stubs\InterfaceImplementationStub;
-use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/Stubs/AbstractStub.php';
 require __DIR__ . '/Stubs/AbstractChildStub.php';
@@ -23,11 +22,8 @@ require __DIR__ . '/Stubs/InterfaceImplementationStub.php';
  *
  * @package NoOne4rever\Axessors\Tests\Stubs
  */
-class InterfaceImplementationTest extends TestCase
+class InterfaceImplementationTest extends AxessorsTestCase
 {
-    /** @var InterfaceImplementationStub hierarchy scanning stub */
-    private $stub;
-
     /**
      * Creates new stub instance.
      */

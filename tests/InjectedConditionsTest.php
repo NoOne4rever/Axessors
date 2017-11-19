@@ -10,7 +10,6 @@ namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Tests\Stubs\ConditionsStub;
 use NoOne4rever\Axessors\Tests\Stubs\InjectedConditionsStub;
-use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/Stubs/InjectedConditionsStub.php';
 
@@ -21,11 +20,8 @@ require __DIR__ . '/Stubs/InjectedConditionsStub.php';
  *
  * @package NoOne4rever\Axessors\Tests
  */
-class InjectedConditionsTest extends TestCase
+class InjectedConditionsTest extends AxessorsTestCase
 {
-    /** @var InjectedConditionsStub */
-    private $stub;
-
     /**
      * Creates new stub instance.
      */

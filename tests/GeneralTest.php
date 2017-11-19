@@ -9,7 +9,6 @@
 namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Tests\Stubs\GeneralStub;
-use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/Stubs/GeneralStub.php';
 
@@ -18,11 +17,8 @@ require __DIR__ . '/Stubs/GeneralStub.php';
  *
  * @package NoOne4rever\Axessors\Tests
  */
-class GeneralTest extends TestCase
+class GeneralTest extends AxessorsTestCase
 {
-    /** @var GeneralStub general Axessors stub */
-    private $stub;
-
     /**
      * Creates new stub instance.
      */

@@ -10,7 +10,6 @@ namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Tests\Stubs\NonAxessorsStub;
 use NoOne4rever\Axessors\Tests\Stubs\TypeDeclarationsStub;
-use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/Stubs/TypeDeclarationsStub.php';
 
@@ -21,11 +20,8 @@ require __DIR__ . '/Stubs/TypeDeclarationsStub.php';
  *
  * @package NoOne4rever\Axessors\Tests
  */
-class TypeDeclarationsTest extends TestCase
+class TypeDeclarationsTest extends AxessorsTestCase
 {
-    /** @var TypeDeclarationsStub type declarations stub */
-    private $stub;
-
     /**
      * Creates new stub instance.
      */

@@ -9,7 +9,6 @@
 namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Tests\Stubs\IntegerTypeConversionStub;
-use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/Stubs/IntegerTypeConversionStub.php';
 
@@ -20,11 +19,8 @@ require __DIR__ . '/Stubs/IntegerTypeConversionStub.php';
  * 
  * @package NoOne4rever\Axessors\Tests
  */
-class IntegerTypeConversionTest extends TestCase
+class IntegerTypeConversionTest extends AxessorsTestCase
 {
-    /** @var IntegerTypeConversionStub type conversion stub */
-    private $stub;
-
     /**
      * Creates new sub instance.
      */

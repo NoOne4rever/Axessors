@@ -10,7 +10,6 @@ namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Tests\Stubs\InjectedHandlersStub;
 use NoOne4rever\Axessors\Tests\Stubs\NonAxessorsStub;
-use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/Stubs/InjectedHandlersStub.php';
 
@@ -21,11 +20,8 @@ require __DIR__ . '/Stubs/InjectedHandlersStub.php';
  *
  * @package NoOne4rever\Axessors\Tests
  */
-class InjectedHandlersTest extends TestCase
+class InjectedHandlersTest extends AxessorsTestCase
 {
-    /** @var InjectedHandlersStub stub with injected handlers */
-    private $stub;
-
     /**
      * Creates new stub instance.
      */

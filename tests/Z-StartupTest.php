@@ -9,11 +9,13 @@
 namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Axessors;
+use NoOne4rever\Axessors\AxessorsStartup;
 use NoOne4rever\Axessors\CommentLexer;
+use NoOne4rever\Axessors\Tests\Stubs\StubInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class StartupTest.
+ * Class Z-StartupTest.
  *
  * Tests Axessors StartupPHP.
  *
@@ -21,14 +23,30 @@ use PHPUnit\Framework\TestCase;
  */
 class StartupTest extends TestCase
 {
+    /** @var object test stub */
+    private $stub;
+    
     /**
      * Tests Axessors startup file.
      */
     public function testStartup(): void
     {
-        require __DIR__ . '/../src/Startup.php';
-
+        AxessorsStartup::run();
         $this->assertTrue(true);
+    }
+
+    /**
+     * Tests if not implemented method is processed.
+     *
+     * @expectedException \NoOne4rever\Axessors\Exceptions\OopError
+     */
+    public function testNotImplementedMethodFailure(): void
+    {
+        $this->stub = new class implements StubInterface
+        {
+            use Axessors;
+        };
+        AxessorsStartup::run();
     }
 
     /**
@@ -38,14 +56,14 @@ class StartupTest extends TestCase
      */
     public function testInvalidDefaultTypeFailure(): void
     {
-        $stub = new class
+        $this->stub = new class
         {
             use Axessors;
 
             public $field = false; #> +wrt int 
         };
 
-        $this->indexClass($stub);
+        $this->indexClass($this->stub);
     }
 
     /**
@@ -55,14 +73,14 @@ class StartupTest extends TestCase
      */
     public function testNullTypeDeclarationFailure(): void
     {
-        $stub = new class
+        $this->stub = new class
         {
             use Axessors;
 
             public $field; #> +wrt
         };
 
-        $this->indexClass($stub);
+        $this->indexClass($this->stub);
     }
 
     /**
@@ -72,14 +90,14 @@ class StartupTest extends TestCase
      */
     public function testInvalidStatementsOrder(): void
     {
-        $stub = new class
+        $this->stub = new class
         {
             use Axessors;
 
             public $field; #> +rdb int +wrt
         };
 
-        $this->indexClass($stub);
+        $this->indexClass($this->stub);
     }
 
     /**

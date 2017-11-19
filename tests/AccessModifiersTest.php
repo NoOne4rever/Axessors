@@ -10,7 +10,6 @@ namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Tests\Stubs\AccessModifiersChildStub;
 use NoOne4rever\Axessors\Tests\Stubs\AccessModifiersStub;
-use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/Stubs/AccessModifiersStub.php';
 require __DIR__ . '/Stubs/AccessModifiersChildStub.php';
@@ -22,10 +21,8 @@ require __DIR__ . '/Stubs/AccessModifiersChildStub.php';
  *
  * @package NoOne4rever\Axessors\Tests
  */
-class AccessModifiersTest extends TestCase
+class AccessModifiersTest extends AxessorsTestCase
 {
-    /** @var AccessModifiersStub access modifiers stub */
-    private $stub;
     /** @var AccessModifiersChildStub access modifiers child stub */
     private $childStub;
 

@@ -11,7 +11,6 @@ namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Tests\Stubs\AxessorsChildStub;
 use NoOne4rever\Axessors\Tests\Stubs\AxessorsStub;
-use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/Stubs/AxessorsStub.php';
 require __DIR__ . '/Stubs/AxessorsChildStub.php';
@@ -23,10 +22,8 @@ require __DIR__ . '/Stubs/AxessorsChildStub.php';
  *
  * @package NoOne4rever\Axessors\Tests
  */
-class InheritanceTest extends TestCase
+class InheritanceTest extends AxessorsTestCase
 {
-    /** @var AxessorsStub general stub */
-    private $stub;
     /** @var AxessorsChildStub child stub */
     private $childStub;
 
