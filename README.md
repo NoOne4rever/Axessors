@@ -102,18 +102,18 @@ private $field; #> +axs mixed
 ## File structure
 
 To use **Axessors** you should follow this file structure:
-* include of `/Axessors/Axessors.php` (not needed, if you use autoloader)
+* include of `/vendor/autoload.php`
 * declaration of all your classes
-* include of `/Axessors/Startup.php` (this file will use the function `get_declared_classes` to get full list of you classes and parse all the comments)
+* call of AxessorsStartup::run()
 
 ```php
-include '/Axessors/Axessors.php';
+include '/vendor/autoload.php';
 
 include '/MyClassA.php';
 include '/MyClassB.php';
 include '/MyClassC.php';
 
-include '/Axessors/Axessors.php';
+AxessorsStartup::run();
 ```
 
 ## Axessors comments
