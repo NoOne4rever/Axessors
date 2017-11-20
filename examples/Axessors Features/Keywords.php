@@ -9,12 +9,15 @@
 
 namespace NoOne4rever\Axessors\Examples;
 
-use NoOne4rever\Axessors\Axessors;
+use NoOne4rever\Axessors\{
+    Axessors,
+    AxessorsStartup
+};
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 /**
- * Sample class.
+ * Axessors keywords sample.
  *
  * @method mixed getFullReadable() getter for $fullReadable
  * @method mixed setFullWritable(mixed $val) getter for $fullWritable
@@ -25,22 +28,27 @@ require 'C:/Users/NoOne/Documents/GitHub/Axessors/vendor/autoload.php';
  * @method mixed getShortAccessible() getter for $shortAccessible
  * @method mixed setShortAccessible(mixed $val) getter for $shortAccessible
  */
-class SampleClass
+class KeywordsSample
 {
     use Axessors;
 
-    private $fullReadable = 2; #> +readable mixed
-    private $fullWritable = 4; #> +writable mixed
-    private $fullAccessible = 8; #> +accessible mixed
-
-    private $shortReadable = 16; #> +rdb mixed
-    private $shortWritable = 32; #> +wrt mixed
-    private $shortAccessible = 64; #> +axs mixed
+    /** @var int with full rdb keyword */
+    private $fullReadable = 2; #> +readable
+    /** @var int with full wrt keyword */
+    private $fullWritable = 4; #> +writable
+    /** @var int with full axs keyword */
+    private $fullAccessible = 8; #> +accessible
+    /** @var int with short rdb keyword */
+    private $shortReadable = 16; #> +rdb
+    /** @var int with short wrt keyword */
+    private $shortWritable = 32; #> +wrt
+    /** @var int with short axs keyword */
+    private $shortAccessible = 64; #> +axs
 }
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/src/Startup.php';
+AxessorsStartup::run();
 
-$sample = new SampleClass();
+$sample = new KeywordsSample();
 
 echo $sample->getFullReadable() . PHP_EOL;
 $sample->setFullWritable(1);

@@ -9,36 +9,39 @@
 
 namespace NoOne4rever\Axessors\Examples;
 
-use NoOne4rever\Axessors\Axessors;
-use NoOne4rever\Axessors\Exceptions\AxessorsError;
+use NoOne4rever\Axessors\{
+    Axessors,
+    AxessorsStartup,
+    Exceptions\AxessorsError
+};
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 /**
- * Class SampleClass.
+ * Axessors conditions sample class.
  *
  * @method void setShortCondition(int $val) setter for $shortCondition
  * @method void setFullCondition(string $val) setter for $fullCondition
- * @method void setMultipleConditions(string[] $val) setter for $multipleConditions
+ * @method void setMultipleConditions(string [] $val) setter for $multipleConditions
  * @method void setCombinedConditions(mixed $val) setter for $combinedConditions
  */
-class SampleClass
+class ConditionsSample
 {
     use Axessors;
 
     /** @var int field with short condition */
     private $shortCondition; #> +wrt int 1..10
     /** @var string field with full condition */
-    private $fullCondition;  #> +wrt string `!is_null($this->shortCondition)`
+    private $fullCondition; #> +wrt string `!is_null($this->shortCondition)`
     /** @var string[] field with several conditions */
     private $multipleConditions; #> +wrt array[string] `$this->shortCondition == 9` && `$this->fullCondition == 'value'`
     /** @var mixed field with several conditions and logical operators */
     private $combinedConditions; #> +wrt mixed `1 == 1` && `1 == 2` || `true`
 }
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/src/Startup.php';
+AxessorsStartup::run();
 
-$sample = new SampleClass();
+$sample = new ConditionsSample();
 
 try {
     $sample->setFullCondition('value');

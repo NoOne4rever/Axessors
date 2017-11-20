@@ -9,31 +9,34 @@
 
 namespace NoOne4rever\Axessors\Examples;
 
-use NoOne4rever\Axessors\Axessors;
-use NoOne4rever\Axessors\Exceptions\OopError;
+use NoOne4rever\Axessors\{
+    Axessors,
+    AxessorsStartup,
+    Exceptions\OopError
+};
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 /**
- * Class SampleClass.
+ * Sample for Axessors access modifiers.
  *
- * @method mixed getPublicAccess() getter for $publicAccess
- * @method mixed getProtectedAccess() getter for $protectedAccess
- * @method mixed getPrivateAccess() getter for $privateAccess
- * @method void setPublicAccess(mixed $val) setter for $publicAccess
- * @method void setProtectedAccess(mixed $val) setter for $protectedAccess
- * @method void setPrivateAccess(mixed $val) setter for $privateAccess
+ * @method mixed getPublicAccess() getter for AccessModifiersSample::$publicAccess
+ * @method mixed getProtectedAccess() getter for AccessModifiersSample::$protectedAccess
+ * @method mixed getPrivateAccess() getter for AccessModifiersSample::$privateAccess
+ * @method void setPublicAccess(mixed $val) setter for AccessModifiersSample::$publicAccess
+ * @method void setProtectedAccess(mixed $val) setter for AccessModifiersSample::$protectedAccess
+ * @method void setPrivateAccess(mixed $val) setter for AccessModifiersSample::$privateAccess
  */
-class SampleClass
+class AccessModifiersSample
 {
     use Axessors;
 
     /** @var mixed a field with public accessors */
-    private $publicAccess;    #> +axs mixed
+    private $publicAccess; #> +axs mixed
     /** @var mixed a field with protected accessors */
     private $protectedAccess; #> ~axs mixed
     /** @var mixed a field with private accessors */
-    private $privateAccess;   #> -axs mixed
+    private $privateAccess; #> -axs mixed
 
     /** Tests a method with public access. */
     public function testPublic(): void
@@ -66,7 +69,7 @@ class SampleClass
 }
 
 /** Class ChildClass. */
-class ChildClass extends SampleClass
+class ChildAccessModifiers extends AccessModifiersSample
 {
     use Axessors;
 
@@ -100,11 +103,11 @@ class ChildClass extends SampleClass
     }
 }
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/src/Startup.php';
+AxessorsStartup::run();
 
-// Testing TestCase:
+// Testing sample class itself:
 
-$sample = new SampleClass();
+$sample = new AccessModifiersSample();
 
 $sample->testPublic();
 echo PHP_EOL;
@@ -117,7 +120,7 @@ echo PHP_EOL;
 
 // Testing child:
 
-$child = new ChildClass();
+$child = new ChildAccessModifiers();
 
 $child->testPublic();
 echo PHP_EOL;
@@ -133,7 +136,7 @@ try {
 
 // Global usage tests:
 
-$sample = new SampleClass();
+$sample = new AccessModifiersSample();
 
 $sample->setPublicAccess('public:global');
 echo $sample->getPublicAccess() . PHP_EOL;

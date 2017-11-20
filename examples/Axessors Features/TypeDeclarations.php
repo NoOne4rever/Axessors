@@ -9,17 +9,21 @@
 
 namespace NoOne4rever\Axessors\Examples;
 
-use NoOne4rever\Axessors\Axessors;
-use NoOne4rever\Axessors\Exceptions\TypeError;
+use NoOne4rever\Axessors\{
+    Axessors,
+    AxessorsStartup,
+    Exceptions\TypeError
+};
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
+/** Simple class. */
 class Type
 {
 }
 
 /**
- * Sample class.
+ * Axessors type declarations sample.
  *
  * @method void setInt(int $val) setter for $int
  * @method void setIntOrBoolOrString(mixed $val) setter for $intOrBoolOrString
@@ -27,20 +31,25 @@ class Type
  * @method void setStdClass(\stdClass $val) setter for $stdClass
  * @method void setArrayOfArrayOfStrings(array [] $val) setter for $arrayOfArrayOfStrings
  */
-class SampleClass
+class TypeDefSample
 {
     use Axessors;
 
+    /** @var int integer field */
     private $int; #> +wrt int
+    /** @var mixed integer or boolean or string field */
     private $intOrBoolOrString; #> +wrt int|bool|string
+    /** @var Type custom class field */
     private $customClass; #> +wrt Type
+    /** @var \stdClass standard class */
     private $stdClass; #> +wrt \stdClass
+    /** @var array multidimensional array */
     private $arrayOfArrayOfStrings; #> +wrt array[array[string]]
 }
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/src/Startup.php';
+AxessorsStartup::run();
 
-$test = new SampleClass();
+$test = new TypeDefSample();
 
 try {
     $test->setInt(function () {

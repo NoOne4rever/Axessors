@@ -9,10 +9,13 @@
 
 namespace NoOne4rever\Axessors\Examples;
 
-use NoOne4rever\Axessors\Axessors;
-use NoOne4rever\Axessors\Axs;
+use NoOne4rever\Axessors\{
+    Axs,
+    Axessors,
+    AxessorsStartup
+};
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 /** Interface iSample. */
 interface iSample
@@ -29,8 +32,14 @@ abstract class IncrementSample
     # abstract protected function setField
 }
 
-/** Sample class. */
-class SampleClass extends IncrementSample implements iSample
+/**
+ * Interface implementation sample.
+ *
+ * @method string|int getField() getter for InterfaceImplementationSample::$field
+ * @method void setField() setter for InterfaceImplementationSample::$field
+ * @method void incrementField() increments InterfaceImplementationSample::$field
+ */
+class InterfaceImplementationSample extends IncrementSample implements iSample
 {
     use Axessors;
 
@@ -38,6 +47,7 @@ class SampleClass extends IncrementSample implements iSample
     private $field = 'value'; #> ~wrt string|int +rdb
 }
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/src/Startup.php';
+AxessorsStartup::run();
 
-echo PHP_EOL;
+$sample = new InterfaceImplementationSample();
+echo $sample->getField() . PHP_EOL;

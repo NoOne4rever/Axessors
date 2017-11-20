@@ -9,17 +9,20 @@
 
 namespace NoOne4rever\Axessors\Examples;
 
-use NoOne4rever\Axessors\Axessors;
-use NoOne4rever\Axessors\Exceptions\AxessorsError;
+use NoOne4rever\Axessors\{
+    Axessors,
+    AxessorsStartup,
+    Exceptions\AxessorsError
+};
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 /**
- * Sample class.
+ * Axessors aliases sample.
  *
  * @method string getExactField() getter for $someField
  */
-class SampleClass
+class AliasesSample
 {
     use Axessors;
 
@@ -27,13 +30,13 @@ class SampleClass
     private $someField = 'value'; #> +rdb string => exactField
 }
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/src/Startup.php';
+AxessorsStartup::run();
 
-$test = new SampleClass();
+$test = new AliasesSample();
 
 try {
-    $test->getSomeField();
+    $test->getSomeField(); // Error.
 } catch (AxessorsError $error) {
     echo $error->getMessage() . PHP_EOL;
-    echo $test->getExactField() . PHP_EOL;
+    echo $test->getExactField() . PHP_EOL; // OK.
 }

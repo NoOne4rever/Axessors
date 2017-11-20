@@ -9,19 +9,22 @@
 
 namespace NoOne4rever\Axessors\Examples;
 
-use NoOne4rever\Axessors\Axessors;
+use NoOne4rever\Axessors\{
+    Axessors,
+    AxessorsStartup
+};
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 /**
- * Sample class.
+ * Axessors handlers sample.
  *
  * @method string getShortHandlers() getter for $shortHandlers
  * @method string getInjectedHandlers() getter for $injectedHandlers
  * @method void setShortHandlers(string $val) setter for $shortHandlers
  * @method void setInjectedHandlers(string $val) setter for $injectedHandlers
  */
-class SampleClass
+class HandlersSample
 {
     use Axessors;
 
@@ -31,9 +34,9 @@ class SampleClass
     private $injectedHandlers = 'value'; #> +rdb string >> `$var = 'injectedConditions\' ' . $var`, `$var{0} = 'I'`
 }
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/src/Startup.php';
+AxessorsStartup::run();
 
-$sample = new SampleClass();
+$sample = new HandlersSample();
 
 echo $sample->getShortHandlers() . PHP_EOL;
 echo $sample->getInjectedHandlers() . PHP_EOL;

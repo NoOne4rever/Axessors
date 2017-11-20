@@ -9,19 +9,22 @@
 
 namespace NoOne4rever\Axessors\Examples;
 
-use NoOne4rever\Axessors\Axessors;
+use NoOne4rever\Axessors\{
+    Axessors,
+    AxessorsStartup
+};
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 /**
- * Class TestCase.
+ * General Axessors sample.
  *
  * @method mixed getField() getter for $field
  * @method void setField(mixed $val) setter for $field
  * @method static mixed getStaticField() getter for $staticField
  * @method static void setStaticField(mixed $val) setter for $staticField
  */
-class SampleClass
+class GeneralSample
 {
     use Axessors;
 
@@ -32,11 +35,11 @@ class SampleClass
     private $field; #> +axs mixed
 }
 
-require 'C:/Users/NoOne/Documents/GitHub/Axessors/src/Startup.php';
+AxessorsStartup::run();
 
-SampleClass::setStaticField('static value');
-echo SampleClass::getStaticField() . PHP_EOL;
+GeneralSample::setStaticField('static value');
+echo GeneralSample::getStaticField() . PHP_EOL;
 
-$sample = new SampleClass();
+$sample = new GeneralSample();
 $sample->setField('instance value');
 echo $sample->getField() . PHP_EOL;
