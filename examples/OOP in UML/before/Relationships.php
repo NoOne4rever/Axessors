@@ -1,15 +1,13 @@
 <?php
 
-const EXAMPLES_HOME = 'C:/Users/NoOne/Documents/GitHub/Axessors/examples/OOP in UML/before';
-
-require_once EXAMPLES_HOME . '/Unit.php';
-require_once EXAMPLES_HOME . '/Man.php';
-require_once EXAMPLES_HOME . '/Employee.php';
-require_once EXAMPLES_HOME . '/IdCard.php';
-require_once EXAMPLES_HOME . '/Room.php';
-require_once EXAMPLES_HOME . '/Departament.php';
-require_once EXAMPLES_HOME . '/PastPosition.php';
-require_once EXAMPLES_HOME . '/Menu.php';
+require_once __DIR__ . '/Unit.php';
+require_once __DIR__ . '/Man.php';
+require_once __DIR__ . '/Employee.php';
+require_once __DIR__ . '/IdCard.php';
+require_once __DIR__ . '/Room.php';
+require_once __DIR__ . '/Departament.php';
+require_once __DIR__ . '/PastPosition.php';
+require_once __DIR__ . '/Menu.php';
 
 $card = new IdCard(1);
 $card->setDateExpire(time() + 86400);
