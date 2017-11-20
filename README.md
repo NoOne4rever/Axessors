@@ -1,5 +1,9 @@
 # Axessors
 
+[![Build Status](https://travis-ci.org/NoOne4rever/Axessors.svg?branch=master)](https://travis-ci.org/NoOne4rever/Axessors)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/NoOne4rever/Axessors/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/NoOne4rever/Axessors/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/NoOne4rever/Axessors/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/NoOne4rever/Axessors/?branch=master)
+
 Generator of getters and setters for PHP.
 
 ## Installation
