@@ -32,6 +32,11 @@ class Departament implements Unit
     /** @var Employee[] departament employees */
     private $employees = []; #> +axs Array[Employee]
 
+    /**
+     * Departament constructor.
+     *
+     * @param string $name departament name
+     */
     public function __construct(string $name)
     {
         $this->name = $name;

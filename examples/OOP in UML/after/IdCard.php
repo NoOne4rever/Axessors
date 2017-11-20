@@ -30,6 +30,11 @@ class IdCard
     /** @var int timestamp of expiration date */
     private $dateExpire; #> +wrt int +rdb >> `$var = date('d.m.Y', $var)`
 
+    /**
+     * IdCard constructor.
+     *
+     * @param int $number card number
+     */
     public function __construct(int $number)
     {
         $this->number = $number;
