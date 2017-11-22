@@ -17,7 +17,7 @@ namespace NoOne4rever\Axessors;
  */
 class CommentLexer extends Lexer
 {
-    private const AXS_COMMENT = '{^#>}';
+    private const AXS_COMMENT = '{^#(>|:)}';
     private const ACCESS_MODIFIER = '{^(\+|~|-)}';
     private const KEYWORD = '{^((accessi|(writ|read)a)ble|axs|wrt|rdb)}';
     private const TYPE = '{^((((\\\\)?[a-zA-Z_][a-zA-Z\d_]*(\\\\[a-zA-Z_][a-zA-Z\d_]*)*)(\[(?1)\])?)(\|(?2))*)}';
@@ -45,7 +45,7 @@ class CommentLexer extends Lexer
     ];
     private const REQUIRED_TOKENS = [0, 1, 2];
 
-    private const AXS_COMMENT_TOKEN = '#>';
+    private const AXS_COMMENT_TOKEN = '#';
 
     /**
      * Returns class' data with Axessors properties.
@@ -103,7 +103,7 @@ class CommentLexer extends Lexer
      */
     private function isAxsPropertyDef(): bool
     {
-        return (bool)preg_match('{^\s*(public|private|protected)\s+(static\s+)?\$[a-zA-Z_][a-zA-Z0-9_]*.*?;\s+#>}',
+        return (bool)preg_match('{^\s*(public|private|protected)\s+(static\s+)?\$[a-zA-Z_][a-zA-Z0-9_]*.*?;\s+#(>|:)}',
             $this->currentLine);
     }
 }
