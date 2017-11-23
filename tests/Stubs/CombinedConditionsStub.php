@@ -25,11 +25,11 @@ class CombinedConditionsStub
     use Axessors;
 
     /** @var int with logically combined by AND conditions */
-    public $logicalAnd; #> +wrt int 1..20 && != 5 && != 10
+    public $logicalAnd; #: +wrt int 1..20 && != 5 && != 10
     /** @var int with logically combined by OR conditions */
-    public $logicalOr; #> +wrt int 1..20 || != 100
+    public $logicalOr; #: +wrt int 1..20 || != 100
     /** @var int with logically combined by AND and OR conditions */
-    public $both; #> +wrt int 1..20 || != 5 && != 10
+    public $both; #: +wrt int 1..20 || != 5 && != 10
     /** @var int with logically combined short and injected conditions */
-    public $different; #> +wrt int 1..20 && `$var != 5`
+    public $different; #: +wrt int 1..20 && `$var != 5`
 }

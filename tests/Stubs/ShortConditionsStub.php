@@ -27,11 +27,11 @@ class ShortConditionsStub
 {
     use Axessors;
 
-    public $range; #> +wrt int 1..10 
-    public $higher; #> +wrt int > 1
-    public $lower; #> +wrt int < 10
-    public $higherOrEq; #> +wrt int >= 1
-    public $lowerOrEq; #> +wrt int <= 10 
-    public $equals; #> +wrt int == 5
-    public $notEquals; #> +wrt int != 5
+    public $range; #: +wrt int 1..10 
+    public $higher; #: +wrt int > 1
+    public $lower; #: +wrt int < 10
+    public $higherOrEq; #: +wrt int >= 1
+    public $lowerOrEq; #: +wrt int <= 10 
+    public $equals; #: +wrt int == 5
+    public $notEquals; #: +wrt int != 5
 }

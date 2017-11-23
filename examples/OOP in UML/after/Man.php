@@ -26,9 +26,9 @@ class Man
     use Axessors;
 
     /** @var string name */
-    protected $name; #> +axs string
+    protected $name; #: +axs string
     /** @var string second name */
-    protected $surname; #> +axs string
+    protected $surname; #: +axs string
 
     /**
      * Man constructor.

@@ -24,9 +24,9 @@ class CombinedHandlersStub
     use Axessors;
 
     /** @var string with combined short handlers */
-    public $short = 'short'; #> +rdb >> upper, lower
+    public $short = 'short'; #: +rdb >> upper, lower
     /** @var string with combined injected handlers */
-    public $injected = 'injected'; #> +rdb >> `$var = strtoupper($var)`, `$var = strtolower($var)`
+    public $injected = 'injected'; #: +rdb >> `$var = strtoupper($var)`, `$var = strtolower($var)`
     /** @var string with both handlers types */
-    public $both = 'both'; #> +rdb >> upper, `$var = strtolower($var)`
+    public $both = 'both'; #: +rdb >> upper, `$var = strtolower($var)`
 }

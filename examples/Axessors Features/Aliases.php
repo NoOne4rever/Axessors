@@ -27,7 +27,7 @@ class AliasesSample
     use Axessors;
 
     /** @var string a field */
-    private $someField = 'value'; #> +rdb string => exactField
+    private $someField = 'value'; #: +rdb string => exactField
 }
 
 AxessorsStartup::run();

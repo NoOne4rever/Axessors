@@ -60,7 +60,7 @@ class StartupTest extends TestCase
         {
             use Axessors;
 
-            public $field = false; #> +wrt int 
+            public $field = false; #: +wrt int 
         };
 
         $this->indexClass($this->stub);
@@ -77,7 +77,7 @@ class StartupTest extends TestCase
         {
             use Axessors;
 
-            public $field; #> +wrt
+            public $field; #: +wrt
         };
 
         $this->indexClass($this->stub);
@@ -94,7 +94,7 @@ class StartupTest extends TestCase
         {
             use Axessors;
 
-            public $field; #> +rdb int +wrt
+            public $field; #: +rdb int +wrt
         };
 
         $this->indexClass($this->stub);

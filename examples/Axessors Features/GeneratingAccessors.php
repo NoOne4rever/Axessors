@@ -29,10 +29,10 @@ class GeneralSample
     use Axessors;
 
     /** @var mixed static field */
-    private static $staticField; #> +axs mixed
+    private static $staticField; #: +axs mixed
 
     /** @var mixed instance field */
-    private $field; #> +axs mixed
+    private $field; #: +axs mixed
 }
 
 AxessorsStartup::run();

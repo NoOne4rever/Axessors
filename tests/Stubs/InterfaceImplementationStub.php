@@ -22,5 +22,5 @@ class InterfaceImplementationStub extends AbstractChildStub implements StubInter
 {
     use Axessors;
 
-    public $field; #> +axs int
+    public $field; #: +axs int
 }

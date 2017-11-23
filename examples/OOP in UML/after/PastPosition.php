@@ -26,9 +26,9 @@ class PastPosition
     use Axessors;
 
     /** @var string position name */
-    private $name; #> +axs string
+    private $name; #: +axs string
     /** @var Departament departament */
-    private $departament; #> +axs Departament
+    private $departament; #: +axs Departament
 
     /**
      * PastPosition constructor.

@@ -24,7 +24,7 @@ class Room
     use Axessors;
 
     /** @var int room number */
-    private $number; #> +axs int
+    private $number; #: +axs int
 
     /**
      * Room constructor.

@@ -32,11 +32,11 @@ class AccessModifiersSample
     use Axessors;
 
     /** @var mixed a field with public accessors */
-    private $publicAccess; #> +axs mixed
+    private $publicAccess; #: +axs mixed
     /** @var mixed a field with protected accessors */
-    private $protectedAccess; #> ~axs mixed
+    private $protectedAccess; #: ~axs mixed
     /** @var mixed a field with private accessors */
-    private $privateAccess; #> -axs mixed
+    private $privateAccess; #: -axs mixed
 
     /** Tests a method with public access. */
     public function testPublic(): void

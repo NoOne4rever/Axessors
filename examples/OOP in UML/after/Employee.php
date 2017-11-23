@@ -33,15 +33,15 @@ class Employee extends Man
     use Axessors;
 
     /** @var string employee's position */
-    private $position; #> +axs string >> `$this->addPastPosition(new :PastPosition($this->position, $this->departament))`
+    private $position; #: +axs string >> `$this->addPastPosition(new :PastPosition($this->position, $this->departament))`
     /** @var IdCard employee's id card */
-    private $idCard; #> +axs IdCard
+    private $idCard; #: +axs IdCard
     /** @var Room[] rooms */
-    private $room = []; #> +axs Array[Room]
+    private $room = []; #: +axs Array[Room]
     /** @var Departament employee's departament */
-    private $departament; #> +axs Departament
+    private $departament; #: +axs Departament
     /** @var PastPosition[] past positions */
-    private $pastPosition = []; #> +axs Array[PastPosition]
+    private $pastPosition = []; #: +axs Array[PastPosition]
 
     /**
      * Employee constructor.

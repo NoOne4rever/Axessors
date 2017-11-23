@@ -27,15 +27,15 @@ class TypeDeclarationsStub
     use Axessors;
 
     /** @var string string field */
-    public $single; #> +wrt string
+    public $single; #: +wrt string
     /** @var mixed integer or boolean or string */
-    public $multiple; #> +wrt int|bool|string
+    public $multiple; #: +wrt int|bool|string
     /** @var string[] array of strings */
-    public $array; #> +wrt array[string]
+    public $array; #: +wrt array[string]
     /** @var int field with default type */
-    public $default = 1; #> +wrt int
+    public $default = 1; #: +wrt int
     /** @var NonAxessorsStub custom class */
-    public $class; #> +wrt NonAxessorsStub
+    public $class; #: +wrt NonAxessorsStub
     /** @var array extended array */
-    public $extended; #> +wrt Array
+    public $extended; #: +wrt Array
 }

@@ -29,15 +29,15 @@ class KeywordsStub extends NonAxessorsStub
     use Axessors;
 
     /** @var string with short rdb keyword */
-    public $shortRdb = 'short rdb'; #> +rdb
+    public $shortRdb = 'short rdb'; #: +rdb
     /** @var string with short wrt keyword */
-    public $shortWrt = 'short wrt'; #> +wrt
+    public $shortWrt = 'short wrt'; #: +wrt
     /** @var string with short axs keyword */
-    public $shortAxs = 'short axs'; #> +axs
+    public $shortAxs = 'short axs'; #: +axs
     /** @var string with full rdb keyword */
-    public $fullRdb = 'full rdb'; #> +readable
+    public $fullRdb = 'full rdb'; #: +readable
     /** @var string with full wrt keyword */
-    public $fullWrt = 'full wrt'; #> +writable
+    public $fullWrt = 'full wrt'; #: +writable
     /** @var string with full axs keyword */
-    public $fullAxs = 'full axs'; #> +accessible
+    public $fullAxs = 'full axs'; #: +accessible
 }

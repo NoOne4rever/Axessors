@@ -19,5 +19,5 @@ class InvalidDefaultTypeStub
 {
     use Axessors;
 
-    public $field = false; #> +wrt int 
+    public $field = false; #: +wrt int 
 }

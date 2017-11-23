@@ -30,11 +30,11 @@ class HandlersStub
     use Axessors;
 
     /** @var string with short handlers */
-    public $short = 'short'; #> +wrt >> upper +rdb >> lower
+    public $short = 'short'; #: +wrt >> upper +rdb >> lower
     /** @var string with full handlers */
-    public $injected = 'injected'; #> +wrt >> `$var = strtoupper($var)` +rdb >> `$var = strtolower($var)`
+    public $injected = 'injected'; #: +wrt >> `$var = strtoupper($var)` +rdb >> `$var = strtolower($var)`
     /** @var string with invalid handler */
-    public $invalid = 'invalid'; #> +wrt >> `not a valid handler` +rdb >> `not a valid handler`
+    public $invalid = 'invalid'; #: +wrt >> `not a valid handler` +rdb >> `not a valid handler`
     /** @var string with non-existing handlers */
-    public $nonExisting = 'non existing'; #> +wrt >> inc +rdb >> inc 
+    public $nonExisting = 'non existing'; #: +wrt >> inc +rdb >> inc 
 }

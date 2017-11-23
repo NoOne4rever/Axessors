@@ -23,5 +23,5 @@ class AxessorsMethodsStub
 {
     use Axessors;
 
-    public $int; #> +axs Array[int]
+    public $int; #: +axs Array[int]
 }

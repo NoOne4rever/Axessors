@@ -36,15 +36,15 @@ class TypeDefSample
     use Axessors;
 
     /** @var int integer field */
-    private $int; #> +wrt int
+    private $int; #: +wrt int
     /** @var mixed integer or boolean or string field */
-    private $intOrBoolOrString; #> +wrt int|bool|string
+    private $intOrBoolOrString; #: +wrt int|bool|string
     /** @var Type custom class field */
-    private $customClass; #> +wrt Type
+    private $customClass; #: +wrt Type
     /** @var \stdClass standard class */
-    private $stdClass; #> +wrt \stdClass
+    private $stdClass; #: +wrt \stdClass
     /** @var array multidimensional array */
-    private $arrayOfArrayOfStrings; #> +wrt array[array[string]]
+    private $arrayOfArrayOfStrings; #: +wrt array[array[string]]
 }
 
 AxessorsStartup::run();

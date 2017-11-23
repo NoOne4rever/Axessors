@@ -28,9 +28,9 @@ class Departament implements Unit
     use Axessors;
 
     /** @var string departament name */
-    private $name; #> +axs string
+    private $name; #: +axs string
     /** @var Employee[] departament employees */
-    private $employees = []; #> +axs Array[Employee]
+    private $employees = []; #: +axs Array[Employee]
 
     /**
      * Departament constructor.

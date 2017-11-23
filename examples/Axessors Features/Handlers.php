@@ -29,9 +29,9 @@ class HandlersSample
     use Axessors;
 
     /** @var string field with short handlers */
-    private $shortHandlers = 'value'; #> +rdb string >> upper, reverse
+    private $shortHandlers = 'value'; #: +rdb string >> upper, reverse
     /** @var string field with injected handlers */
-    private $injectedHandlers = 'value'; #> +rdb string >> `$var = 'injectedConditions\' ' . $var`, `$var{0} = 'I'`
+    private $injectedHandlers = 'value'; #: +rdb string >> `$var = 'injectedConditions\' ' . $var`, `$var{0} = 'I'`
 }
 
 AxessorsStartup::run();
