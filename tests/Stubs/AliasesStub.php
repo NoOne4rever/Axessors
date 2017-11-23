@@ -22,5 +22,5 @@ class AliasesStub
     use Axessors;
 
     /** @var int field with Axessors alias */
-    public $someField; #> +wrt int => exactField
+    public $someField; #: +wrt int => exactField
 }

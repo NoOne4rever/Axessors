@@ -24,7 +24,7 @@ class AxessorsStub
 {
     use Axessors;
 
-    public $public; #> +wrt int
-    public $protected; #> ~wrt int
-    public $private; #> -wrt int
+    public $public; #: +wrt int
+    public $protected; #: ~wrt int
+    public $private; #: -wrt int
 }

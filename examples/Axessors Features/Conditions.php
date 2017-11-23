@@ -30,13 +30,13 @@ class ConditionsSample
     use Axessors;
 
     /** @var int field with short condition */
-    private $shortCondition; #> +wrt int 1..10
+    private $shortCondition; #: +wrt int 1..10
     /** @var string field with full condition */
-    private $fullCondition; #> +wrt string `!is_null($this->shortCondition)`
+    private $fullCondition; #: +wrt string `!is_null($this->shortCondition)`
     /** @var string[] field with several conditions */
-    private $multipleConditions; #> +wrt array[string] `$this->shortCondition == 9` && `$this->fullCondition == 'value'`
+    private $multipleConditions; #: +wrt array[string] `$this->shortCondition == 9` && `$this->fullCondition == 'value'`
     /** @var mixed field with several conditions and logical operators */
-    private $combinedConditions; #> +wrt mixed `1 == 1` && `1 == 2` || `true`
+    private $combinedConditions; #: +wrt mixed `1 == 1` && `1 == 2` || `true`
 }
 
 AxessorsStartup::run();

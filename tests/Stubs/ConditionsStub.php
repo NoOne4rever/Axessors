@@ -29,11 +29,11 @@ class ConditionsStub
     use Axessors;
 
     /** @var string with short conditions */
-    public $short = 'short'; #> +wrt 1..10 +rdb 1..10
+    public $short = 'short'; #: +wrt 1..10 +rdb 1..10
     /** @var string with injected conditions */
-    public $injected = 'injected'; #> +wrt `$var === 'new injected'` +rdb `$var === 'injected'`
+    public $injected = 'injected'; #: +wrt `$var === 'new injected'` +rdb `$var === 'injected'`
     /** @var string with invalid conditions */
-    public $invalid = 'invalid'; #> +wrt `not a valid condition` +rdb `not a valid condition`
+    public $invalid = 'invalid'; #: +wrt `not a valid condition` +rdb `not a valid condition`
     /** @var string with modifying conditions */
-    public $modifier = 'modifier'; #> +wrt `$var = 'new value'` +rdb `$var = 'new value'`  
+    public $modifier = 'modifier'; #: +wrt `$var = 'new value'` +rdb `$var = 'new value'`  
 }

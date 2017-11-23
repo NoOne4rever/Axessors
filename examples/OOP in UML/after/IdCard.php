@@ -26,9 +26,9 @@ class IdCard
     use Axessors;
 
     /** @var int card number */
-    private $number; #> +axs int
+    private $number; #: +axs int
     /** @var int timestamp of expiration date */
-    private $dateExpire; #> +wrt int +rdb >> `$var = date('d.m.Y', $var)`
+    private $dateExpire; #: +wrt int +rdb -> `$var = date('d.m.Y', $var)`
 
     /**
      * IdCard constructor.

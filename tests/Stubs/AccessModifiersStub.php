@@ -24,11 +24,11 @@ class AccessModifiersStub
     use Axessors;
 
     /** @var int field with public setter */
-    public $publicAccess; #> +wrt int
+    public $publicAccess; #: +wrt int
     /** @var int field with protected setter */
-    public $protectedAccess; #> ~wrt int
+    public $protectedAccess; #: ~wrt int
     /** @var int field with private setter */
-    public $privateAccess; #> -wrt int
+    public $privateAccess; #: -wrt int
 
     /**
      * Tests private setter.

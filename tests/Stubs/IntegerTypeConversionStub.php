@@ -26,13 +26,13 @@ class IntegerTypeConversionStub
     use Axessors;
     
     /** @var int integer field */
-    public $int; #> +wrt int == 10
+    public $int; #: +wrt int == 10
     /** @var float float field */
-    public $float; #> +wrt float == 10
+    public $float; #: +wrt float == 10
     /** @var string string field */
-    public $string; #> +wrt string == 10
+    public $string; #: +wrt string == 10
     /** @var array array field */
-    public $array; #> +wrt array == 10
+    public $array; #: +wrt array == 10
     /** @var \stdClass stdClass field */
-    public $stdClass; #> +wrt \stdClass == 10
+    public $stdClass; #: +wrt \stdClass == 10
 }

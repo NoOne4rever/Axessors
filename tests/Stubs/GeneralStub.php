@@ -23,10 +23,10 @@ class GeneralStub
     use Axessors;
 
     /** @var string static field with Axessors */
-    public static $staticField = 'static'; #> +rdb
+    public static $staticField = 'static'; #: +rdb
     /** @var string instance field with Axessors */
-    public $instanceField = 'instance'; #> +rdb
-    public $field = 'field value'; #> +rdb
+    public $instanceField = 'instance'; #: +rdb
+    public $field = 'field value'; #: +rdb
 
     /**
      * Tests static method call.

@@ -44,7 +44,7 @@ class InterfaceImplementationSample extends IncrementSample implements iSample
     use Axessors;
 
     /** @var string a field */
-    private $field = 'value'; #> ~wrt string|int +rdb
+    private $field = 'value'; #: ~wrt string|int +rdb
 }
 
 AxessorsStartup::run();

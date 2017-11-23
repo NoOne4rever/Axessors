@@ -26,9 +26,9 @@ class InjectedHandlersStub
     /** @var string internal class field */
     public $field;
     /** @var string with Axessors side effects */
-    public $internalSideEffects; #> +wrt string >> `$this->field = 'new value'`
+    public $internalSideEffects; #: +wrt string -> `$this->field = 'new value'`
     /** @var string with var processing */
-    public $varProcessing; #> +wrt string >> `$var = strtoupper($var)`
+    public $varProcessing; #: +wrt string -> `$var = strtoupper($var)`
     /** @var object with class name resolving functionality */
-    public $classNameResolving; #> +wrt object >> `$var = new :NonAxessorsStub()`
+    public $classNameResolving; #: +wrt object -> `$var = new :NonAxessorsStub()`
 }

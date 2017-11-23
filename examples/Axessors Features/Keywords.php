@@ -33,17 +33,17 @@ class KeywordsSample
     use Axessors;
 
     /** @var int with full rdb keyword */
-    private $fullReadable = 2; #> +readable
+    private $fullReadable = 2; #: +readable
     /** @var int with full wrt keyword */
-    private $fullWritable = 4; #> +writable
+    private $fullWritable = 4; #: +writable
     /** @var int with full axs keyword */
-    private $fullAccessible = 8; #> +accessible
+    private $fullAccessible = 8; #: +accessible
     /** @var int with short rdb keyword */
-    private $shortReadable = 16; #> +rdb
+    private $shortReadable = 16; #: +rdb
     /** @var int with short wrt keyword */
-    private $shortWritable = 32; #> +wrt
+    private $shortWritable = 32; #: +wrt
     /** @var int with short axs keyword */
-    private $shortAccessible = 64; #> +axs
+    private $shortAccessible = 64; #: +axs
 }
 
 AxessorsStartup::run();

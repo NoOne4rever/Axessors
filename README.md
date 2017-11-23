@@ -101,7 +101,7 @@ class WithTrait
 ```
 Fields, that should have accessors ought to be commented with a special *Axessors comment*. The library will use your comments to generate accessors.
 ```php
-private $field; #> +axs mixed
+private $field; #: +axs mixed
 ```
 
 ## File structure
@@ -123,7 +123,7 @@ AxessorsStartup::run();
 
 ## Axessors comments
 
-*Axessors comment* has simple syntax. It starts with `#>` and contains:
+*Axessors comment* has simple syntax. It starts with `#:` and contains:
 * special keywords
 * access modifiers
 * data types declarations
@@ -139,9 +139,9 @@ class WithKeywords
 {
     use Axessors;
 
-    private $a; #> +rdb int
-    private $b; #> +wrt int
-    private $c; #> +axs int
+    private $a; #: +rdb int
+    private $b; #: +wrt int
+    private $c; #: +axs int
 }
 
 $test = new WithKeywords();
@@ -160,9 +160,9 @@ class WithAccessModifiers
 {
     use Axessors;
 
-    private $publicAccess; #> +axs int
-    private $protectedAccess; #> ~axs int
-    private $privateAccess; #> -axs int
+    private $publicAccess; #: +axs int
+    private $protectedAccess; #: ~axs int
+    private $privateAccess; #: -axs int
 }
 
 $test = new WithAccessModifiers();
@@ -171,7 +171,7 @@ $test->getPrivateAccess(); // Error
 ```
 We can define different access modifiers for getter and setter:
 ```php
-private $field = 'smth'; #> ~wrt +rdb
+private $field = 'smth'; #: ~wrt +rdb
 ```
 
 ### Type declarations
@@ -182,7 +182,7 @@ class WithTypeDeclarations
 {
     use Axessors;
 
-    private $email; #> +axs string
+    private $email; #: +axs string
 }
 ```
 It is possible to write several types, that are separated by `|`.
@@ -191,7 +191,7 @@ class WithMultipleTypeDeclarations
 {
     use Axessors;
 
-    private $bigNumber; #> +axs int|string
+    private $bigNumber; #: +axs int|string
 }
 ```
 In this case a number can be represented in scientific form (like "1e15") and then can be parsed in some way.
@@ -202,14 +202,14 @@ class WithDefaultFieldValue
 {
     use Axessors;
 
-    private $epsilon = 1e-9; #> +rdb
+    private $epsilon = 1e-9; #: +rdb
 }
 ```
 If the field has array-compatible (iterateable) type, you can specify array's content. For example, array of strings is written as `array[string]`. Iterateable type might have any depth, e.g. array of array of integer is written as `array[array[integer]]`. Arrays can contain elements with different types: `array[int|string]`.
 ```php
 class Config
 {
-    private static $settings; #> +axs array[int|string]
+    private static $settings; #: +axs array[int|string]
 }
 ```
 **Axessors** also support *extended* types, that have additional methods. *Extended* types have capitalized names. See [axessors methods](https://github.com/NoOne4rever/Axessors#axessors-methods).
@@ -246,7 +246,7 @@ class WithConditionalSetter
 {
     use Axessors;
 
-    private $age; #> +wrt int 1..120
+    private $age; #: +wrt int 1..120
 }
 ```
 **Axessors** support *injected* conditions too. Such expressions are written between the backquotes. For example, we need to check if the new value of field matches regex. This code will perform this checkout.
@@ -255,7 +255,7 @@ class Email
 {
     use Axessors;
 
-    private $email; #> +axs string `preg_match('/[a-z][a-z\d_\.]*@[a-z]+\.[a-z]+/i', $var)`
+    private $email; #: +axs string `preg_match('/[a-z][a-z\d_\.]*@[a-z]+\.[a-z]+/i', $var)`
 }
 ```
 In this case `$var` means argument for setter. `$var` is reserved identifier, it always contain setter's argument (if we write conditions for `writable` statement) or actual value of field (if we write conditions for `readable` statement).
@@ -266,14 +266,14 @@ class Email
 {
     use Axessors;
 
-    private $email; #> +axs string < 120 && `preg_match('/[a-z][a-z\d_\.]*@[a-z]+\.[a-z]+/i', $var)`
+    private $email; #: +axs string < 120 && `preg_match('/[a-z][a-z\d_\.]*@[a-z]+\.[a-z]+/i', $var)`
 }
 ```
 Here we can ensure, that `$email` will contain a string with length less than 120 symbols and this string will match our regex.
 
 ### Callbacks
 
-**Axessors** support short callbacks in getters and setters. Callback expressions are written after conditions and callback sign: `>>`.
+**Axessors** support short callbacks in getters and setters. Callback expressions are written after conditions and callback sign: `->`.
 
 Most of standard types have their own predefined callbacks:
 * string
@@ -295,7 +295,7 @@ class Email
 {
     use Axessors;
 
-    private $email; #> +axs string `preg_match('/[a-z][a-z\d_\.]*@[a-z]+\.[a-z]+/i', $var)` >> lower
+    private $email; #: +axs string `preg_match('/[a-z][a-z\d_\.]*@[a-z]+\.[a-z]+/i', $var)` -> lower
 }
 ```
 **Axessors** support *injected* callbacks too.
@@ -304,7 +304,7 @@ class WithInjectedCallback
 {
     use Axessors;
 
-    private $system; #> +axs string <= 100 >> `system('explorer %APPDATA%')`
+    private $system; #: +axs string <= 100 -> `system('explorer %APPDATA%')`
 }
 ```
 You can write in the *injected* callback anything you want. In the last example setter will open folder with applications data on Windows. `$var` can be modified in the *injected* callback too: ``$var += 16``.
@@ -315,7 +315,7 @@ class WithNumber
 {
     use Axessors;
 
-    private $number; #> +axs int >> inc, dec
+    private $number; #: +axs int -> inc, dec
 }
 ```
 #### Resolving class names
@@ -326,7 +326,7 @@ class WithRelativeNames
 {
     use Axessors;
     
-    private $field; #> +axs `:CurrentNamespaceClass::doSmth()` >> `globalNamespaceClass::doSmthElse()`
+    private $field; #: +axs `:CurrentNamespaceClass::doSmth()` -> `globalNamespaceClass::doSmthElse()`
 }
 ```
 **Axessors** recognize relative class names as absolute. It is not a bug, just a feature, but maybe such behavior will be removed in next versions of library.
@@ -346,7 +346,7 @@ Field alias is written after callbacks section and alias sign: `=>`.
 ```php
 class WithLongField
 {
-    private $thisFieldWithReallyLooooongName; #> +rdb mixed => shortName
+    private $thisFieldWithReallyLooooongName; #: +rdb mixed => shortName
 }
 ```
 Now getter name is `getShortName`.
@@ -357,14 +357,14 @@ class ParentClass
 {
     use Axessors;
 
-    private $field; #> +axs int => parentField
+    private $field; #: +axs int => parentField
 }
 
 class ChildClass extends ParentClass
 {
     use Axessors;
 
-    private $field; #> +axs int => childField
+    private $field; #: +axs int => childField
 }
 ```
 So, automatically generated methods won't collide.
@@ -379,7 +379,7 @@ class WithArrayOfStrings
 {
     use Axessors;
 
-    private $strings; #> +axs Array[string]
+    private $strings; #: +axs Array[string]
 }
 ```
 Now our class have methods `addStrings()`, `deleteStrings()` - this methods take index as argument - and `countStrings()`.
@@ -407,9 +407,9 @@ class Triangle extends Shape
 {
     use Axessors;
 
-    private $id; #> +rdb int
-    private $x; #> +axs int
-    private $y; #> +axs int
+    private $id; #: +rdb int
+    private $x; #: +axs int
+    private $y; #: +axs int
 }
 ```
 Abstract classes with abstract *Axessors* methods should `use` trait *Axs*.
@@ -430,9 +430,9 @@ class WithAxessorsMethods
 {
     use Axessors;
     
-    private static $classField; #> +axs int
+    private static $classField; #: +axs int
     
-    private $instanceField; #> +axs int
+    private $instanceField; #: +axs int
 }
 ```
 At an nearly date I will create a plugin for PHPStorm, that will provide this IDE with full integration with the library.
@@ -440,17 +440,17 @@ At an nearly date I will create a plugin for PHPStorm, that will provide this ID
 ## Conclusions
 
 With **Axessors** you can shorten description of every getter and setter in your code. The most complex *Axessors comment* have this structure:
-1. `#>`
+1. `#:`
 2. setter access modifier
 3. `wrt` or `writable`
 4. type declaration
 5. conditions for input value
-6. `>>`
+6. `->`
 7. callbacks for input value
 8. getter access modifier
 9. `rdb` or `readable`
 10. conditions for field value
-11. `>>`
+11. `->`
 12. callbacks for field value
 13. `=>`
 14. field alias
