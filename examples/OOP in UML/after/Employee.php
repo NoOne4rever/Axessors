@@ -33,7 +33,7 @@ class Employee extends Man
     use Axessors;
 
     /** @var string employee's position */
-    private $position; #: +axs string >> `$this->addPastPosition(new :PastPosition($this->position, $this->departament))`
+    private $position; #: +axs string -> `$this->addPastPosition(new :PastPosition($this->position, $this->departament))`
     /** @var IdCard employee's id card */
     private $idCard; #: +axs IdCard
     /** @var Room[] rooms */

@@ -273,7 +273,7 @@ Here we can ensure, that `$email` will contain a string with length less than 12
 
 ### Callbacks
 
-**Axessors** support short callbacks in getters and setters. Callback expressions are written after conditions and callback sign: `>>`.
+**Axessors** support short callbacks in getters and setters. Callback expressions are written after conditions and callback sign: `->`.
 
 Most of standard types have their own predefined callbacks:
 * string
@@ -295,7 +295,7 @@ class Email
 {
     use Axessors;
 
-    private $email; #: +axs string `preg_match('/[a-z][a-z\d_\.]*@[a-z]+\.[a-z]+/i', $var)` >> lower
+    private $email; #: +axs string `preg_match('/[a-z][a-z\d_\.]*@[a-z]+\.[a-z]+/i', $var)` -> lower
 }
 ```
 **Axessors** support *injected* callbacks too.
@@ -304,7 +304,7 @@ class WithInjectedCallback
 {
     use Axessors;
 
-    private $system; #: +axs string <= 100 >> `system('explorer %APPDATA%')`
+    private $system; #: +axs string <= 100 -> `system('explorer %APPDATA%')`
 }
 ```
 You can write in the *injected* callback anything you want. In the last example setter will open folder with applications data on Windows. `$var` can be modified in the *injected* callback too: ``$var += 16``.
@@ -315,7 +315,7 @@ class WithNumber
 {
     use Axessors;
 
-    private $number; #: +axs int >> inc, dec
+    private $number; #: +axs int -> inc, dec
 }
 ```
 #### Resolving class names
@@ -326,7 +326,7 @@ class WithRelativeNames
 {
     use Axessors;
     
-    private $field; #: +axs `:CurrentNamespaceClass::doSmth()` >> `globalNamespaceClass::doSmthElse()`
+    private $field; #: +axs `:CurrentNamespaceClass::doSmth()` -> `globalNamespaceClass::doSmthElse()`
 }
 ```
 **Axessors** recognize relative class names as absolute. It is not a bug, just a feature, but maybe such behavior will be removed in next versions of library.
@@ -445,12 +445,12 @@ With **Axessors** you can shorten description of every getter and setter in your
 3. `wrt` or `writable`
 4. type declaration
 5. conditions for input value
-6. `>>`
+6. `->`
 7. callbacks for input value
 8. getter access modifier
 9. `rdb` or `readable`
 10. conditions for field value
-11. `>>`
+11. `->`
 12. callbacks for field value
 13. `=>`
 14. field alias
