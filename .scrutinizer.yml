@@ -7,6 +7,11 @@ filter:
     - examples/*
     - docs/*
 
+build:
+  tests:
+    override:
+      command: true
+
 tools:
   external_code_coverage:
     timeout: 180
