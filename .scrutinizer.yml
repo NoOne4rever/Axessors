@@ -7,18 +7,6 @@ filter:
     - examples/*
     - docs/*
 
-build:
-  environment:
-    php:
-      version: '7.1.9'
-  tests:
-    before:
-      - 'composer self-update'
-      - 'composer require --dev phpunit/phpunit'
-    override:
-      -
-        command: 'vendor/bin/phpunit'
-
 tools:
   external_code_coverage:
     timeout: 180
