@@ -10,7 +10,7 @@ filter:
 build:
   tests:
     override:
-      command: true
+      command: 'true'
 
 tools:
   external_code_coverage:
