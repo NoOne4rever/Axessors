@@ -63,11 +63,7 @@ class CommentLexer extends Lexer
             $injProcessor = new InjectedStringSuit($this->getAxsComment());
             $code = $injProcessor->addSlashes('\\');
             $properties = $this->getProperties();
-            if (count($properties) == 1) {
-                $tokenList = self::TOKEN_LIST;
-            } else {
-                $tokenList = array_slice(self::TOKEN_LIST, 0, count(self::TOKEN_LIST) - 2);
-            }
+            $tokenList = $this->getTokenList(count($properties));
             $tokens = $this->parse($code, $tokenList, self::REQUIRED_TOKENS);
             foreach ($this->getProperties() as $propertyName) {
                 $propertyData = new PropertyData($this->reflection->getProperty($propertyName), $tokens);
@@ -75,6 +71,22 @@ class CommentLexer extends Lexer
             }
         }
         return $classData;
+    }
+
+    /**
+     * Returns dynamically created array of token signatures.
+     *
+     * @param int $properties number of properties 
+     * 
+     * @return array tokens
+     */
+    private function getTokenList(int $properties): array 
+    {
+        if ($properties == 1) {
+            return self::TOKEN_LIST;
+        } else {
+            return array_slice(self::TOKEN_LIST, 0, count(self::TOKEN_LIST) - 2);
+        }
     }
 
     /**
