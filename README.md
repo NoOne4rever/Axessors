@@ -414,6 +414,29 @@ class Triangle extends Shape
 ```
 Abstract classes with abstract *Axessors* methods should `use` trait *Axs*.
 
+## Multiple Axessors declarations
+
+Sometimes it is sensible to write fields of the same type in one line. For example, class "Color" stores three fields with rgb values.
+Axessors can process such declarations.
+```php
+class Color
+{
+    use Axessors;
+    
+    private $red, $green, $blue; #: +axs int 0..255
+    
+    /* ... */
+}
+
+$color = new Color(255, 255, 0);
+
+$color->getRed();
+$color->getGreen();
+$color->getBlue();
+
+```
+The only restriction is you can't use field aliases in multiple declarations to avoid signature collisions.
+
 ## Integration with IDE
 
 Actually, **Axessors** aren't integrated with any IDE. Unfortunately, automatically generated methods will be marked as non-existing.
