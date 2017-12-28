@@ -9,7 +9,7 @@ Generator of getters and setters for PHP.
 
 ## Installation
 
-`composer require "noone4rever/axessors @dev"`
+`composer require noone4rever/axessors`
 
 You can see this package on [packagist](https://packagist.org/packages/noone4rever/axessors).
 
