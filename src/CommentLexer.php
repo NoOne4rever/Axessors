@@ -17,15 +17,15 @@ namespace NoOne4rever\Axessors;
  */
 class CommentLexer extends Lexer
 {
-    private const AXS_COMMENT = '{^#:}';
-    private const ACCESS_MODIFIER = '{^(\+|~|-)}';
-    private const KEYWORD = '{^((accessi|(writ|read)a)ble|axs|wrt|rdb)}';
-    private const TYPE = '{^((((\\\\)?[a-zA-Z_][a-zA-Z\d_]*(\\\\[a-zA-Z_][a-zA-Z\d_]*)*)(\[(?1)\])?)(\|(?2))*)}';
-    private const HANDLERS = '{^((?(1),\s*)([a-zA-Z_][a-zA-Z0-9_]*|`([^`]|\\\\`)+((?<!\\\\)`)))+}';
-    private const CONDITIONS = '{^((?(1)\s*(&&|\|\|)\s*)(\d+(,\d+)?\.\.\d+(,\d+)?|((<|>|!|=)=|%|<|>)\s+\d+(,\d+)?|`([^`]|\\\\`)+((?<!\\\\)`)))+}';
-    private const HANDLERS_SIGN = '{^->}';
-    private const ALIAS_SIGN = '{^=>}';
-    private const ALIAS = '{^[a-zA-Z_][a-zA-Z0-9_]*}';
+    private const AXS_COMMENT = '/^#:/';
+    private const ACCESS_MODIFIER = '/^(\+|~|-)/';
+    private const KEYWORD = '/^(accessible|writable|readable|axs|wrt|rdb)/';
+    private const TYPE = '/^((((\\\\)?[a-zA-Z_][a-zA-Z\d_]*(\\\\[a-zA-Z_][a-zA-Z\d_]*)*)(\[(?1)\])?)(\|(?2))*)/';
+    private const HANDLERS = '/^((?(1),\s*)([a-zA-Z_][a-zA-Z0-9_]*|`([^`]|\\\\`)+((?<!\\\\)`)))+/';
+    private const CONDITIONS = '/^((?(1)\s*(&&|\|\|)\s*)(\d+(,\d+)?\.\.\d+(,\d+)?|((<|>|!|=)=|%|<|>)\s+\d+(,\d+)?|`([^`]|\\\\`)+((?<!\\\\)`)))+/';
+    private const HANDLERS_SIGN = '/^->/';
+    private const ALIAS_SIGN = '/^=>/';
+    private const ALIAS = '/^[a-zA-Z_][a-zA-Z0-9_]*/';
 
     private const TOKEN_LIST = [
         self::AXS_COMMENT,
