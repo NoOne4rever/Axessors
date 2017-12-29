@@ -33,7 +33,7 @@ class HandlersProcessor extends TokenProcessor
         $result = preg_split('{(?<!\\\\),\s*}', $result);
         foreach ($result as &$handler) {
             $injProcessor = new InjectedStringSuit(stripcslashes($handler));
-            $handler = $injProcessor->resolveClassNames($this->namespace)->processThis()->get();
+            $handler = $injProcessor->resolveClassNames($this->namespace)->processThis()->wrapWithClosure()->get();
         }
         return $result;
     }

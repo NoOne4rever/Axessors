@@ -345,6 +345,27 @@ class WithShortThisSyntax
 }
 ```
 
+#### Using code blocks in injected strings
+
+Sometimes you may need to write multiple statements in one injected string. To do this you can use code blocks.
+```php
+class WithCodeBlocks
+{
+    use Axessors;
+    
+    private $field; #: +axs int `{$a = 0; $b = 255; return $var >= $a && $var <= $b;}`
+}
+``` 
+Code blocks works as closures: `{...}` turns into `function($var) {...}`. You can use code blocks to write non-expression statements like `echo`.
+```php
+class WithEcho
+{
+    use Axessors;
+    
+    private $field; #: +axs int -> `{echo 'ok';}`
+}
+```
+
 ### Fields' aliases
 
 You can choose, which name of the field will be used in getter or setter signature. For example, you have a field with really long name:

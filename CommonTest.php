@@ -22,7 +22,7 @@ class Color
 {
     use Axessors;
     
-    private $red, $green, $blue; #: +axs int 0..255
+    private $red, $green, $blue; #: +axs int `{$a = 0; $b = 255; return $var >= $a && $var <= $b;}`
     
     public function __construct(int $red, int $green, int $blue)
     {
