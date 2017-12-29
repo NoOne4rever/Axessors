@@ -330,7 +330,21 @@ class WithRelativeNames
 }
 ```
 **Axessors** recognize relative class names as absolute. It is not a bug, just a feature, but maybe such behavior will be removed in next versions of library.
- 
+
+#### Using short "$." syntax
+
+You can use `$.` instead of `$this->` in injected strings to shorten Axessors comment.
+```php
+class WithShortThisSyntax
+{
+    use Axessors;
+    
+    private $field; #: +axs int -> `$.doSmth()`
+    
+    private function doSmath() {...}
+}
+```
+
 ### Fields' aliases
 
 You can choose, which name of the field will be used in getter or setter signature. For example, you have a field with really long name:
