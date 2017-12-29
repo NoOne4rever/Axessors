@@ -31,6 +31,20 @@ class InjectedStringSuit
     }
 
     /**
+     * Turns code block into a simple closure.
+     * 
+     * @return $this object for methods chain
+     */
+    public function wrapWithClosure(): self
+    {
+        if (preg_match('/^`{[^}]*}`$/', $this->expression)) {
+            $this->expression = substr($this->expression, 1, strlen($this->expression) - 2);
+            $this->expression = "`(function(\$var){$this->expression})(\$var)`";
+        }
+        return $this;
+    }
+
+    /**
      * Processes "$." in injected string.
      * 
      * @return InjectedStringSuit object for methods chain

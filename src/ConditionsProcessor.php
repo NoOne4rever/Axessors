@@ -10,9 +10,9 @@ namespace NoOne4rever\Axessors;
 
 /**
  * Class ConditionsProcessor.
- * 
+ *
  * Processes Axessors conditions.
- * 
+ *
  * @package NoOne4rever\Axessors
  */
 class ConditionsProcessor extends TokenProcessor
@@ -60,11 +60,11 @@ class ConditionsProcessor extends TokenProcessor
 
     /**
      * Removes slashes from conditions.
-     * 
+     *
      * @param array $conditions conditions
      * @return array processed conditions
      */
-    private function rmSlashes(array $conditions): array 
+    private function rmSlashes(array $conditions): array
     {
         foreach ($conditions as $number => &$complexCondition) {
             if (is_array($complexCondition)) {
@@ -92,7 +92,7 @@ class ConditionsProcessor extends TokenProcessor
             foreach ($condition as $token) {
                 $injProcessor = new InjectedStringSuit($token);
                 if (count($condition) === 1) {
-                    $result[] = $injProcessor->resolveClassNames($this->namespace)->processThis()->get();
+                    $result[] = $injProcessor->resolveClassNames($this->namespace)->processThis()->wrapWithClosure()->get();
                 } else {
                     $result[$number][] = $token;
                 }
