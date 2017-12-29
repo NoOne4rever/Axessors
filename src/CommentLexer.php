@@ -61,7 +61,7 @@ class CommentLexer extends Lexer
                 continue;
             }
             $injProcessor = new InjectedStringSuit($this->getAxsComment());
-            $code = $injProcessor->addSlashes('\\');
+            $code = $injProcessor->addSlashes('\\')->get();
             $properties = $this->getProperties();
             $tokenList = $this->getTokenList(count($properties));
             $tokens = $this->parse($code, $tokenList, self::REQUIRED_TOKENS);

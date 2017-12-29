@@ -31,12 +31,31 @@ class InjectedStringSuit
     }
 
     /**
+     * Processes "$." in injected string.
+     * 
+     * @return InjectedStringSuit object for methods chain
+     */
+    public function processThis(): self
+    {
+        $expression = preg_replace_callback('/"[^"]"|\'[^\']\'/', function (array $matches) {
+            return str_replace('$.', '\\$.', $matches[0]);
+        }, $this->expression);
+        $expression = preg_replace('/\$\./', '$this->', $expression);
+        $expression = preg_replace_callback('/"[^"]"|\'[^\']\'/', function (array $matches) {
+            return str_replace('\\$.', '$.', $matches[0]);
+        }, $expression);
+        $this->expression = $expression;
+        return $this;
+    }
+
+    /**
      * Resolves class names in *injected* callbacks and conditions.
      *
      * @param string $namespace namespace
-     * @return string expression with resolved class names
+     * 
+     * @return InjectedStringSuit object for methods chain
      */
-    public function resolveClassNames(string $namespace): string
+    public function resolveClassNames(string $namespace): self
     {
         $expression = preg_replace_callback('/"[^"]"|\'[^\']\'/', function (array $matches) {
             return str_replace(':', ':\\', $matches[0]);
@@ -45,23 +64,36 @@ class InjectedStringSuit
         $expression = preg_replace_callback('/"[^"]"|\'[^\']\'/', function (array $matches) {
             return str_replace(':\\', ':', $matches[0]);
         }, $expression);
-        return $expression;
+        $this->expression = $expression;
+        return $this;
     }
 
     /**
      * Adds slashes to string.
-     * 
+     *
      * @param string $charlist symbols add slashes to
-     * @return string string with slashes
+     * 
+     * @return InjectedStringSuit object for methods chain 
      */
-    public function addSlashes(string $charlist): string 
+    public function addSlashes(string $charlist): self
     {
-        return preg_replace_callback(
+        $this->expression = preg_replace_callback(
             '/`([^`]|\\\\`)+((?<!\\\\)`)/',
             function (array $matches) use($charlist): string {
                 return addcslashes($matches[0], $charlist);
             },
             $this->expression
         );
+        return $this;
+    }
+    
+    /**
+     * Getter for InjectedStringProcessor::$expression.
+     * 
+     * @return string processed expression
+     */
+    public function get(): string 
+    {
+        return $this->expression;
     }
 }
