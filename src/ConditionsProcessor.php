@@ -50,7 +50,7 @@ class ConditionsProcessor extends TokenProcessor
         }
         $result = [];
         $injProcessor = new InjectedStringSuit($conditions);
-        $conditions = $injProcessor->addSlashes('|&');
+        $conditions = $injProcessor->addSlashes('|&')->get();
         $conditions = preg_split('{\s*\|\|\s*}', $conditions);
         foreach ($conditions as $condition) {
             $result[] = preg_split('{\s*&&\s*}', $condition);
@@ -92,7 +92,7 @@ class ConditionsProcessor extends TokenProcessor
             foreach ($condition as $token) {
                 $injProcessor = new InjectedStringSuit($token);
                 if (count($condition) === 1) {
-                    $result[] = $injProcessor->resolveClassNames($this->namespace);
+                    $result[] = $injProcessor->resolveClassNames($this->namespace)->processThis()->get();
                 } else {
                     $result[$number][] = $token;
                 }

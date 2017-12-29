@@ -29,11 +29,11 @@ class HandlersProcessor extends TokenProcessor
             return [];
         }
         $injProcessor = new InjectedStringSuit($handlers);
-        $result = $injProcessor->addSlashes(',');
+        $result = $injProcessor->addSlashes(',')->get();
         $result = preg_split('{(?<!\\\\),\s*}', $result);
         foreach ($result as &$handler) {
             $injProcessor = new InjectedStringSuit(stripcslashes($handler));
-            $handler = $injProcessor->resolveClassNames($this->namespace);
+            $handler = $injProcessor->resolveClassNames($this->namespace)->processThis()->get();
         }
         return $result;
     }
