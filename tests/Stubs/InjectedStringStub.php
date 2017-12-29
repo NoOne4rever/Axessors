@@ -19,6 +19,10 @@ class InjectedStringStub
 {
     use Axessors;
     
+    /** @var int conditional var */
     public $x;
+    /** @var int with short "this" syntax */
     public $thisUsage; #: +axs int `isset($.x)`
+    /** @var int with code block in callback */
+    public $block = 1; #: +rdb int -> `{echo $var;}`
 }
