@@ -8,8 +8,7 @@ class Man
 {
     use Axessors;
 
-    protected $name; #: +axs string
-    protected $surname; #: +axs string
+    protected $name, $surname; #: +axs string
 
     public function __construct(string $name, string $surname)
     {
