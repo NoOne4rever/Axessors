@@ -42,6 +42,7 @@ class Parser
     private const A_PUBLIC = '+';
     private const A_PROTECTED = '~';
     private const A_PRIVATE = '-';
+    private const K_DEFAULT = 'default';
 
     /** @var string[] tokens from Axessors comment */
     private $tokens;
@@ -143,7 +144,15 @@ class Parser
      */
     public function getAlias(): string
     {
-        return $this->tokens[self::ALIAS] ?? $this->reflection->name;
+        if (isset($this->tokens[self::ALIAS])) {
+            if ($this->tokens[self::ALIAS] === self::K_DEFAULT) {
+                return '';
+            } else {
+                return $this->tokens[self::ALIAS];
+            }
+        } else {
+            return $this->reflection->name;
+        }
     }
 
     /**
