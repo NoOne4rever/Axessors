@@ -42,19 +42,17 @@ class ConditionsRunner extends RunningSuit
      *
      * Creates logical tree of the conditions and then checks if the general result is true.
      *
-     * @param $value mixed value of the property
+     * @param $var mixed value of the property
      * @return bool result of checking of the conditions
      */
-    public function processConditions($value): bool
+    public function processConditions($var): bool
     {
-        $conditions = $this->calculateConditions($value);
-        if (empty($conditions)) {
-            return true;
+        if ($this->mode == RunningSuit::INPUT_MODE) {
+            $conditions = $this->propertyData->getInputConditions();
         } else {
-            return array_reduce($conditions, function ($carry, $item) {
-                return $this->reduce($carry, $item, true);
-            });
+            $conditions = $this->propertyData->getOutputConditions();
         }
+        return $this->executeInjectedString($conditions, $var, $this->mode);
     }
 
     /**
@@ -143,7 +141,7 @@ class ConditionsRunner extends RunningSuit
      * @return int integer value of the property
      * @throws TypeError if the property can't be turned into integer
      */
-    private function count($value): int
+    public static function count($value): int
     {
         switch (gettype($value)) {
             case 'integer':
@@ -156,7 +154,7 @@ class ConditionsRunner extends RunningSuit
                 $value = count($value);
                 break;
             default:
-                throw new TypeError('value "' . var_export($value, true) . "\" passed to {$this->class}::{$this->method}() is not countable");
+                throw new TypeError('value is not countable');
         }
         return $value;
     }

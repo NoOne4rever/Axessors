@@ -20,84 +20,70 @@ class ConditionsProcessor extends TokenProcessor
     /**
      * Creates list of conditions for input data.
      *
-     * @return string[] conditions
+     * @return string conditions
      */
-    public function processInputData(): array
+    public function processInputData(): string
     {
-        return $this->makeConditionsTree($this->input);
+        return $this->makePhpConditions($this->input);
     }
 
     /**
      * Creates list of conditions for output data.
      *
-     * @return string[] conditions
+     * @return string conditions
      */
-    public function processOutputData(): array
+    public function processOutputData(): string
     {
-        return $this->makeConditionsTree($this->output);
+        return $this->makePhpConditions($this->output);
     }
 
     /**
-     * Creates list of conditions from a string of conditions definition.
+     * Turns Axessors conditions into PHP code.
      *
-     * @param string $conditions conditions
-     * @return array conditions
-     */
-    private function explodeConditions(string $conditions): array
-    {
-        if ($conditions === '') {
-            return [];
-        }
-        $result = [];
-        $injProcessor = new InjectedStringSuit($conditions);
-        $conditions = $injProcessor->addSlashes('|&')->get();
-        $conditions = preg_split('{\s*\|\|\s*}', $conditions);
-        foreach ($conditions as $condition) {
-            $result[] = preg_split('{\s*&&\s*}', $condition);
-        }
-        return $this->rmSlashes($result);
-    }
-
-    /**
-     * Removes slashes from conditions.
+     * @param string $axsConditions Axessors conditional statement
      *
-     * @param array $conditions conditions
-     * @return array processed conditions
+     * @return string
      */
-    private function rmSlashes(array $conditions): array
+    private function makePhpConditions(string $axsConditions): string
     {
-        foreach ($conditions as $number => &$complexCondition) {
-            if (is_array($complexCondition)) {
-                foreach ($complexCondition as $num => &$condition) {
-                    $condition = stripcslashes($condition);
-                }
-            } else {
-                $complexCondition = stripcslashes($complexCondition);
-            }
+        if ($axsConditions === '') {
+            return '`true`';
         }
-        return $conditions;
-    }
-
-    /**
-     * Makes tree of conditions.
-     *
-     * @param string $conditions string with conditions definition
-     * @return array tree of conditions
-     */
-    private function makeConditionsTree(string $conditions): array
-    {
-        $result = [];
-        $conditions = $this->explodeConditions($conditions);
-        foreach ($conditions as $number => $condition) {
-            foreach ($condition as $token) {
-                $injProcessor = new InjectedStringSuit($token);
-                if (count($condition) === 1) {
-                    $result[] = $injProcessor->resolveClassNames($this->namespace)->processThis()->wrapWithClosure()->get();
-                } else {
-                    $result[$number][] = $token;
-                }
-            }
-        }
-        return $result;
+        $injProcessor = new InjectedStringSuit($axsConditions);
+        $axsConditions = $injProcessor->resolveClassNames($this->namespace)->processThis()->wrapWithClosure()
+            ->addSlashes('<>!=')
+            ->get();
+        $axsConditions = preg_replace_callback(
+            '/(((>|<)=?)|(=|!)=)\s*\d+/',
+            function (array $matches): string {
+                return sprintf('\NoOne4rever\Axessors\ConditionsRunner::count($var) %s', $matches[0]);
+            },
+            $axsConditions
+        );
+        $axsConditions = preg_replace_callback(
+            '/\d+\.\.\d+/',
+            function (array $matches): string {
+                list($min, $max) = explode('..', $matches[0]);
+                return sprintf('\NoOne4rever\Axessors\ConditionsRunner::count($var) >= %d'
+                    . ' && \NoOne4rever\Axessors\ConditionsRunner::count($var) <= %d', $min, $max);
+            },
+            $axsConditions
+        );
+        $axsConditions = preg_replace_callback(
+            '/\\\\[<>!=]/',
+            function (array $matches): string {
+                return substr($matches[0], 1);
+            },
+            $axsConditions
+        );
+        $axsConditions = preg_replace_callback(
+            '/`[^`]+`/',
+            function (array $matches): string {
+                $subject = substr($matches[0], 1, strlen($matches[0]) - 2);
+                return sprintf('(function($var){return %s;})($var)', $subject);
+            },
+            $axsConditions
+        );
+        return "`$axsConditions`";
     }
 }
