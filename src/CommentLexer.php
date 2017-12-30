@@ -22,7 +22,7 @@ class CommentLexer extends Lexer
     private const KEYWORD = '/^(accessible|writable|readable|axs|wrt|rdb)/';
     private const TYPE = '/^((((\\\\)?[a-zA-Z_][a-zA-Z\d_]*(\\\\[a-zA-Z_][a-zA-Z\d_]*)*)(\[(?1)\])?)(\|(?2))*)/';
     private const HANDLERS = '/^((?(1),\s*)([a-zA-Z_][a-zA-Z0-9_]*|`([^`]|\\\\`)+((?<!\\\\)`)))+/';
-    private const CONDITIONS = '/^((?(1)\s*(&&|\|\|)\s*)(\d+(,\d+)?\.\.\d+(,\d+)?|((<|>|!|=)=|%|<|>)\s+\d+(,\d+)?|`([^`]|\\\\`)+((?<!\\\\)`)))+/';
+    private const CONDITIONS = '/^(((((<|>)=?|(!|=)=)\s*\d+|\d+\.\.\d+|`[^`]+`)|\((?1)\))((\s*(&&|\|\|)\s*)(?1))*)/';
     private const HANDLERS_SIGN = '/^->/';
     private const ALIAS_SIGN = '/^=>/';
     private const ALIAS = '/^[a-zA-Z_][a-zA-Z0-9_]*/';
