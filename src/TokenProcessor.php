@@ -43,12 +43,12 @@ abstract class TokenProcessor
      *
      * @return array token data for setter
      */
-    abstract public function processInputData(): array;
+    abstract public function processInputData();
 
     /**
      * Processes tokens that belong to getter.
      *
      * @return array token data for getter
      */
-    abstract public function processOutputData(): array;
+    abstract public function processOutputData();
 }

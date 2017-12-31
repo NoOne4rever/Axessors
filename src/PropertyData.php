@@ -26,10 +26,10 @@ class PropertyData
     private $alias;
     /** @var array type tree */
     private $type;
-    /** @var string[] conditions for setter */
-    private $conditionsIn = [];
-    /** @var string[] conditions for getter */
-    private $conditionsOut = [];
+    /** @var string conditions for setter */
+    private $conditionsIn;
+    /** @var string conditions for getter */
+    private $conditionsOut;
     /** @var string[] handlers for setter */
     private $handlersIn = [];
     /** @var string[] handlers for getter */
@@ -88,9 +88,9 @@ class PropertyData
     /**
      * Getter for {@see PropertyData::$conditionsIn}.
      *
-     * @return string[] {@see PropertyData::$conditionsIn}
+     * @return string {@see PropertyData::$conditionsIn}
      */
-    public function getInputConditions(): array
+    public function getInputConditions(): string
     {
         return $this->conditionsIn;
     }
@@ -98,9 +98,9 @@ class PropertyData
     /**
      * Getter for {@see PropertyData::$conditionsOut}.
      *
-     * @return string[] {@see PropertyData::$conditionsOut}
+     * @return string {@see PropertyData::$conditionsOut}
      */
-    public function getOutputConditions(): array
+    public function getOutputConditions(): string
     {
         return $this->conditionsOut;
     }
