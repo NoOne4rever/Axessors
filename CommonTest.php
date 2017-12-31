@@ -11,7 +11,7 @@ class TestCase
 {
     use Axessors;
     
-    private $field; #: +axs int (!= 4 && (1..10 || == 100))
+    private $field; #: +axs int (!= 4 && (1..10 || == 100) && `{return 'ok';}`)
 }
 
 AxessorsStartup::run();
