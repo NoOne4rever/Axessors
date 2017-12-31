@@ -5,7 +5,7 @@ namespace NoOne4rever\Axessors\Tests;
 use NoOne4rever\Axessors\Axessors;
 use NoOne4rever\Axessors\AxessorsStartup;
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/Axessors.phar';
 
 class TestCase
 {
@@ -18,4 +18,4 @@ AxessorsStartup::run();
 
 $test = new TestCase();
 $test->setField(100);
-$test->getField();
+echo $test->getField();
