@@ -47,7 +47,7 @@ class ConditionsProcessor extends TokenProcessor
     private function makePhpConditions(string $axsConditions): string
     {
         if ($axsConditions === '') {
-            return '`true`';
+            return 'true';
         }
         $injProcessor = new InjectedStringSuit($axsConditions);
         $axsConditions = $injProcessor->resolveClassNames($this->namespace)->processThis()->wrapWithClosure()
@@ -56,7 +56,7 @@ class ConditionsProcessor extends TokenProcessor
         $axsConditions = preg_replace_callback(
             '/(((>|<)=?)|(=|!)=)\s*\d+/',
             function (array $matches): string {
-                return sprintf('\NoOne4rever\Axessors\ConditionsRunner::count($var) %s', $matches[0]);
+                return sprintf('\%s::count($var) %s', ConditionsRunner::class, $matches[0]);
             },
             $axsConditions
         );
@@ -64,8 +64,8 @@ class ConditionsProcessor extends TokenProcessor
             '/\d+\.\.\d+/',
             function (array $matches): string {
                 list($min, $max) = explode('..', $matches[0]);
-                return sprintf('\NoOne4rever\Axessors\ConditionsRunner::count($var) >= %d'
-                    . ' && \NoOne4rever\Axessors\ConditionsRunner::count($var) <= %d', $min, $max);
+                return sprintf('\%s::count($var) >= %d'
+                    . ' && \%s::count($var) <= %d', ConditionsRunner::class, $min, ConditionsRunner::class, $max);
             },
             $axsConditions
         );
@@ -84,6 +84,6 @@ class ConditionsProcessor extends TokenProcessor
             },
             $axsConditions
         );
-        return "`$axsConditions`";
+        return $axsConditions;
     }
 }
