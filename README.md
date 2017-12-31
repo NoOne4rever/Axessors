@@ -114,7 +114,7 @@ To use **Axessors** you should follow this file structure:
 * call of AxessorsStartup::run()
 
 ```php
-include 'Axesors.phar';
+include 'Axessors.phar';
 
 include 'MyClassA.php';
 include 'MyClassB.php';
