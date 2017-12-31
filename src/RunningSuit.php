@@ -57,7 +57,7 @@ abstract class RunningSuit
     {
         $handler = str_replace('\\`', '`', substr($expr, 1, strlen($expr) - 2));
         if (is_null($this->object)) {
-            return call_user_func("{$this->class}::__axessorsExecute", $handler, $var, $mode);
+            return call_user_func("{$this->class}::__axessorsExecuteStatic", $handler, $var, $mode);
         } else {
             return $this->object->__axessorsExecute($handler, $var, $mode);
         }

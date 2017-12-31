@@ -94,7 +94,7 @@ class ConditionsRunner extends RunningSuit
     protected function executeInjectedString(string $expr, $var, bool $mode): bool 
     {
         if (is_null($this->object)) {
-            return call_user_func("{$this->class}::__axessorsExecute", $expr, $var, $mode);
+            return call_user_func("{$this->class}::__axessorsExecuteStatic", $expr, $var, $mode);
         } else {
             return $this->object->__axessorsExecute($expr, $var, $mode);
         }
