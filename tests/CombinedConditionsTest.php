@@ -10,6 +10,8 @@ namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Tests\Stubs\CombinedConditionsStub;
 
+//require __DIR__ . '/../vendor/autoload.php';
+//require __DIR__ . '/AxessorsTestCase.php';
 require __DIR__ . '/Stubs/CombinedConditionsStub.php';
 
 /**
@@ -99,5 +101,29 @@ class CombinedConditionsTest extends AxessorsTestCase
         $newValue = 5;
 
         $this->stub->setDifferent($newValue);
+    }
+
+    /**
+     * Tests if true grouped conditions can pass.
+     */
+    public function testTrueGroupedConditionsCanPass(): void
+    {
+        $newValue = 200;
+        
+        $this->stub->setGrouped($newValue);
+        
+        $this->assertEquals($newValue, $this->stub->grouped);
+    }
+
+    /**
+     * Tests if false grouped conditions can not pass.
+     * 
+     * @expectedException  \NoOne4rever\Axessors\Exceptions\AxessorsError
+     */
+    public function testFalseGroupedConditionsCanNotPass(): void
+    {
+        $newValue = 50;
+        
+        $this->stub->setGrouped($newValue);
     }
 }

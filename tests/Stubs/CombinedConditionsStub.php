@@ -32,4 +32,6 @@ class CombinedConditionsStub
     public $both; #: +wrt int 1..20 || != 5 && != 10
     /** @var int with logically combined short and injected conditions */
     public $different; #: +wrt int 1..20 && `$var != 5`
+    /** @var int with grouped conditions */
+    public $grouped; #: +wrt int (!= 4 && (1..10 || > 100) && `{return 'ok';}`)
 }

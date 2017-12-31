@@ -37,10 +37,14 @@ class InjectedStringSuit
      */
     public function wrapWithClosure(): self
     {
-        if (preg_match('/^`{[^}]*}`$/', $this->expression)) {
-            $this->expression = substr($this->expression, 1, strlen($this->expression) - 2);
-            $this->expression = "`(function(\$var){$this->expression})(\$var)`";
-        }
+        $this->expression = preg_replace_callback(
+            '/`{[^}]*}`/',
+            function (array $matches): string {
+                $result = substr($matches[0], 1, strlen($matches[0]) - 2);
+                return sprintf('`(function ($var) %s)($var)`', $result);
+            },
+            $this->expression
+        );
         return $this;
     }
 
