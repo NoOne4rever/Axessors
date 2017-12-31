@@ -238,7 +238,6 @@ You can write in *Axessors comment* next operators:
 * range, e.g. `1..10`
 * `<`, `>`
 * `<=`, `>=`, `==`
-* `%` (means divisibility of number)
 
 The last example will look like this, using the library:
 ```php
@@ -260,7 +259,7 @@ class Email
 ```
 In this case `$var` means argument for setter. `$var` is reserved identifier, it always contain setter's argument (if we write conditions for `writable` statement) or actual value of field (if we write conditions for `readable` statement).
 
-**Axessors** support multiple conditions. You can group your conditional expressions using `&&` and `||` signs. `||` has higher priority than `&&`.
+**Axessors** support multiple conditions. You can group your conditional expressions using `&&` and `||` signs.
 ```php
 class Email
 {
@@ -270,6 +269,15 @@ class Email
 }
 ```
 Here we can ensure, that `$email` will contain a string with length less than 120 symbols and this string will match our regex.
+Conditions can also be grouped by brackets.
+```php
+class WithGroupedConditions
+{
+    use Axessors;
+    
+    private $exactInt; #: +axs int (!= 4 && (1..10 || > 100))
+}
+```
 
 ### Callbacks
 
