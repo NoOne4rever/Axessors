@@ -11,6 +11,8 @@ Generator of getters and setters for PHP.
 
 `composer require noone4rever/axessors`
 
+Or just download [Axessors.phar](https://github.com/NoOne4rever/Axessors/releases/download/v1.1/Axessors.phar);
+
 You can see this package on [packagist](https://packagist.org/packages/noone4rever/axessors).
 
 ## System requirements
@@ -107,16 +109,16 @@ private $field; #: +axs mixed
 ## File structure
 
 To use **Axessors** you should follow this file structure:
-* include of `/vendor/autoload.php`
+* include of `/vendor/autoload.php` or `Axessors.phar`
 * declaration of all your classes
 * call of AxessorsStartup::run()
 
 ```php
-include '/vendor/autoload.php';
+include 'Axesors.phar';
 
-include '/MyClassA.php';
-include '/MyClassB.php';
-include '/MyClassC.php';
+include 'MyClassA.php';
+include 'MyClassB.php';
+include 'MyClassC.php';
 
 AxessorsStartup::run();
 ```
