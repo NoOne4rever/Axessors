@@ -10,8 +10,6 @@ namespace NoOne4rever\Axessors\Tests;
 
 use NoOne4rever\Axessors\Tests\Stubs\CombinedConditionsStub;
 
-//require __DIR__ . '/../vendor/autoload.php';
-//require __DIR__ . '/AxessorsTestCase.php';
 require __DIR__ . '/Stubs/CombinedConditionsStub.php';
 
 /**
