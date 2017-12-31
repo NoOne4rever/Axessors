@@ -9,6 +9,7 @@
 namespace NoOne4rever\Axessors;
 
 use NoOne4rever\Axessors\Exceptions\ReThrownError;
+use NoOne4rever\Axessors\Exceptions\TypeError;
 
 /**
  * Trait Axessors.
@@ -54,12 +55,15 @@ trait Axessors
      * @param bool $mode mode of execution
      * @return mixed the result or condition or callback
      * @throws ReThrownError if an error occurred while evaluating *injected* callback or condition
+     * @throws TypeError if non-countable value supplied to ConditionsRunner::count()
      */
     public function __axessorsExecute(string $code, $_var, bool $mode)
     {
         $var = $_var;
         try {
             $result = (bool)eval('return ' . $code . ';'); // evaluation of the code written in Axessors comment
+        } catch (TypeError $error) {
+            throw $error;
         } catch (\Throwable $error) {
             throw new ReThrownError("an error occurred while evaluating executable string \"$code\": {$error->getMessage()}");
         }
