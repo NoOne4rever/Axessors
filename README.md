@@ -9,15 +9,13 @@ Generator of getters and setters for PHP.
 
 ## Installation
 
-`composer require noone4rever/axessors`
-
-Or just download [Axessors.phar](https://github.com/NoOne4rever/Axessors/releases/download/v1.1/Axessors.phar);
+`composer require noone4rever/axessors` or just download [AxessorsPHAR](https://github.com/NoOne4rever/Axessors/releases/download/v1.1/Axessors.phar).
 
 You can see this package on [packagist](https://packagist.org/packages/noone4rever/axessors).
 
 ## System requirements
 
-You need to use PHP 7.1 or newer to run a code with **Axessors**.
+You need to use PHP 7.1 or newer to run code with Axessors.
 
 ## Problem
 
@@ -54,7 +52,7 @@ public function getEmail(): string
     return $this->email;
 }
 ```
-The more fields we have in our class, the more getters and setters we have to write. If our class have five fields, it will have ten or less accessors. Getters and setters always have the same structure (getter returns field value, setter rewrites field value), so accessors belong to one of the sorts code duplication.
+The more fields we have in our class, the more getters and setters we have to write. If our class have five fields, it will have up to ten accessors. Getters and setters always have the same structure (getter returns field value, setter rewrites field value), so accessors belong to one of the sorts code duplication.
 
 To avoid writing getters and setters manually we can:
 * make all the fields `public` (it is not safe enough)
@@ -62,7 +60,7 @@ To avoid writing getters and setters manually we can:
 * use *properties* (this can help not to write getters and setters without any additional logic only)
 * use special libraries for generating accessors (in fact there are almost no such libraries for PHP, that can help you to write less code)
 
-**Axessors** introduce a short syntax to describe getters and setters.
+Axessors introduce a short syntax to describe getters and setters.
 
 ## Structure of getters and setters
 
@@ -90,7 +88,7 @@ The same structure of accessors allows me to make a short syntax for getters and
 
 ## Usage
 
-To start using **Axessors**, `use` *Axessors* trait in your class.
+To start using Axessors, `use` *Axessors* trait in your class.
 ```php
 use NoOne4rever\Axessors\Axessors;
 
@@ -108,10 +106,10 @@ private $field; #: +axs mixed
 
 ## File structure
 
-To use **Axessors** you should follow this file structure:
-* include of `/vendor/autoload.php` or `Axessors.phar`
+To use Axessors you should follow this file structure:
+* include of `vendor/autoload.php` or `Axessors.phar`
 * declaration of all your classes
-* call of AxessorsStartup::run()
+* call to AxessorsStartup::run()
 
 ```php
 include 'Axessors.phar';
@@ -152,7 +150,7 @@ $test->setB(1);
 $test->getC();
 $test->setC(1);
 ```
-Generated methods have automatically formed names: `get<Field>` and `set<Field>`.
+Generated methods have automatically formed names: `get{Field}` and `set{Field}`.
 
 ### Access modifiers
 
@@ -178,7 +176,7 @@ private $field = 'smth'; #: ~wrt +rdb
 
 ### Type declarations
 
-Type declaration should be placed after the keyword. **Axessors** support standard PHP types: `int`, `float`, `bool`, `string`, `array`, `object`, `resource`and `callable`. Type can also be described with class' name or `mixed`.
+Type declaration should be placed after the keyword. Axessors support standard PHP types: `int`, `float`, `bool`, `string`, `array`, `object`, `resource`and `callable`. Type can also be described with class' name or `mixed`.
 ```php
 class WithTypeDeclarations
 {
@@ -214,11 +212,11 @@ class Config
     private static $settings; #: +axs array[int|string]
 }
 ```
-**Axessors** also support *extended* types, that have additional methods. *Extended* types have capitalized names. See [axessors methods](https://github.com/NoOne4rever/Axessors#axessors-methods).
+Axessors also support *extended* types, that have additional methods. *Extended* types have capitalized names. See [axessors methods](https://github.com/NoOne4rever/Axessors#axessors-methods).
 
 ### Conditions
 
-Sometimes we need to make a short condition for getter or setter. For example, field `$age` can contain any integer in range [1..120]. To perform a checkout of integer, we will write something like this:
+Sometimes we need to make a short condition for getter or setter. For example, field `$age` can contain any integer in range [1..120]. To perform a checkout, we will write something like this:
 ```php
 class WithConditionalSetter
 {
@@ -234,12 +232,13 @@ class WithConditionalSetter
     }
 }
 ```
-**Axessors** can perform such checkouts too. The library support mathematical expressions for `int`, `float`, `array` and `string`. Strings are represented as `strlen($var)`, arrays are represented as `count($var)`.
+Axessors can perform such checkouts too. The library support mathematical expressions for `int`, `float`, `array` and `string`. Strings are represented as `strlen($var)`, arrays are represented as `count($var)`.
 
 You can write in *Axessors comment* next operators:
 * range, e.g. `1..10`
 * `<`, `>`
-* `<=`, `>=`, `==`
+* `<=`, `>=`
+* `==`, `!=`
 
 The last example will look like this, using the library:
 ```php
@@ -250,7 +249,7 @@ class WithConditionalSetter
     private $age; #: +wrt int 1..120
 }
 ```
-**Axessors** support *injected* conditions too. Such expressions are written between the backquotes. For example, we need to check if the new value of field matches regex. This code will perform this checkout.
+Axessors support *injected* conditions too. Such expressions are written between the backquotes. For example, we need to check if the new value of field matches regex. This code will perform this checkout.
 ```php
 class Email
 {
@@ -261,7 +260,7 @@ class Email
 ```
 In this case `$var` means argument for setter. `$var` is reserved identifier, it always contain setter's argument (if we write conditions for `writable` statement) or actual value of field (if we write conditions for `readable` statement).
 
-**Axessors** support multiple conditions. You can group your conditional expressions using `&&` and `||` signs.
+Axessors support multiple conditions. You can group your conditional expressions using `&&` and `||` signs.
 ```php
 class Email
 {
@@ -271,6 +270,7 @@ class Email
 }
 ```
 Here we can ensure, that `$email` will contain a string with length less than 120 symbols and this string will match our regex.
+
 Conditions can also be grouped by brackets.
 ```php
 class WithGroupedConditions
@@ -283,7 +283,7 @@ class WithGroupedConditions
 
 ### Callbacks
 
-**Axessors** support short callbacks in getters and setters. Callback expressions are written after conditions and callback sign: `->`.
+Axessors support short callbacks in getters and setters. Callback expressions are written after conditions and callback sign: `->`.
 
 Most of standard types have their own predefined callbacks:
 * string
@@ -308,7 +308,7 @@ class Email
     private $email; #: +axs string `preg_match('/[a-z][a-z\d_\.]*@[a-z]+\.[a-z]+/i', $var)` -> lower
 }
 ```
-**Axessors** support *injected* callbacks too.
+Axessors support *injected* callbacks too.
 ```php
 class WithInjectedCallback
 {
@@ -317,7 +317,7 @@ class WithInjectedCallback
     private $system; #: +axs string <= 100 -> `system('explorer %APPDATA%')`
 }
 ```
-You can write in the *injected* callback anything you want. In the last example setter will open folder with applications data on Windows. `$var` can be modified in the *injected* callback too: ``$var += 16``.
+You can write in the *injected* callback anything you want. In the last example setter will open folder with applications data on Windows =). `$var` can be modified in the *injected* callback too: ``$var += 16``.
 
 You can write several callbacks separated by commas.
 ```php
@@ -339,7 +339,7 @@ class WithRelativeNames
     private $field; #: +axs `:CurrentNamespaceClass::doSmth()` -> `globalNamespaceClass::doSmthElse()`
 }
 ```
-**Axessors** recognize relative class names as absolute. It is not a bug, just a feature, but maybe such behavior will be removed in next versions of library.
+Axessors recognize relative class names as absolute. It is not a bug, but maybe such behavior will be removed in next versions of library.
 
 #### Using short "$." syntax
 
@@ -351,7 +351,7 @@ class WithShortThisSyntax
     
     private $field; #: +axs int -> `$.doSmth()`
     
-    private function doSmath() {...}
+    private function doSmth() {...}
 }
 ```
 
@@ -416,7 +416,7 @@ So, automatically generated methods won't collide.
 
 ## Axessors methods
 
-**Axessors** can generate not only getters and setters. The library can emulate different standard methods, that are defined in extended library types. For example, extended `array` type has methods `add<Field>`, `delete<Field>` and `count<Field>`.
+Axessors can generate not only getters and setters. The library can emulate different standard methods, that are defined in extended library types. For example, extended `Array` type has methods `add{Field}`, `delete{Field}` and `count{Field}`.
 
 For example, we have an indexed array with strings.
 ```php
@@ -431,7 +431,7 @@ Now our class have methods `addStrings()`, `deleteStrings()` - this methods take
 
 ## Implementing interfaces
 
-**Axessors** support implementation of interfaces. You can comment a method in interface or abstract class in **UNIX** style, - **Axessors** will check class hierarchy and stop the program if there are not implemented methods.
+Axessors support implementation of interfaces. You can comment a method in interface or abstract class in UNIX style, - Axessors will check class hierarchy and stop the program if there are not implemented methods.
 ```php
 interface Locatable
 {
@@ -453,15 +453,14 @@ class Triangle extends Shape
     use Axessors;
 
     private $id; #: +rdb int
-    private $x; #: +axs int
-    private $y; #: +axs int
+    private $x, $y; #: +axs int
 }
 ```
 Abstract classes with abstract *Axessors* methods should `use` trait *Axs*.
 
 ## Multiple Axessors declarations
 
-Sometimes it is sensible to write fields of the same type in one line. For example, class "Color" stores three fields with rgb values.
+Sometimes it is sensible to write fields of the same type in one line. For example, class `Color` stores three fields with rgb values.
 Axessors can process such declarations.
 ```php
 class Color
@@ -484,7 +483,7 @@ The only restriction is you can't use field aliases in multiple declarations to 
 
 ## Integration with IDE
 
-Actually, **Axessors** aren't integrated with any IDE. Unfortunately, automatically generated methods will be marked as non-existing.
+Actually, Axessors aren't integrated with any IDE. Unfortunately, automatically generated methods will be marked as non-existing.
 
 You can solve this problem by disabling such inspection in your IDE settings or by writing PHPdoc comments before class definition:
 ```php
@@ -507,7 +506,7 @@ At an nearly date I will create a plugin for PHPStorm, that will provide this ID
 
 ## Conclusions
 
-With **Axessors** you can shorten description of every getter and setter in your code. The most complex *Axessors comment* have this structure:
+With Axessors you can shorten description of every getter and setter in your code. The most complex *Axessors comment* have this structure:
 1. `#:`
 2. setter access modifier
 3. `wrt` or `writable`
@@ -527,4 +526,4 @@ This comment structure can implement almost all the possible getters and setters
 
 You can see examples in the [special directory](https://github.com/NoOne4rever/Axessors/tree/master/examples).
 
-##### Ask me any questions about the library, and I will be glad to answer.
+*Ask me any questions about the library, and I will be glad to answer.*
