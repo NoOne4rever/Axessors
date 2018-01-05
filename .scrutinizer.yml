@@ -6,6 +6,7 @@ filter:
     - tests/*
     - examples/*
     - docs/*
+    - CommonTest.php
 
 build:
   tests:
