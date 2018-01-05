@@ -63,7 +63,7 @@ abstract class Lexer
         $result = [];
         foreach ($expectations as $index => $pattern) {
             $this->skipWhitespace($code);
-            preg_match($pattern, substr($code, $this->currentSym), $token);
+            preg_match($this->makeRegEx($pattern), substr($code, $this->currentSym), $token);
             if (empty($token)) {
                 if (in_array($index, $requiredItems)) {
                     throw new ParseError("token with pattern \"$pattern\" not found while parsing {$this->reflection->getFileName()}:{$this->lineNumber}");
@@ -76,6 +76,11 @@ abstract class Lexer
         return $result;
     }
 
+    private function makeRegEx(string $token): string
+    {
+        return "/^$token/";
+    }
+
     /**
      * Skips whitespace symbols in code.
      *
@@ -83,7 +88,7 @@ abstract class Lexer
      */
     private function skipWhitespace(string $code): void
     {
-        preg_match('{^\s+}', substr($code, $this->currentSym), $whitespace);
+        preg_match('/^\s+/', substr($code, $this->currentSym), $whitespace);
         if (!empty($whitespace)) {
             $this->currentSym += strlen($whitespace[0]);
         }

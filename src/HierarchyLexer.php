@@ -35,19 +35,19 @@ class HierarchyLexer extends Lexer
         parent::__construct($reflection);
         if ($reflection->isInterface()) {
             $this->expectations = [
-                '{^#}',
-                '{^public}',
-                '{^function}',
-                '{^[a-zA-Z_][a-zA-Z0-9_]*}'
+                '#',
+                'public',
+                'function',
+                '[a-zA-Z_][a-zA-Z0-9_]*'
             ];
             $this->requiredItems = [0, 1, 2, 3];
         } elseif ($reflection->isAbstract()) {
             $this->expectations = [
-                '{^#}',
-                '{^abstract}',
-                '{^(public|protected)}',
-                '{^function}',
-                '{^[a-zA-Z_][a-zA-Z0-9_]*}'
+                '#',
+                'abstract',
+                '(public|protected)',
+                'function',
+                '[a-zA-Z_][a-zA-Z0-9_]*'
             ];
             $this->requiredItems = [0, 1, 2, 3, 4];
         } else {
