@@ -27,7 +27,6 @@ trait Axessors
      * @param string $method the name of the called method
      * @param array $args arguments of the called method
      * @return mixed result of the called method
-     * @throws ReThrownError is thrown when there is an error in *injected* callback or condition code
      */
     public function __call(string $method, array $args)
     {
@@ -40,7 +39,6 @@ trait Axessors
      * @param string $method the name of the called method
      * @param array $args arguments of the called method
      * @return mixed result of the called method
-     * @throws ReThrownError is thrown when there is an error in *injected* callback or condition code
      */
     public static function __callStatic(string $method, array $args)
     {

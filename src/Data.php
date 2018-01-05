@@ -26,7 +26,6 @@ class Data
     /**
      * Adds a class to the global data.
      *
-     * @param string $name class' name
      * @param ClassData $class class to add
      */
     public static function addClass(ClassData $class): void

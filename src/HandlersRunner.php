@@ -8,7 +8,6 @@
 
 namespace NoOne4rever\Axessors;
 
-use NoOne4rever\Axessors\Exceptions\OopError;
 use NoOne4rever\Axessors\Exceptions\TypeError;
 
 /**
@@ -25,7 +24,6 @@ class HandlersRunner extends RunningSuit
      *
      * @param $value mixed value of the property
      * @return mixed new value of the property
-     * @throws OopError if the property does not have one of the handlers defined in the Axessors comment
      */
     public function executeHandlers($value)
     {
