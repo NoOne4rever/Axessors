@@ -72,7 +72,11 @@ class MethodRunner extends RunningSuit
             $this->propertyData->reflection->setAccessible(false);
             return;
         } else {
-            $this->method = str_replace(ucfirst($this->propertyData->getName()), 'PROPERTY', $this->method);
+            if ($this->propertyData->getAlias() === '') {
+                $this->method .= 'PROPERTY';
+            } else {
+                $this->method = str_replace(ucfirst($this->propertyData->getAlias()), 'PROPERTY', $this->method);
+            }
             return $this->runAxessorsMethod($args);
         }
     }
