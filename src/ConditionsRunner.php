@@ -51,7 +51,7 @@ class ConditionsRunner extends RunningSuit
     {
         switch (gettype($value)) {
             case 'integer':
-            case 'float':
+            case 'double':
                 break;
             case 'string':
                 $value = strlen($value);
