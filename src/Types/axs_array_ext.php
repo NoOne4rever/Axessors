@@ -29,9 +29,9 @@ class axs_array_ext extends axs_array
     public static function m_in_deletePROPERTY($var, array $args): array
     {
         $itemToDelete = $args[0];
-        foreach ($var as &$item) {
+        foreach ($var as $key => $item) {
             if ($item === $itemToDelete) {
-                unset($item);
+                unset($var[$key]);
             }
         }
 
