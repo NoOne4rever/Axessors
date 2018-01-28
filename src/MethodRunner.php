@@ -53,7 +53,6 @@ class MethodRunner extends RunningSuit
      */
     public function run(array $args, string $file, int $line)
     {
-        $prefix = substr($this->method, 0, 3);
         if ('get' . ucfirst($this->propertyData->getAlias()) === $this->method) {
             $this->mode = RunningSuit::OUTPUT_MODE;
             $this->propertyData->reflection->setAccessible(true);
