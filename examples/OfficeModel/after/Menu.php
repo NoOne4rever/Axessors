@@ -1,16 +1,20 @@
 <?php
 
-namespace NoOne4rever\Axessors\Examples;
+namespace NoOne4rever\Axessors\Examples\OfficeModel\After;
 
 class Menu
 {
-    public static function showEmployees(array $employees): void
+    public function showEmployees(array $employees): void
     {
-        echo "List of employees:";
+        echo 'Employees list:';
         foreach ($employees as $employee) {
-            if ($employee instanceof Employee) {
-                echo PHP_EOL . "{$employee->getName()} - {$employee->getPosition()}";
-            }
+            echo sprintf(
+                '%s + %s %s, %s',
+                PHP_EOL,
+                $employee->getName(),
+                $employee->getSurname(),
+                $employee->getPosition()
+            );
         }
         echo '.' . PHP_EOL;
     }

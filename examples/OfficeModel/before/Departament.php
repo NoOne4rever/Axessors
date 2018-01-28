@@ -1,24 +1,15 @@
 <?php
 
+namespace NoOne4rever\Axessors\Examples\OfficeModel\Before;
+
 class Departament implements Unit
 {
     private $name;
-    private $employees = [];
+    private $employees;
 
     public function __construct(string $name)
     {
         $this->name = $name;
-    }
-
-    public function addEmployee(Employee $employee): void
-    {
-        $this->employees[$employee->getIdCard()->getNumber()] = $employee;
-        $employee->setDepartament($this);
-    }
-
-    public function removeEmployee(Employee $employee): void
-    {
-        unset($this->employees[$employee->getIdCard()->getNumber()]);
     }
 
     public function getPersonCount(): int
@@ -31,13 +22,28 @@ class Departament implements Unit
         return $this->name;
     }
 
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
     public function getEmployees(): array
     {
         return $this->employees;
     }
 
-    public function setName(string $name): void
+    public function addEmployee(Employee $employee): void
     {
-        $this->name = $name;
+        $this->employees[] = $employee;
+        $employee->setDepartament($this);
+    }
+
+    public function deleteEmployee(Employee $employeeToDelete): void
+    {
+        foreach ($this->employees as &$employee) {
+            if ($employee === $employeeToDelete) {
+                unset($employee);
+            }
+        }
     }
 }

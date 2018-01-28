@@ -1,8 +1,8 @@
 <?php
 
-namespace NoOne4rever\Axessors\Examples;
+namespace NoOne4rever\Axessors\Examples\OfficeModel\After;
 
 interface Unit
 {
-    # public function countEmployees
+    # public function getEmployeeCount(): int;
 }

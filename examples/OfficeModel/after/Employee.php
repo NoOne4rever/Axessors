@@ -1,6 +1,6 @@
 <?php
 
-namespace NoOne4rever\Axessors\Examples;
+namespace NoOne4rever\Axessors\Examples\OfficeModel\After;
 
 use NoOne4rever\Axessors\Axessors;
 
@@ -8,16 +8,15 @@ class Employee extends Man
 {
     use Axessors;
 
-    private $position; #: +axs string -> `$.addPastPosition(new :PastPosition($.position, $.departament))`
     private $idCard; #: +axs IdCard
-    private $room = []; #: +axs Array[Room]
-    private $departament; #: +axs Departament
-    private $pastPosition = []; #: +axs Array[PastPosition]
+    private $dp; #: +axs Departament -> `{$.dp && $.dp->deleteEmployee($this); $var->addEmployee($this);}` => departament
+    private $rooms; #: +axs Array[Room] => room
+    private $position; #: +axs string -> `$.addPastPosition(new :PastPosition($.position, $.dp))`
+    private $pastPositions; #: +axs Array[PastPosition] => pastPosition
 
-    public function __construct(string $name, string $surname, string $position, Departament $departament)
+    public function __construct(string $name, string $surname, string $position)
     {
         parent::__construct($name, $surname);
         $this->position = $position;
-        $this->departament = $departament;
     }
 }

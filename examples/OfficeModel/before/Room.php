@@ -1,5 +1,7 @@
 <?php
 
+namespace NoOne4rever\Axessors\Examples\OfficeModel\Before;
+
 class Room
 {
     private $number;

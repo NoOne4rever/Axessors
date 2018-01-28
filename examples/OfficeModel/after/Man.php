@@ -1,14 +1,14 @@
 <?php
 
-namespace NoOne4rever\Axessors\Examples;
+namespace NoOne4rever\Axessors\Examples\OfficeModel\After;
 
 use NoOne4rever\Axessors\Axessors;
 
 class Man
 {
     use Axessors;
-
-    protected $name, $surname; #: +axs string
+    
+    private $name, $surname; #: +axs string
 
     public function __construct(string $name, string $surname)
     {

@@ -1,12 +1,14 @@
 <?php
 
+namespace NoOne4rever\Axessors\Examples\OfficeModel\Before;
+
 class Employee extends Man
 {
-    private $position;
     private $idCard;
-    private $room = [];
-    private $departament;
-    private $pastPosition = [];
+    private $departament;    
+    private $rooms;
+    private $position;
+    private $pastPositions;
 
     public function __construct(string $name, string $surname, string $position)
     {
@@ -14,29 +16,14 @@ class Employee extends Man
         $this->position = $position;
     }
 
-    public function deleteRoom(Room $room): void
-    {
-        unset($this->room[$room->getNumber()]);
-    }
-
-    public function deletePastPosition(PastPosition $pastPosition): void
-    {
-        unset($this->pastPosition[$pastPosition->getName()]);
-    }
-
-    public function getPosition(): string
-    {
-        return $this->position;
-    }
-
     public function getIdCard(): IdCard
     {
         return $this->idCard;
     }
 
-    public function getRoom(): array
+    public function setIdCard(IdCard $idCard): void
     {
-        return $this->room;
+        $this->idCard = $idCard;
     }
 
     public function getDepartament(): Departament
@@ -44,35 +31,57 @@ class Employee extends Man
         return $this->departament;
     }
 
-    public function getPastPosition(): array
-    {
-        return $this->pastPosition;
-    }
-
-
-    public function setPosition(string $position): void
-    {
-        $this->setPastPosition(new PastPosition($this->position, $this->departament));
-        $this->position = $position;
-    }
-
-    public function setIdCard(IdCard $card): void
-    {
-        $this->idCard = $card;
-    }
-
-    public function setRoom(Room $room): void
-    {
-        $this->room[$room->getNumber()] = $room;
-    }
-
-    public function setDepartament(Departament $departament): void
+    public function setDepartament(Departament $departament)
     {
         $this->departament = $departament;
     }
 
-    public function setPastPosition(PastPosition $pastPosition): void
+    public function getRooms(): array
     {
-        $this->pastPosition[$pastPosition->getName()] = $pastPosition;
+        return $this->rooms;
+    }
+
+    public function addRoom(Room $room): void
+    {
+        $this->rooms[] = $room;
+    }
+
+    public function deleteRoom(Room $roomToDelete): void
+    {
+        foreach ($this->rooms as &$room) {
+            if ($room === $roomToDelete) {
+                unset($room);
+            }
+        }
+    }
+
+    public function getPosition(): string
+    {
+        return $this->position;
+    }
+
+    public function setPosition(string $position): void
+    {
+        $this->addPastPosition(new PastPosition($this->position, $this->departament));
+        $this->position = $position;
+    }
+
+    public function getPastPositions(): array
+    {
+        return $this->pastPositions;
+    }
+
+    public function addPastPosition(PastPosition $position): void
+    {
+        $this->pastPositions[] = $position;
+    }
+
+    public function deletePastPosition(PastPosition $positionToDelete): void
+    {
+        foreach ($this->pastPositions as &$position) {
+            if ($position === $positionToDelete) {
+                unset($position);
+            }
+        }
     }
 }

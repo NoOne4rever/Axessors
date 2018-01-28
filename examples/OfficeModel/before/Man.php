@@ -1,5 +1,7 @@
 <?php
 
+namespace NoOne4rever\Axessors\Examples\OfficeModel\Before;
+
 class Man
 {
     private $name;
@@ -16,14 +18,14 @@ class Man
         return $this->name;
     }
 
-    public function getSurname(): string
-    {
-        return $this->surname;
-    }
-
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getSurname(): string
+    {
+        return $this->surname;
     }
 
     public function setSurname(string $surname): void
