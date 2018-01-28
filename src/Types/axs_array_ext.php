@@ -28,9 +28,13 @@ class axs_array_ext extends axs_array
      */
     public static function m_in_deletePROPERTY($var, array $args): array
     {
-        list($key) = $args;
+        $itemToDelete = $args[0];
+        foreach ($var as &$item) {
+            if ($item === $itemToDelete) {
+                unset($item);
+            }
+        }
 
-        unset($var[$key]);
         return $var;
     }
 
@@ -64,7 +68,7 @@ class axs_array_ext extends axs_array
      * @param $var mixed variable
      * @return int array length
      */
-    public static function m_out_countPROPERTY($var): int
+    public static function m_out_getPROPERTYCount($var): int
     {
         return count($var);
     }
