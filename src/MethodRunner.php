@@ -54,13 +54,13 @@ class MethodRunner extends RunningSuit
     public function run(array $args, string $file, int $line)
     {
         $prefix = substr($this->method, 0, 3);
-        if ($prefix == 'get') {
+        if ('get' . ucfirst($this->propertyData->getAlias()) === $this->method) {
             $this->mode = RunningSuit::OUTPUT_MODE;
             $this->propertyData->reflection->setAccessible(true);
             $value = is_null($this->object) ? $this->propertyData->reflection->getValue() : $this->propertyData->reflection->getValue($this->object);
             $this->propertyData->reflection->setAccessible(false);
             return $this->executeAccessor(RunningSuit::OUTPUT_MODE, $value);
-        } elseif ($prefix == 'set') {
+        } elseif ('set' . ucfirst($this->propertyData->getAlias()) === $this->method) {
             $this->mode = RunningSuit::INPUT_MODE;
             if (!isset($args[0])) {
                 throw new AxessorsError("setter could not be called without arguments at $file:$line");
@@ -92,7 +92,7 @@ class MethodRunner extends RunningSuit
     {
         $this->propertyData->reflection->setAccessible(true);
         $value = $this->propertyData->reflection->getValue($this->object);
-        $this->checkType($this->propertyData->getTypeTree(), $value);
+        $this->checkType($this->propertyData->getTypeTree(), $value, RunningSuit::OUTPUT_MODE);
         foreach ($this->propertyData->getTypeTree() as $type => $subType) {
             $type = is_int($type) ? $subType : $type;
             $reflection = new \ReflectionClass($type);
@@ -184,9 +184,9 @@ class MethodRunner extends RunningSuit
      * @param $var mixed new value of the property
      * @throws TypeError if the type of new property's value does not match the type defined in Axessors comment
      */
-    private function checkType(array $typeTree, $var): void
+    private function checkType(array $typeTree, $var, $mode = null): void
     {
-        if ($this->mode == RunningSuit::OUTPUT_MODE && is_null($var)) {
+        if (($mode ?? $this->mode) == RunningSuit::OUTPUT_MODE && is_null($var)) {
             return;
         }
         foreach ($typeTree as $type => $subType) {
