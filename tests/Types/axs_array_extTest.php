@@ -30,7 +30,7 @@ class axs_array_extTest extends TestCase
     {
         $modified = axs_array_ext::m_in_deletePROPERTY($var, $args);
 
-        $this->assertFalse(isset($modified[$args[0]]));
+        $this->assertFalse(in_array($args[0], $modified));
     }
 
     /**
@@ -57,7 +57,7 @@ class axs_array_extTest extends TestCase
      */
     public function testArrayItemsIsCountedByAxessorsMethodCorrectly(array $var): void
     {
-        $this->assertEquals(count($var), axs_array_ext::m_out_countPROPERTY($var));
+        $this->assertEquals(count($var), axs_array_ext::m_out_getPROPERTYCount($var));
     }
 
     /**
@@ -82,9 +82,9 @@ class axs_array_extTest extends TestCase
     public function variablesToDeleteProvider(): array
     {
         return [
-            [[256, 512], [0]],
+            [[256, 512], [256]],
             [[1, 2, 3, 4], [3]],
-            [['smth' => 1, 2], ['smth']]
+            [['smth' => 1, 2], [1]]
         ];
     }
 

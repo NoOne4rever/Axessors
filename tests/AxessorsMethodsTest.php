@@ -34,10 +34,10 @@ class AxessorsMethodsTest extends AxessorsTestCase
     public function testDeletionMethod(): void
     {
         $backup = $this->stub->int;
-        $index = 1;
+        $item = $this->stub->int[0];
 
-        unset($backup[$index]);
-        $this->stub->deleteInt($index);
+        unset($backup[0]);
+        $this->stub->deleteInt($item);
 
         $this->assertEquals($backup, $this->stub->int);
     }
@@ -62,6 +62,6 @@ class AxessorsMethodsTest extends AxessorsTestCase
      */
     public function testCountMethod(): void
     {
-        $this->assertEquals(count($this->stub->int), $this->stub->countInt());
+        $this->assertEquals(count($this->stub->int), $this->stub->getIntCount());
     }
 }
