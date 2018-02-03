@@ -9,13 +9,13 @@ Generator of getters and setters for PHP.
 
 ## Installation
 
-`composer require noone4rever/axessors` or just download [AxessorsPHAR](https://github.com/NoOne4rever/Axessors/releases/download/v1.1/Axessors.phar).
+`composer require noone4rever/axessors` or just download [AxessorsPHAR](https://github.com/NoOne4rever/Axessors/releases/download/v1.1.2/Axessors-1.1.2-7.1.phar).
 
 You can see this package on [packagist](https://packagist.org/packages/noone4rever/axessors).
 
 ## System requirements
 
-You need to use PHP 7.1 or newer to run code with Axessors.
+You need to use PHP 7.1 or newer to run code with standard Axessors [version](https://github.com/NoOne4rever/Axessors/releases/download/v1.1.2/Axessors-1.1.2-7.1.phar) or PHP 7.0 for [another one](https://github.com/NoOne4rever/Axessors/releases/download/v1.1.2/Axessors-1.1.2-7.0.phar). 
 
 ## Problem
 
