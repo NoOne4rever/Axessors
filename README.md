@@ -7,6 +7,9 @@
 
 Generator of getters and setters for PHP.
 
+# The latest version
+[Axessors/CrazyRevision](https://github.com/SpotAlfa/CrazyRevision)
+
 ## Installation
 
 `composer require noone4rever/axessors` or just download [AxessorsPHAR](https://github.com/NoOne4rever/Axessors/releases/download/v1.1.2/Axessors-1.1.2-7.1.phar).
