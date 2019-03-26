@@ -15,12 +15,12 @@
 
 ### If you would like to add a new feature or change an existing one
 
-* Send the description of your chage to NoOne4rever@gmail.com
+* Send the description of your chage to spotalfax@gmail.com
 * Or open an issue on GitHub.
 
 ### If there are some questions about the source code
 
-Just send you question to NoOne4rever@gmail.com
+Just send you question to spotalfax@gmail.com
 
 I will be glad if you help the project.
 
